@@ -1,0 +1,34 @@
+{
+  "project_info": {
+    "project_number": "123456789012",
+    "project_id": "calmpath-ai-wellness",
+    "storage_bucket": "calmpath-ai-wellness.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789012:android:abcdef1234567890abcdef",
+        "android_client_info": {
+          "package_name": "com.calmpath.ai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123456789012-mockclientid.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-MockFirebaseKeyForCalmPathAI_Demo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
