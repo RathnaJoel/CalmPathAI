@@ -40,6 +40,6 @@ class CalmPathApplication : Application() {
             firestoreSync = firestoreSyncManager
         )
 
-        authRepository = AuthRepository(authManager)
+        authRepository = AuthRepository(authManager, database)
     }
 }

@@ -21,13 +21,16 @@ import com.calmpath.ai.data.remote.FirestoreSyncManager
 import com.calmpath.ai.data.remote.SampleDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 /**
  * Master Repository coordinating all 8 Room entities (CO3) and cloud sync (CO4).
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 class CalmPathRepository(
     private val database: CalmPathDatabase,
     private val authManager: AuthManager,
@@ -48,8 +51,50 @@ class CalmPathRepository(
         }
     }
 
-    private fun getCurrentUserId(): String {
+    fun getCurrentUserId(): String {
         return authManager.currentUser.value?.uid ?: DatabaseSeeder.DEFAULT_USER_ID
+    }
+
+    suspend fun ensureUserExists(userId: String) {
+        if (database.userProfileDao().getUserById(userId) == null) {
+            val authUser = authManager.currentUser.value
+            val name = if (authUser?.uid == userId) authUser.displayName else "Calm Traveler"
+            val email = if (authUser?.uid == userId) authUser.email else "user@calmpath.ai"
+            database.userProfileDao().insertUser(
+                UserProfileEntity(
+                    userId = userId,
+                    name = name,
+                    email = email,
+                    profileImage = authUser?.photoUrl,
+                    createdAt = System.currentTimeMillis(),
+                    lastLogin = System.currentTimeMillis()
+                )
+            )
+            database.userPreferencesDao().insertOrUpdate(
+                UserPreferencesEntity(
+                    preferenceId = "pref_$userId",
+                    userId = userId,
+                    preferredMood = "Relax",
+                    preferredCategory = "All",
+                    maxDistance = 10.0,
+                    maxAQI = 60,
+                    maxNoiseLevel = 45,
+                    preferredTemperature = 22.0
+                )
+            )
+            database.appSettingsDao().insertOrUpdate(
+                AppSettingsEntity(
+                    settingsId = "settings_$userId",
+                    userId = userId,
+                    theme = "SYSTEM",
+                    notificationsEnabled = true,
+                    locationEnabled = true,
+                    distanceUnit = "km",
+                    temperatureUnit = "°C",
+                    soundUnit = "dB"
+                )
+            )
+        }
     }
 
     // ==========================================
@@ -82,7 +127,10 @@ class CalmPathRepository(
     // ==========================================
 
     val favoritesWithPlacesFlow: Flow<List<FavoriteWithPlace>> =
-        favoriteRepository.getFavoritesWithPlaces(DatabaseSeeder.DEFAULT_USER_ID)
+        authManager.currentUser.flatMapLatest { user ->
+            val uid = user?.uid ?: DatabaseSeeder.DEFAULT_USER_ID
+            favoriteRepository.getFavoritesWithPlaces(uid)
+        }
 
     fun getFavoritesFlowForUser(userId: String = getCurrentUserId()): Flow<List<FavoriteWithPlace>> =
         favoriteRepository.getFavoritesWithPlaces(userId)
@@ -99,14 +147,17 @@ class CalmPathRepository(
         personalNote: String = "",
         userId: String = getCurrentUserId()
     ): Boolean {
+        ensureUserExists(userId)
         return favoriteRepository.toggleFavorite(userId, placeId, userRating, personalNote)
     }
 
     suspend fun removeFavorite(placeId: String, userId: String = getCurrentUserId()) {
+        ensureUserExists(userId)
         favoriteRepository.removeFavorite(userId, placeId)
     }
 
     suspend fun clearAllFavorites(userId: String = getCurrentUserId()) {
+        ensureUserExists(userId)
         favoriteRepository.clearFavorites(userId)
     }
 
@@ -115,7 +166,10 @@ class CalmPathRepository(
     // ==========================================
 
     val historyWithPlacesFlow: Flow<List<PlaceHistoryWithPlace>> =
-        historyRepository.getHistoryWithPlaces(DatabaseSeeder.DEFAULT_USER_ID)
+        authManager.currentUser.flatMapLatest { user ->
+            val uid = user?.uid ?: DatabaseSeeder.DEFAULT_USER_ID
+            historyRepository.getHistoryWithPlaces(uid)
+        }
 
     fun getHistoryFlowForUser(userId: String = getCurrentUserId()): Flow<List<PlaceHistoryWithPlace>> =
         historyRepository.getHistoryWithPlaces(userId)
@@ -127,10 +181,12 @@ class CalmPathRepository(
         noiseLevel: Int,
         userId: String = getCurrentUserId()
     ) {
+        ensureUserExists(userId)
         historyRepository.recordPlaceView(userId, placeId, peaceScore, aqi, noiseLevel)
     }
 
     suspend fun clearHistory(userId: String = getCurrentUserId()) {
+        ensureUserExists(userId)
         historyRepository.clearHistory(userId)
     }
 
@@ -139,7 +195,10 @@ class CalmPathRepository(
     // ==========================================
 
     val latestMoodFlow: Flow<MoodHistoryEntity?> =
-        moodRepository.getLatestMoodFlow(DatabaseSeeder.DEFAULT_USER_ID)
+        authManager.currentUser.flatMapLatest { user ->
+            val uid = user?.uid ?: DatabaseSeeder.DEFAULT_USER_ID
+            moodRepository.getLatestMoodFlow(uid)
+        }
 
     fun getMoodHistoryFlow(userId: String = getCurrentUserId()): Flow<List<MoodHistoryEntity>> =
         moodRepository.getMoodHistoryFlow(userId)
@@ -150,7 +209,11 @@ class CalmPathRepository(
         selectedPlaceId: String? = null,
         userId: String = getCurrentUserId()
     ) {
-        moodRepository.recordMood(userId, mood, recommendedPlaceId, selectedPlaceId)
+        ensureUserExists(userId)
+        val validRecommended = if (recommendedPlaceId != null && database.placeDao().getPlaceById(recommendedPlaceId) != null) recommendedPlaceId else null
+        val validSelected = if (selectedPlaceId != null && database.placeDao().getPlaceById(selectedPlaceId) != null) selectedPlaceId else null
+
+        moodRepository.recordMood(userId, mood, validRecommended, validSelected)
         userRepository.updatePreferredMood(userId, mood)
     }
 
@@ -163,11 +226,16 @@ class CalmPathRepository(
     // ==========================================
 
     val userProfileFlow: Flow<UserProfileEntity?> =
-        userRepository.getUserFlow(DatabaseSeeder.DEFAULT_USER_ID)
+        authManager.currentUser.flatMapLatest { user ->
+            val uid = user?.uid ?: DatabaseSeeder.DEFAULT_USER_ID
+            userRepository.getUserFlow(uid)
+        }
 
     val preferencesFlow: Flow<UserPreferencesEntity> =
-        userRepository.getPreferencesFlow(DatabaseSeeder.DEFAULT_USER_ID)
-            .map { it ?: DatabaseSeeder.defaultPreferences }
+        authManager.currentUser.flatMapLatest { user ->
+            val uid = user?.uid ?: DatabaseSeeder.DEFAULT_USER_ID
+            userRepository.getPreferencesFlow(uid).map { it ?: DatabaseSeeder.defaultPreferences }
+        }
 
     suspend fun getUserProfile(userId: String = getCurrentUserId()): UserProfileEntity? =
         userRepository.getUser(userId)
@@ -181,6 +249,7 @@ class CalmPathRepository(
         distanceKm: Double,
         userId: String = getCurrentUserId()
     ) {
+        ensureUserExists(userId)
         userRepository.updateEnvironmentalTolerances(userId, maxAqi, noiseLevel, distanceKm)
     }
 
@@ -189,21 +258,26 @@ class CalmPathRepository(
     // ==========================================
 
     val settingsFlow: Flow<AppSettingsEntity> =
-        settingsRepository.getSettingsFlow(DatabaseSeeder.DEFAULT_USER_ID)
-            .map { it ?: DatabaseSeeder.defaultAppSettings }
+        authManager.currentUser.flatMapLatest { user ->
+            val uid = user?.uid ?: DatabaseSeeder.DEFAULT_USER_ID
+            settingsRepository.getSettingsFlow(uid).map { it ?: DatabaseSeeder.defaultAppSettings }
+        }
 
     suspend fun getAppSettings(userId: String = getCurrentUserId()): AppSettingsEntity =
         settingsRepository.getSettings(userId) ?: DatabaseSeeder.defaultAppSettings
 
     suspend fun saveTheme(theme: String, userId: String = getCurrentUserId()) {
+        ensureUserExists(userId)
         settingsRepository.updateTheme(userId, theme)
     }
 
     suspend fun saveNotifications(enabled: Boolean, userId: String = getCurrentUserId()) {
+        ensureUserExists(userId)
         settingsRepository.updateNotifications(userId, enabled)
     }
 
     suspend fun saveUnits(distanceUnit: String, tempUnit: String, userId: String = getCurrentUserId()) {
+        ensureUserExists(userId)
         settingsRepository.updateUnits(userId, distanceUnit, tempUnit)
     }
 

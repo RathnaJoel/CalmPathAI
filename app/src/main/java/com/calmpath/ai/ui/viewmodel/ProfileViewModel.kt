@@ -8,10 +8,12 @@ import com.calmpath.ai.data.local.entities.UserProfileEntity
 import com.calmpath.ai.data.model.UserProfile
 import com.calmpath.ai.data.repository.AuthRepository
 import com.calmpath.ai.data.repository.CalmPathRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 data class ProfileUiState(
@@ -23,6 +25,7 @@ data class ProfileUiState(
     val moodLogsCount: Int = 0
 )
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ProfileViewModel(
     private val repository: CalmPathRepository,
     private val authRepository: AuthRepository
@@ -43,26 +46,26 @@ class ProfileViewModel(
         }
 
         viewModelScope.launch {
-            combine(
-                repository.userProfileFlow,
-                repository.preferencesFlow,
-                repository.favoritesWithPlacesFlow,
-                repository.historyWithPlacesFlow
-            ) { profile, preferences, favorites, history ->
-                _uiState.value.copy(
-                    userProfile = profile,
-                    preferences = preferences,
-                    favoritesCount = favorites.size,
-                    historyCount = history.size
-                )
+            authRepository.currentUser.flatMapLatest { user ->
+                val uid = user?.uid ?: "user_default"
+                combine(
+                    repository.userRepository.getUserFlow(uid),
+                    repository.userRepository.getPreferencesFlow(uid),
+                    repository.getFavoritesFlowForUser(uid),
+                    repository.getHistoryFlowForUser(uid),
+                    repository.moodRepository.getMoodLogCountFlow(uid)
+                ) { profile, preferences, favorites, history, moodLogs ->
+                    ProfileUiState(
+                        userProfile = profile,
+                        authProfile = user,
+                        preferences = preferences ?: com.calmpath.ai.data.local.DatabaseSeeder.defaultPreferences,
+                        favoritesCount = favorites.size,
+                        historyCount = history.size,
+                        moodLogsCount = moodLogs
+                    )
+                }
             }.collect { state ->
                 _uiState.value = state
-            }
-        }
-
-        viewModelScope.launch {
-            repository.moodRepository.getMoodLogCountFlow("user_default").collect { count ->
-                _uiState.value = _uiState.value.copy(moodLogsCount = count)
             }
         }
     }
