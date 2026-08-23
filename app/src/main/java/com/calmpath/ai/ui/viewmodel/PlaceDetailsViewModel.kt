@@ -8,6 +8,7 @@ import com.calmpath.ai.data.repository.CalmPathRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 data class PlaceDetailsUiState(
@@ -26,16 +27,27 @@ class PlaceDetailsViewModel(
     val uiState: StateFlow<PlaceDetailsUiState> = _uiState.asStateFlow()
 
     init {
-        loadPlace()
+        observePlaceAndEnvironmentalSnapshot()
         observeFavoriteState()
     }
 
-    private fun loadPlace() {
-        val place = repository.getPlaceById(placeId)
-        if (place != null) {
-            _uiState.value = _uiState.value.copy(place = place)
-            viewModelScope.launch {
-                repository.recordPlaceView(place)
+    private fun observePlaceAndEnvironmentalSnapshot() {
+        viewModelScope.launch {
+            combine(
+                repository.getPlaceByIdFlow(placeId),
+                repository.getLatestSnapshotFlow(placeId)
+            ) { placeEntity, snapshot ->
+                placeEntity?.toDomainModel(snapshot)
+            }.collect { domainPlace ->
+                if (domainPlace != null) {
+                    _uiState.value = _uiState.value.copy(place = domainPlace)
+                    repository.recordPlaceView(
+                        placeId = domainPlace.id,
+                        peaceScore = domainPlace.peaceScore,
+                        aqi = domainPlace.aqi,
+                        noiseLevel = domainPlace.noiseDb
+                    )
+                }
             }
         }
     }
@@ -48,10 +60,14 @@ class PlaceDetailsViewModel(
         }
     }
 
-    fun toggleFavorite() {
+    fun toggleFavorite(userRating: Int = 5, note: String = "") {
         val currentPlace = _uiState.value.place ?: return
         viewModelScope.launch {
-            val nowFav = repository.toggleFavorite(currentPlace)
+            val nowFav = repository.toggleFavorite(
+                placeId = currentPlace.id,
+                userRating = userRating,
+                personalNote = note
+            )
             _uiState.value = _uiState.value.copy(isFavorite = nowFav)
         }
     }

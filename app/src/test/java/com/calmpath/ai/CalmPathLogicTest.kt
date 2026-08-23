@@ -1,13 +1,19 @@
 package com.calmpath.ai
 
 import com.calmpath.ai.data.local.Converters
+import com.calmpath.ai.data.local.DatabaseSeeder
+import com.calmpath.ai.data.local.entities.AppSettingsEntity
+import com.calmpath.ai.data.local.entities.EnvironmentalSnapshotEntity
 import com.calmpath.ai.data.local.entities.FavoritePlaceEntity
-import com.calmpath.ai.data.local.entities.HistoryEntity
+import com.calmpath.ai.data.local.entities.MoodHistoryEntity
+import com.calmpath.ai.data.local.entities.PlaceEntity
+import com.calmpath.ai.data.local.entities.PlaceHistoryEntity
+import com.calmpath.ai.data.local.entities.UserPreferencesEntity
+import com.calmpath.ai.data.local.entities.UserProfileEntity
 import com.calmpath.ai.data.model.AqiCategory
 import com.calmpath.ai.data.model.CalmnessLevel
 import com.calmpath.ai.data.model.Mood
 import com.calmpath.ai.data.model.NoiseCategory
-import com.calmpath.ai.data.model.Place
 import com.calmpath.ai.data.remote.SampleDataSource
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -15,7 +21,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Unit tests verifying domain logic, environmental metrics, converters, and models (CO1, CO3).
+ * Unit tests verifying domain logic, 8 Room entities, and converters (CO1, CO3).
  */
 class CalmPathLogicTest {
 
@@ -66,32 +72,64 @@ class CalmPathLogicTest {
     }
 
     @Test
-    fun testFavoriteEntityMapping() {
-        val place = SampleDataSource.places.first()
-        val entity = FavoritePlaceEntity.fromPlace(place, isSynced = true)
+    fun testAllEightEntitiesInstantiable() {
+        val user = UserProfileEntity(userId = "u1", name = "Joel", email = "joel@calmpath.ai")
+        val pref = UserPreferencesEntity(preferenceId = "p1", userId = "u1", preferredMood = "Relax")
+        val place = PlaceEntity(
+            placeId = "pl1",
+            name = "Zenith Park",
+            category = "Parks",
+            address = "123 Way",
+            latitude = 37.7,
+            longitude = -122.4,
+            description = "Quiet",
+            imageUrl = "https://example.com/img.jpg",
+            averageAQI = 25,
+            averageNoiseLevel = 35,
+            peaceScore = 92
+        )
+        val fav = FavoritePlaceEntity(favoriteId = "f1", userId = "u1", placeId = "pl1", userRating = 5)
+        val hist = PlaceHistoryEntity(historyId = "h1", userId = "u1", placeId = "pl1", peaceScoreAtVisit = 92, aqiAtVisit = 25, noiseLevelAtVisit = 35)
+        val mood = MoodHistoryEntity(moodHistoryId = "m1", userId = "u1", mood = "Meditate", recommendedPlaceId = "pl1")
+        val snapshot = EnvironmentalSnapshotEntity(
+            snapshotId = "s1",
+            placeId = "pl1",
+            aqi = 25,
+            noiseLevelDb = 35,
+            temperature = 22.0,
+            humidity = 55,
+            weatherCondition = "Clear",
+            peaceScore = 92
+        )
+        val settings = AppSettingsEntity(settingsId = "st1", userId = "u1", theme = "DARK")
 
-        assertEquals(place.id, entity.id)
-        assertEquals(place.name, entity.placeName)
-        assertEquals(place.peaceScore, entity.peaceScore)
-        assertTrue(entity.isSyncedWithCloud)
-
-        val restoredPlace = entity.toPlace()
-        assertEquals(place.id, restoredPlace.id)
-        assertEquals(place.name, restoredPlace.name)
+        assertEquals("u1", user.userId)
+        assertEquals("p1", pref.preferenceId)
+        assertEquals("pl1", place.placeId)
+        assertEquals("f1", fav.favoriteId)
+        assertEquals("h1", hist.historyId)
+        assertEquals("m1", mood.moodHistoryId)
+        assertEquals("s1", snapshot.snapshotId)
+        assertEquals("st1", settings.settingsId)
     }
 
     @Test
-    fun testSampleDataIntegrity() {
-        assertTrue(SampleDataSource.places.isNotEmpty())
-        assertTrue(SampleDataSource.heatmapZones.isNotEmpty())
-        assertTrue(SampleDataSource.categories.contains("Parks"))
+    fun testDatabaseSeederSampleIntegrity() {
+        assertTrue(DatabaseSeeder.samplePlaces.isNotEmpty())
+        assertEquals(8, DatabaseSeeder.samplePlaces.size)
 
-        SampleDataSource.places.forEach { place ->
+        val snapshots = DatabaseSeeder.createSampleSnapshots()
+        assertTrue(snapshots.isNotEmpty())
+        assertEquals(16, snapshots.size)
+
+        DatabaseSeeder.samplePlaces.forEach { place ->
             assertTrue(place.peaceScore in 0..100)
-            assertTrue(place.aqi > 0)
-            assertTrue(place.noiseDb > 0)
+            assertTrue(place.averageAQI > 0)
+            assertTrue(place.averageNoiseLevel > 0)
             assertNotNull(place.imageUrl)
-            assertTrue(place.recommendationReasons.isNotEmpty())
+            val domain = place.toDomainModel()
+            assertEquals(place.placeId, domain.id)
+            assertEquals(place.name, domain.name)
         }
     }
 }

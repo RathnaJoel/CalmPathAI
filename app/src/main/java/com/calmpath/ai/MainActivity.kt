@@ -6,11 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.calmpath.ai.data.local.DatabaseSeeder
 import com.calmpath.ai.ui.navigation.CalmPathNavHost
 import com.calmpath.ai.ui.theme.CalmPathTheme
 
 /**
- * Main Activity hosting CalmPath AI Jetpack Compose UI (CO1 & CO2).
+ * Main Activity hosting CalmPath AI Jetpack Compose UI (CO1, CO2, CO3).
  */
 class MainActivity : ComponentActivity() {
 
@@ -23,9 +24,9 @@ class MainActivity : ComponentActivity() {
         val authRepository = app.authRepository
 
         setContent {
-            val preferences by repository.preferencesFlow.collectAsState(initial = com.calmpath.ai.data.local.entities.UserPreferencesEntity())
+            val settings by repository.settingsFlow.collectAsState(initial = DatabaseSeeder.defaultAppSettings)
 
-            CalmPathTheme(themeMode = preferences.themeMode) {
+            CalmPathTheme(themeMode = settings.theme) {
                 CalmPathNavHost(
                     repository = repository,
                     authRepository = authRepository

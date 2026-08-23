@@ -5,16 +5,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.calmpath.ai.data.model.HeatmapZone
 import com.calmpath.ai.data.model.Place
-import com.calmpath.ai.data.remote.SampleDataSource
 import com.calmpath.ai.data.repository.CalmPathRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 data class ExploreUiState(
     val searchQuery: String = "",
-    val categories: List<String> = SampleDataSource.categories,
+    val categories: List<String> = listOf("All", "Parks", "Lakes", "Libraries", "Cafes", "Meditation", "Fitness"),
     val selectedCategory: String = "All",
     val heatmapZones: List<HeatmapZone> = emptyList(),
     val places: List<Place> = emptyList(),
@@ -28,43 +28,56 @@ class ExploreViewModel(
     private val repository: CalmPathRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(ExploreUiState())
+    private val _uiState = MutableStateFlow(
+        ExploreUiState(heatmapZones = repository.getHeatmapZones())
+    )
     val uiState: StateFlow<ExploreUiState> = _uiState.asStateFlow()
 
     init {
-        loadExploreData()
-        observeFavorites()
+        observeRoomPlaces()
     }
 
-    private fun loadExploreData() {
-        val allPlaces = repository.getAllPlaces()
-        val zones = repository.getHeatmapZones()
-        _uiState.value = _uiState.value.copy(
-            places = allPlaces,
-            filteredPlaces = allPlaces,
-            heatmapZones = zones,
-            selectedPlaceForPreview = allPlaces.firstOrNull()
-        )
-    }
-
-    private fun observeFavorites() {
+    private fun observeRoomPlaces() {
         viewModelScope.launch {
-            repository.favoritesFlow.collect { favs ->
-                _uiState.value = _uiState.value.copy(
-                    favoritePlaceIds = favs.map { it.id }.toSet()
+            combine(
+                repository.placesFlow,
+                repository.favoritesWithPlacesFlow
+            ) { placesEntities, favorites ->
+                val domainPlaces = placesEntities.map { it.toDomainModel() }
+                val favIds = favorites.map { it.favorite.placeId }.toSet()
+
+                val query = _uiState.value.searchQuery
+                val category = _uiState.value.selectedCategory
+
+                val filtered = domainPlaces.filter { place ->
+                    val matchesCategory = category == "All" || place.category.equals(category, ignoreCase = true)
+                    val matchesQuery = query.isBlank() ||
+                            place.name.contains(query, ignoreCase = true) ||
+                            place.description.contains(query, ignoreCase = true) ||
+                            place.address.contains(query, ignoreCase = true)
+                    matchesCategory && matchesQuery
+                }
+
+                _uiState.value.copy(
+                    places = domainPlaces,
+                    filteredPlaces = filtered,
+                    selectedPlaceForPreview = _uiState.value.selectedPlaceForPreview ?: filtered.firstOrNull(),
+                    favoritePlaceIds = favIds
                 )
+            }.collect { newState ->
+                _uiState.value = newState
             }
         }
     }
 
     fun onSearchQueryChanged(query: String) {
         _uiState.value = _uiState.value.copy(searchQuery = query)
-        applyFilters()
+        filterPlaces()
     }
 
     fun onCategorySelected(category: String) {
         _uiState.value = _uiState.value.copy(selectedCategory = category)
-        applyFilters()
+        filterPlaces()
     }
 
     fun onSelectPlace(place: Place) {
@@ -77,21 +90,36 @@ class ExploreViewModel(
 
     fun toggleFavorite(place: Place) {
         viewModelScope.launch {
-            repository.toggleFavorite(place)
+            repository.toggleFavorite(placeId = place.id)
         }
     }
 
     fun onPlaceClicked(place: Place, onNavigateToDetails: (String) -> Unit) {
         viewModelScope.launch {
-            repository.recordPlaceView(place)
+            repository.recordPlaceView(
+                placeId = place.id,
+                peaceScore = place.peaceScore,
+                aqi = place.aqi,
+                noiseLevel = place.noiseDb
+            )
             onNavigateToDetails(place.id)
         }
     }
 
-    private fun applyFilters() {
-        val q = _uiState.value.searchQuery
-        val cat = _uiState.value.selectedCategory
-        val filtered = repository.searchPlaces(query = q, category = cat)
+    private fun filterPlaces() {
+        val query = _uiState.value.searchQuery
+        val category = _uiState.value.selectedCategory
+        val all = _uiState.value.places
+
+        val filtered = all.filter { place ->
+            val matchesCategory = category == "All" || place.category.equals(category, ignoreCase = true)
+            val matchesQuery = query.isBlank() ||
+                    place.name.contains(query, ignoreCase = true) ||
+                    place.description.contains(query, ignoreCase = true) ||
+                    place.address.contains(query, ignoreCase = true)
+            matchesCategory && matchesQuery
+        }
+
         _uiState.value = _uiState.value.copy(
             filteredPlaces = filtered,
             selectedPlaceForPreview = filtered.firstOrNull()

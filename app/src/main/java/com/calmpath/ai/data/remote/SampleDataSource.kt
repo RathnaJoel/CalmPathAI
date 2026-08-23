@@ -238,6 +238,15 @@ object SampleDataSource {
         "Fitness"
     )
 
+    val environmentalSummary = com.calmpath.ai.data.model.EnvironmentalSummary(
+        aqi = 24,
+        noiseDb = 34,
+        peaceScore = 93,
+        temperatureC = 22,
+        weatherCondition = "Gentle Breeze & Mild",
+        humidityPercent = 58
+    )
+
     val heatmapZones: List<HeatmapZone> = listOf(
         HeatmapZone(
             id = "zone_botanical",

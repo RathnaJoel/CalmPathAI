@@ -7,13 +7,11 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 
 /**
- * Entity 4: FavoritePlace
- * Stores places saved/bookmarked by the user.
- * Foreign Keys reference UserProfileEntity and PlaceEntity with CASCADE delete.
- * Unique index on (userId, placeId) prevents duplicate favorites.
+ * Entity 5: PlaceHistory
+ * Stores places that the user has viewed or selected along with environmental conditions at visit time.
  */
 @Entity(
-    tableName = "favorite_places",
+    tableName = "place_history",
     foreignKeys = [
         ForeignKey(
             entity = UserProfileEntity::class,
@@ -31,16 +29,18 @@ import java.util.UUID
         )
     ],
     indices = [
-        Index(value = ["userId", "placeId"], unique = true),
-        Index(value = ["placeId"])
+        Index(value = ["userId"]),
+        Index(value = ["placeId"]),
+        Index(value = ["viewedAt"])
     ]
 )
-data class FavoritePlaceEntity(
+data class PlaceHistoryEntity(
     @PrimaryKey
-    val favoriteId: String = UUID.randomUUID().toString(),
+    val historyId: String = UUID.randomUUID().toString(),
     val userId: String,
     val placeId: String,
-    val savedAt: Long = System.currentTimeMillis(),
-    val userRating: Int = 5,
-    val personalNote: String = ""
+    val viewedAt: Long = System.currentTimeMillis(),
+    val peaceScoreAtVisit: Int,
+    val aqiAtVisit: Int,
+    val noiseLevelAtVisit: Int
 )

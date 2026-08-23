@@ -42,17 +42,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.calmpath.ai.data.local.entities.HistoryEntity
+import com.calmpath.ai.data.local.entities.PlaceHistoryWithPlace
 import com.calmpath.ai.ui.components.CalmPathTopAppBar
 import com.calmpath.ai.ui.components.EmptyStateView
 import com.calmpath.ai.ui.components.PeaceScoreChip
 import com.calmpath.ai.ui.theme.QualityGoodGreen
 import com.calmpath.ai.ui.theme.QualityPoorRed
-import com.calmpath.ai.ui.theme.Sage800
 import com.calmpath.ai.ui.viewmodel.HistoryViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
- * Screen 7: Browsing & Exploration History (CO1, CO2, CO3).
+ * Screen: Browsing & Exploration History (CO3: PlaceHistoryEntity).
  */
 @Composable
 fun HistoryScreen(
@@ -67,7 +69,7 @@ fun HistoryScreen(
         AlertDialog(
             onDismissRequest = { showClearDialog = false },
             title = { Text("Clear History?") },
-            text = { Text("This will permanently remove all viewed sanctuary entries from your local Room database.") },
+            text = { Text("This will permanently remove all viewed sanctuary records from your local Room database.") },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -93,7 +95,7 @@ fun HistoryScreen(
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             // Top App Bar
-            com.calmpath.ai.ui.components.CalmPathTopAppBar(
+            CalmPathTopAppBar(
                 title = "Browsing History",
                 onBackClick = onBackClick,
                 actions = {
@@ -113,7 +115,7 @@ fun HistoryScreen(
                 EmptyStateView(
                     emoji = "🕒",
                     title = "No History Recorded Yet",
-                    subtitle = "Places and sanctuaries you inspect on CalmPath will be chronologically logged here in your local database.",
+                    subtitle = "Places and sanctuaries you inspect on CalmPath will be chronologically logged here in your local Room database.",
                     actionButtonText = "Go Back",
                     onActionClick = onBackClick
                 )
@@ -123,10 +125,10 @@ fun HistoryScreen(
                     contentPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(uiState.historyList) { entry ->
+                    items(uiState.historyList) { item ->
                         HistoryCard(
-                            entry = entry,
-                            onClick = { onNavigateToDetails(entry.placeId) }
+                            item = item,
+                            onClick = { onNavigateToDetails(item.place.placeId) }
                         )
                     }
                 }
@@ -137,9 +139,15 @@ fun HistoryScreen(
 
 @Composable
 private fun HistoryCard(
-    entry: HistoryEntity,
+    item: PlaceHistoryWithPlace,
     onClick: () -> Unit
 ) {
+    val history = item.history
+    val place = item.place
+    val formattedDate = remember(history.viewedAt) {
+        SimpleDateFormat("MMM dd, yyyy • hh:mm a", Locale.getDefault()).format(Date(history.viewedAt))
+    }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -155,10 +163,10 @@ private fun HistoryCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Thumbnail Image
-            if (entry.imageUrl.isNotBlank()) {
+            if (place.imageUrl.isNotBlank()) {
                 AsyncImage(
-                    model = entry.imageUrl,
-                    contentDescription = entry.placeName,
+                    model = place.imageUrl,
+                    contentDescription = place.name,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(60.dp)
@@ -169,7 +177,7 @@ private fun HistoryCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = entry.placeName,
+                    text = place.name,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -186,7 +194,7 @@ private fun HistoryCard(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = entry.formattedDate,
+                        text = formattedDate,
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -198,15 +206,15 @@ private fun HistoryCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    PeaceScoreChip(score = entry.peaceScore)
+                    PeaceScoreChip(score = history.peaceScoreAtVisit)
                     Text(
-                        text = "AQI ${entry.aqi}",
+                        text = "AQI ${history.aqiAtVisit}",
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.SemiBold,
                         color = QualityGoodGreen
                     )
                     Text(
-                        text = "${entry.noiseLevel} dB",
+                        text = "${history.noiseLevelAtVisit} dB",
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

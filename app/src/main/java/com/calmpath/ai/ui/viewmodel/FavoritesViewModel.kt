@@ -3,7 +3,7 @@ package com.calmpath.ai.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.calmpath.ai.data.local.entities.FavoritePlaceEntity
+import com.calmpath.ai.data.local.entities.FavoriteWithPlace
 import com.calmpath.ai.data.model.Place
 import com.calmpath.ai.data.repository.CalmPathRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 data class FavoritesUiState(
-    val favoriteEntities: List<FavoritePlaceEntity> = emptyList(),
+    val favoriteItems: List<FavoriteWithPlace> = emptyList(),
     val favoritePlaces: List<Place> = emptyList(),
     val isLoading: Boolean = true
 )
@@ -30,10 +30,10 @@ class FavoritesViewModel(
 
     private fun observeFavorites() {
         viewModelScope.launch {
-            repository.favoritesFlow.collect { entities ->
-                val places = entities.map { it.toPlace() }
+            repository.favoritesWithPlacesFlow.collect { favoritesList ->
+                val places = favoritesList.map { it.place.toDomainModel() }
                 _uiState.value = _uiState.value.copy(
-                    favoriteEntities = entities,
+                    favoriteItems = favoritesList,
                     favoritePlaces = places,
                     isLoading = false
                 )
@@ -43,7 +43,7 @@ class FavoritesViewModel(
 
     fun removeFavorite(place: Place) {
         viewModelScope.launch {
-            repository.removeFavoriteById(place.id)
+            repository.removeFavorite(place.id)
         }
     }
 

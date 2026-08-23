@@ -7,6 +7,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -126,10 +127,10 @@ fun CalmPathNavHost(
 
                 // 3. Mood Selection
                 composable(NavRoutes.MoodSelection.route) {
+                    val scope = androidx.compose.runtime.rememberCoroutineScope()
                     MoodSelectionScreen(
-                        onMoodConfirmed = { selectedMood ->
-                            // Update repository preference then navigate to Home
-                            kotlinx.coroutines.runBlocking {
+                        onMoodConfirmed = { selectedMood: com.calmpath.ai.data.model.Mood ->
+                            scope.launch {
                                 repository.saveMood(selectedMood)
                             }
                             navController.navigate(NavRoutes.Home.route) {

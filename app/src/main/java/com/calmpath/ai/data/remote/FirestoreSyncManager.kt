@@ -2,7 +2,7 @@ package com.calmpath.ai.data.remote
 
 import android.util.Log
 import com.calmpath.ai.data.local.entities.FavoritePlaceEntity
-import com.calmpath.ai.data.local.entities.HistoryEntity
+import com.calmpath.ai.data.local.entities.PlaceHistoryEntity
 import com.calmpath.ai.data.local.entities.UserPreferencesEntity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -32,30 +32,21 @@ class FirestoreSyncManager {
         return try {
             val db = firestore ?: return false
             val favMap = hashMapOf(
-                "id" to favorite.id,
-                "placeName" to favorite.placeName,
-                "category" to favorite.category,
-                "categoryIcon" to favorite.categoryIcon,
-                "latitude" to favorite.latitude,
-                "longitude" to favorite.longitude,
-                "peaceScore" to favorite.peaceScore,
-                "aqi" to favorite.aqi,
-                "noiseLevel" to favorite.noiseLevel,
-                "distance" to favorite.distance,
-                "imageUrl" to favorite.imageUrl,
-                "address" to favorite.address,
-                "description" to favorite.description,
-                "recommendationReasons" to favorite.recommendationReasons,
-                "savedAtTimestamp" to favorite.savedAtTimestamp,
+                "favoriteId" to favorite.favoriteId,
+                "userId" to favorite.userId,
+                "placeId" to favorite.placeId,
+                "savedAt" to favorite.savedAt,
+                "userRating" to favorite.userRating,
+                "personalNote" to favorite.personalNote,
                 "updatedAt" to System.currentTimeMillis()
             )
             db.collection("users")
                 .document(userId)
                 .collection("favorites")
-                .document(favorite.id)
+                .document(favorite.placeId)
                 .set(favMap, SetOptions.merge())
                 .await()
-            Log.d(tag, "Successfully synced favorite '${favorite.placeName}' to Firestore")
+            Log.d(tag, "Successfully synced favorite '${favorite.placeId}' to Firestore")
             true
         } catch (e: Exception) {
             Log.e(tag, "Failed to sync favorite to Firestore: ${e.message}", e)
@@ -92,13 +83,14 @@ class FirestoreSyncManager {
         return try {
             val db = firestore ?: return false
             val prefMap = hashMapOf(
-                "selectedMood" to preferences.selectedMood,
+                "preferenceId" to preferences.preferenceId,
+                "userId" to preferences.userId,
+                "preferredMood" to preferences.preferredMood,
                 "preferredCategory" to preferences.preferredCategory,
-                "maxAqi" to preferences.maxAqi,
-                "preferredNoiseLevel" to preferences.preferredNoiseLevel,
-                "preferredDistanceKm" to preferences.preferredDistanceKm,
-                "notificationsEnabled" to preferences.notificationsEnabled,
-                "themeMode" to preferences.themeMode,
+                "maxDistance" to preferences.maxDistance,
+                "maxAQI" to preferences.maxAQI,
+                "maxNoiseLevel" to preferences.maxNoiseLevel,
+                "preferredTemperature" to preferences.preferredTemperature,
                 "lastSyncedTimestamp" to System.currentTimeMillis()
             )
             db.collection("users")
@@ -118,25 +110,23 @@ class FirestoreSyncManager {
     /**
      * Synchronizes a history view entry to Firestore `/users/{userId}/history/{historyId}`.
      */
-    suspend fun syncHistoryToCloud(userId: String, history: HistoryEntity): Boolean {
+    suspend fun syncHistoryToCloud(userId: String, history: PlaceHistoryEntity): Boolean {
         if (userId.isBlank()) return false
         return try {
             val db = firestore ?: return false
             val histMap = hashMapOf(
+                "historyId" to history.historyId,
+                "userId" to history.userId,
                 "placeId" to history.placeId,
-                "placeName" to history.placeName,
-                "category" to history.category,
-                "categoryIcon" to history.categoryIcon,
                 "viewedAt" to history.viewedAt,
-                "peaceScore" to history.peaceScore,
-                "aqi" to history.aqi,
-                "noiseLevel" to history.noiseLevel,
-                "imageUrl" to history.imageUrl
+                "peaceScoreAtVisit" to history.peaceScoreAtVisit,
+                "aqiAtVisit" to history.aqiAtVisit,
+                "noiseLevelAtVisit" to history.noiseLevelAtVisit
             )
             db.collection("users")
                 .document(userId)
                 .collection("history")
-                .document("${history.placeId}_${history.viewedAt}")
+                .document(history.historyId)
                 .set(histMap, SetOptions.merge())
                 .await()
             Log.d(tag, "Synced history entry to Firestore")
@@ -161,40 +151,19 @@ class FirestoreSyncManager {
                 .await()
 
             querySnapshot.documents.mapNotNull { doc ->
-                val id = doc.getString("id") ?: doc.id
-                val placeName = doc.getString("placeName") ?: return@mapNotNull null
-                val category = doc.getString("category") ?: "Parks"
-                val categoryIcon = doc.getString("categoryIcon") ?: "🌿"
-                val latitude = doc.getDouble("latitude") ?: 0.0
-                val longitude = doc.getDouble("longitude") ?: 0.0
-                val peaceScore = doc.getLong("peaceScore")?.toInt() ?: 85
-                val aqi = doc.getLong("aqi")?.toInt() ?: 30
-                val noiseLevel = doc.getLong("noiseLevel")?.toInt() ?: 40
-                val distance = doc.getDouble("distance") ?: 1.0
-                val imageUrl = doc.getString("imageUrl") ?: ""
-                val address = doc.getString("address") ?: ""
-                val description = doc.getString("description") ?: ""
-                @Suppress("UNCHECKED_CAST")
-                val reasons = doc.get("recommendationReasons") as? List<String> ?: emptyList()
-                val savedAt = doc.getLong("savedAtTimestamp") ?: System.currentTimeMillis()
+                val favId = doc.getString("favoriteId") ?: doc.id
+                val placeId = doc.getString("placeId") ?: doc.id
+                val savedAt = doc.getLong("savedAt") ?: System.currentTimeMillis()
+                val userRating = doc.getLong("userRating")?.toInt() ?: 5
+                val personalNote = doc.getString("personalNote") ?: ""
 
                 FavoritePlaceEntity(
-                    id = id,
-                    placeName = placeName,
-                    category = category,
-                    categoryIcon = categoryIcon,
-                    latitude = latitude,
-                    longitude = longitude,
-                    peaceScore = peaceScore,
-                    aqi = aqi,
-                    noiseLevel = noiseLevel,
-                    distance = distance,
-                    imageUrl = imageUrl,
-                    address = address,
-                    description = description,
-                    recommendationReasons = reasons,
-                    savedAtTimestamp = savedAt,
-                    isSyncedWithCloud = true
+                    favoriteId = favId,
+                    userId = userId,
+                    placeId = placeId,
+                    savedAt = savedAt,
+                    userRating = userRating,
+                    personalNote = personalNote
                 )
             }
         } catch (e: Exception) {

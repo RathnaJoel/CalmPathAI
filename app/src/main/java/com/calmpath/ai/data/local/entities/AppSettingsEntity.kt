@@ -7,12 +7,11 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 
 /**
- * Entity 2: UserPreferences
- * Stores the user's environmental and activity preferences.
- * Foreign Key references UserProfileEntity.
+ * Entity 8: AppSettings
+ * Stores persistent application settings for a user.
  */
 @Entity(
-    tableName = "user_preferences",
+    tableName = "app_settings",
     foreignKeys = [
         ForeignKey(
             entity = UserProfileEntity::class,
@@ -26,14 +25,14 @@ import java.util.UUID
         Index(value = ["userId"], unique = true)
     ]
 )
-data class UserPreferencesEntity(
+data class AppSettingsEntity(
     @PrimaryKey
-    val preferenceId: String = UUID.randomUUID().toString(),
+    val settingsId: String = UUID.randomUUID().toString(),
     val userId: String,
-    val preferredMood: String = "Relax",
-    val preferredCategory: String = "All",
-    val maxDistance: Double = 10.0,
-    val maxAQI: Int = 60,
-    val maxNoiseLevel: Int = 45,
-    val preferredTemperature: Double = 22.0
+    val theme: String = "SYSTEM", // "LIGHT", "DARK", "SYSTEM"
+    val notificationsEnabled: Boolean = true,
+    val locationEnabled: Boolean = true,
+    val distanceUnit: String = "km", // "km", "mi"
+    val temperatureUnit: String = "°C", // "°C", "°F"
+    val soundUnit: String = "dB" // "dB"
 )

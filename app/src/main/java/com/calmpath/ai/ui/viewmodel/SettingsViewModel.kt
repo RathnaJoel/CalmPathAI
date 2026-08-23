@@ -8,14 +8,19 @@ import com.calmpath.ai.data.repository.CalmPathRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 data class SettingsUiState(
     val themeMode: String = "SYSTEM", // "LIGHT", "DARK", "SYSTEM"
     val notificationsEnabled: Boolean = true,
+    val locationEnabled: Boolean = true,
+    val distanceUnit: String = "km",
+    val temperatureUnit: String = "°C",
+    val soundUnit: String = "dB",
     val maxAqi: Float = 60f,
     val preferredNoiseDb: Float = 45f,
-    val preferredDistanceKm: Float = 8f,
+    val preferredDistanceKm: Float = 10f,
     val isSavedSuccess: Boolean = false
 )
 
@@ -28,19 +33,28 @@ class SettingsViewModel(
     val uiState: StateFlow<SettingsUiState> = _uiState.asStateFlow()
 
     init {
-        loadSettings()
+        loadSettingsAndPreferences()
     }
 
-    private fun loadSettings() {
+    private fun loadSettingsAndPreferences() {
         viewModelScope.launch {
-            repository.preferencesFlow.collect { pref ->
-                _uiState.value = _uiState.value.copy(
-                    themeMode = pref.themeMode,
-                    notificationsEnabled = pref.notificationsEnabled,
-                    maxAqi = pref.maxAqi.toFloat(),
-                    preferredNoiseDb = pref.preferredNoiseLevel.toFloat(),
-                    preferredDistanceKm = pref.preferredDistanceKm.toFloat()
+            combine(
+                repository.settingsFlow,
+                repository.preferencesFlow
+            ) { settings, preferences ->
+                _uiState.value.copy(
+                    themeMode = settings.theme,
+                    notificationsEnabled = settings.notificationsEnabled,
+                    locationEnabled = settings.locationEnabled,
+                    distanceUnit = settings.distanceUnit,
+                    temperatureUnit = settings.temperatureUnit,
+                    soundUnit = settings.soundUnit,
+                    maxAqi = preferences.maxAQI.toFloat(),
+                    preferredNoiseDb = preferences.maxNoiseLevel.toFloat(),
+                    preferredDistanceKm = preferences.maxDistance.toFloat()
                 )
+            }.collect { state ->
+                _uiState.value = state
             }
         }
     }
@@ -48,7 +62,7 @@ class SettingsViewModel(
     fun onThemeSelected(theme: String) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(themeMode = theme)
-            repository.saveThemeMode(theme)
+            repository.saveTheme(theme)
         }
     }
 
@@ -77,7 +91,7 @@ class SettingsViewModel(
             repository.saveEnvironmentalPreferences(
                 maxAqi = state.maxAqi.toInt(),
                 noiseLevel = state.preferredNoiseDb.toInt(),
-                distanceKm = state.preferredDistanceKm.toInt()
+                distanceKm = state.preferredDistanceKm.toDouble()
             )
             _uiState.value = state.copy(isSavedSuccess = true)
         }

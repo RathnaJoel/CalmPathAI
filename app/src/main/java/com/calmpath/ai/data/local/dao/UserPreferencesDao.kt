@@ -1,36 +1,44 @@
 package com.calmpath.ai.data.local.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.calmpath.ai.data.local.entities.UserPreferencesEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Data Access Object for User Preferences (CO3).
+ * DAO for UserPreferencesEntity operations.
  */
 @Dao
 interface UserPreferencesDao {
 
-    @Query("SELECT * FROM user_preferences WHERE id = 1 LIMIT 1")
-    fun getPreferencesFlow(): Flow<UserPreferencesEntity?>
-
-    @Query("SELECT * FROM user_preferences WHERE id = 1 LIMIT 1")
-    suspend fun getPreferences(): UserPreferencesEntity?
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrUpdate(preferences: UserPreferencesEntity)
 
-    @Query("UPDATE user_preferences SET selectedMood = :mood WHERE id = 1")
-    suspend fun updateSelectedMood(mood: String)
+    @Update
+    suspend fun updatePreferences(preferences: UserPreferencesEntity)
 
-    @Query("UPDATE user_preferences SET themeMode = :theme WHERE id = 1")
-    suspend fun updateThemeMode(theme: String)
+    @Delete
+    suspend fun deletePreferences(preferences: UserPreferencesEntity)
 
-    @Query("UPDATE user_preferences SET notificationsEnabled = :enabled WHERE id = 1")
-    suspend fun updateNotifications(enabled: Boolean)
+    @Query("SELECT * FROM user_preferences WHERE userId = :userId LIMIT 1")
+    suspend fun getPreferencesForUser(userId: String): UserPreferencesEntity?
 
-    @Query("UPDATE user_preferences SET maxAqi = :maxAqi, preferredNoiseLevel = :noiseLevel, preferredDistanceKm = :distanceKm WHERE id = 1")
-    suspend fun updateEnvironmentalPreferences(maxAqi: Int, noiseLevel: Int, distanceKm: Int)
+    @Query("SELECT * FROM user_preferences WHERE userId = :userId LIMIT 1")
+    fun getPreferencesFlowForUser(userId: String): Flow<UserPreferencesEntity?>
+
+    @Query("SELECT * FROM user_preferences LIMIT 1")
+    suspend fun getDefaultPreferences(): UserPreferencesEntity?
+
+    @Query("SELECT * FROM user_preferences LIMIT 1")
+    fun getDefaultPreferencesFlow(): Flow<UserPreferencesEntity?>
+
+    @Query("UPDATE user_preferences SET preferredMood = :mood WHERE userId = :userId")
+    suspend fun updatePreferredMood(userId: String, mood: String)
+
+    @Query("UPDATE user_preferences SET maxAQI = :maxAqi, maxNoiseLevel = :noiseLevel, maxDistance = :distanceKm WHERE userId = :userId")
+    suspend fun updateEnvironmentalTolerances(userId: String, maxAqi: Int, noiseLevel: Int, distanceKm: Double)
 }

@@ -139,7 +139,7 @@ fun ProfileScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = uiState.userProfile?.displayName ?: "Joel Wellness",
+                        text = uiState.userProfile?.name ?: uiState.authProfile?.displayName ?: "Joel",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
@@ -148,14 +148,14 @@ fun ProfileScreen(
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
-                        text = uiState.userProfile?.email ?: "joel@calmpath.ai",
+                        text = uiState.userProfile?.email ?: uiState.authProfile?.email ?: "joel@calmpath.ai",
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.White.copy(alpha = 0.8f)
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Sync & Cloud badge
+                    // Sync & Room Database badge
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(12.dp))
@@ -163,7 +163,7 @@ fun ProfileScreen(
                             .padding(horizontal = 12.dp, vertical = 6.dp)
                     ) {
                         Text(
-                            text = "☁️ Firebase Firestore Synced",
+                            text = "💾 Local Room DB & Cloud Synced",
                             style = MaterialTheme.typography.labelSmall,
                             color = Color.White,
                             fontWeight = FontWeight.SemiBold
@@ -195,7 +195,7 @@ fun ProfileScreen(
                     ) {
                         ProfileStatItem(title = "Favorites", value = "${uiState.favoritesCount}", emoji = "⭐")
                         ProfileStatItem(title = "Visits", value = "${uiState.historyCount}", emoji = "🕒")
-                        ProfileStatItem(title = "Peaceful Min", value = "${uiState.userProfile?.totalPeacefulMinutes ?: 340}m", emoji = "🧘")
+                        ProfileStatItem(title = "Mood Logs", value = "${uiState.moodLogsCount}", emoji = "🌿")
                     }
                 }
 
@@ -247,7 +247,7 @@ fun ProfileScreen(
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     Text(
-                                        text = "Selected: ${uiState.preferences.selectedMood.capitalizeWords()}",
+                                        text = "Selected: ${uiState.preferences.preferredMood.capitalizeWords()}",
                                         style = MaterialTheme.typography.bodySmall,
                                         color = Sage800,
                                         fontWeight = FontWeight.SemiBold

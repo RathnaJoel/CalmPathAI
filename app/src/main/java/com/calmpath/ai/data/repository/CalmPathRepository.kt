@@ -2,9 +2,17 @@ package com.calmpath.ai.data.repository
 
 import com.calmpath.ai.data.auth.AuthManager
 import com.calmpath.ai.data.local.CalmPathDatabase
+import com.calmpath.ai.data.local.DatabaseSeeder
+import com.calmpath.ai.data.local.entities.AppSettingsEntity
+import com.calmpath.ai.data.local.entities.EnvironmentalSnapshotEntity
 import com.calmpath.ai.data.local.entities.FavoritePlaceEntity
-import com.calmpath.ai.data.local.entities.HistoryEntity
+import com.calmpath.ai.data.local.entities.FavoriteWithPlace
+import com.calmpath.ai.data.local.entities.MoodHistoryEntity
+import com.calmpath.ai.data.local.entities.PlaceEntity
+import com.calmpath.ai.data.local.entities.PlaceHistoryEntity
+import com.calmpath.ai.data.local.entities.PlaceHistoryWithPlace
 import com.calmpath.ai.data.local.entities.UserPreferencesEntity
+import com.calmpath.ai.data.local.entities.UserProfileEntity
 import com.calmpath.ai.data.model.EnvironmentalSummary
 import com.calmpath.ai.data.model.HeatmapZone
 import com.calmpath.ai.data.model.Mood
@@ -18,7 +26,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 /**
- * Main Repository coordinating Local Room Database (CO3) and Remote Firestore Sync (CO4).
+ * Master Repository coordinating all 8 Room entities (CO3) and cloud sync (CO4).
  */
 class CalmPathRepository(
     private val database: CalmPathDatabase,
@@ -26,212 +34,184 @@ class CalmPathRepository(
     private val firestoreSync: FirestoreSyncManager = FirestoreSyncManager(),
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) {
-    private val favoriteDao = database.favoriteDao()
-    private val historyDao = database.historyDao()
-    private val preferencesDao = database.userPreferencesDao()
+    val placeRepository = PlaceRepository(database.placeDao(), database.environmentalSnapshotDao())
+    val favoriteRepository = FavoriteRepository(database.favoritePlaceDao())
+    val historyRepository = HistoryRepository(database.placeHistoryDao())
+    val moodRepository = MoodRepository(database.moodHistoryDao())
+    val userRepository = UserRepository(database.userProfileDao(), database.userPreferencesDao())
+    val settingsRepository = SettingsRepository(database.appSettingsDao())
 
     init {
-        // Pre-populate some initial favorites and default preferences if first run
         scope.launch {
-            initDefaultPreferences()
-            syncRemoteFavoritesIfLoggedIn()
+            // Seed 8 Room entities with initial realistic dataset
+            DatabaseSeeder.seedDatabase(database)
         }
     }
 
-    private suspend fun initDefaultPreferences() {
-        val currentPref = preferencesDao.getPreferences()
-        if (currentPref == null) {
-            preferencesDao.insertOrUpdate(
-                UserPreferencesEntity(
-                    id = 1,
-                    selectedMood = "relax",
-                    preferredCategory = "All",
-                    maxAqi = 60,
-                    preferredNoiseLevel = 45,
-                    preferredDistanceKm = 8,
-                    notificationsEnabled = true,
-                    themeMode = "SYSTEM"
-                )
-            )
-            // Pre-seed one sample favorite so favorites screen is demo-ready
-            val sampleFav = SampleDataSource.places.first()
-            favoriteDao.insertFavorite(FavoritePlaceEntity.fromPlace(sampleFav, isSynced = false))
-        }
-    }
-
-    suspend fun syncRemoteFavoritesIfLoggedIn() {
-        val currentUserId = authManager.currentUser.value?.uid
-        if (!currentUserId.isNullOrBlank()) {
-            val remoteFavs = firestoreSync.fetchRemoteFavorites(currentUserId)
-            if (remoteFavs.isNotEmpty()) {
-                favoriteDao.insertAll(remoteFavs)
-            }
-        }
+    private fun getCurrentUserId(): String {
+        return authManager.currentUser.value?.uid ?: DatabaseSeeder.DEFAULT_USER_ID
     }
 
     // ==========================================
-    // PLACES & EXPLORE
+    // PLACES & EXPLORE (CO3)
     // ==========================================
 
-    fun getAllPlaces(): List<Place> = SampleDataSource.places
+    val placesFlow: Flow<List<PlaceEntity>> = placeRepository.getAllPlacesFlow()
 
-    fun getPlaceById(id: String): Place? {
-        return SampleDataSource.places.firstOrNull { it.id == id }
-    }
+    suspend fun getAllPlaces(): List<PlaceEntity> = placeRepository.getAllPlaces()
 
-    fun getRecommendedPlaces(mood: Mood): List<Place> {
-        val all = SampleDataSource.places
-        // Prioritize places matching the user's selected mood, then sort by peace score
-        return all.sortedWith(
-            compareByDescending<Place> { it.suitableMoods.contains(mood) }
-                .thenByDescending { it.peaceScore }
-        )
-    }
+    suspend fun getPlaceById(id: String): PlaceEntity? = placeRepository.getPlaceById(id)
+
+    fun getPlaceByIdFlow(id: String): Flow<PlaceEntity?> = placeRepository.getPlaceByIdFlow(id)
+
+    fun getPlacesByCategory(category: String): Flow<List<PlaceEntity>> =
+        placeRepository.getPlacesByCategory(category)
 
     fun searchPlaces(
         query: String = "",
         category: String = "All",
         maxAqi: Int = 200,
         maxNoiseDb: Int = 120
-    ): List<Place> {
-        return SampleDataSource.places.filter { place ->
-            val matchesQuery = query.isBlank() ||
-                    place.name.contains(query, ignoreCase = true) ||
-                    place.description.contains(query, ignoreCase = true) ||
-                    place.category.contains(query, ignoreCase = true) ||
-                    place.address.contains(query, ignoreCase = true)
+    ): Flow<List<PlaceEntity>> = placeRepository.searchPlaces(query, category, maxAqi, maxNoiseDb)
 
-            val matchesCategory = category.equals("All", ignoreCase = true) ||
-                    place.category.equals(category, ignoreCase = true)
+    fun getLatestSnapshotFlow(placeId: String): Flow<EnvironmentalSnapshotEntity?> =
+        placeRepository.getLatestSnapshotFlow(placeId)
 
-            val matchesAqi = place.aqi <= maxAqi
-            val matchesNoise = place.noiseDb <= maxNoiseDb
+    // ==========================================
+    // FAVORITES (CO3: FavoritePlaceEntity)
+    // ==========================================
 
-            matchesQuery && matchesCategory && matchesAqi && matchesNoise
-        }.sortedByDescending { it.peaceScore }
+    val favoritesWithPlacesFlow: Flow<List<FavoriteWithPlace>> =
+        favoriteRepository.getFavoritesWithPlaces(DatabaseSeeder.DEFAULT_USER_ID)
+
+    fun getFavoritesFlowForUser(userId: String = getCurrentUserId()): Flow<List<FavoriteWithPlace>> =
+        favoriteRepository.getFavoritesWithPlaces(userId)
+
+    fun isFavoriteFlow(placeId: String, userId: String = getCurrentUserId()): Flow<Boolean> =
+        favoriteRepository.isFavoriteFlow(userId, placeId)
+
+    suspend fun isFavorite(placeId: String, userId: String = getCurrentUserId()): Boolean =
+        favoriteRepository.isFavorite(userId, placeId)
+
+    suspend fun toggleFavorite(
+        placeId: String,
+        userRating: Int = 5,
+        personalNote: String = "",
+        userId: String = getCurrentUserId()
+    ): Boolean {
+        return favoriteRepository.toggleFavorite(userId, placeId, userRating, personalNote)
     }
 
-    fun getHeatmapZones(): List<HeatmapZone> = SampleDataSource.heatmapZones
+    suspend fun removeFavorite(placeId: String, userId: String = getCurrentUserId()) {
+        favoriteRepository.removeFavorite(userId, placeId)
+    }
 
-    fun getEnvironmentalSummary(): EnvironmentalSummary {
-        return EnvironmentalSummary()
+    suspend fun clearAllFavorites(userId: String = getCurrentUserId()) {
+        favoriteRepository.clearFavorites(userId)
     }
 
     // ==========================================
-    // FAVORITES (CO3 & CO4)
+    // HISTORY (CO3: PlaceHistoryEntity)
     // ==========================================
 
-    val favoritesFlow: Flow<List<FavoritePlaceEntity>> = favoriteDao.getAllFavorites()
+    val historyWithPlacesFlow: Flow<List<PlaceHistoryWithPlace>> =
+        historyRepository.getHistoryWithPlaces(DatabaseSeeder.DEFAULT_USER_ID)
 
-    fun isFavoriteFlow(placeId: String): Flow<Boolean> = favoriteDao.isFavoriteFlow(placeId)
+    fun getHistoryFlowForUser(userId: String = getCurrentUserId()): Flow<List<PlaceHistoryWithPlace>> =
+        historyRepository.getHistoryWithPlaces(userId)
 
-    suspend fun isFavorite(placeId: String): Boolean = favoriteDao.isFavorite(placeId)
-
-    suspend fun toggleFavorite(place: Place): Boolean {
-        val isFav = favoriteDao.isFavorite(place.id)
-        val userId = authManager.currentUser.value?.uid ?: "guest"
-
-        if (isFav) {
-            favoriteDao.deleteById(place.id)
-            scope.launch {
-                firestoreSync.deleteFavoriteFromCloud(userId, place.id)
-            }
-            return false
-        } else {
-            val entity = FavoritePlaceEntity.fromPlace(place, isSynced = false)
-            favoriteDao.insertFavorite(entity)
-            scope.launch {
-                val synced = firestoreSync.syncFavoriteToCloud(userId, entity)
-                if (synced) {
-                    favoriteDao.insertFavorite(entity.copy(isSyncedWithCloud = true))
-                }
-            }
-            return true
-        }
+    suspend fun recordPlaceView(
+        placeId: String,
+        peaceScore: Int,
+        aqi: Int,
+        noiseLevel: Int,
+        userId: String = getCurrentUserId()
+    ) {
+        historyRepository.recordPlaceView(userId, placeId, peaceScore, aqi, noiseLevel)
     }
 
-    suspend fun removeFavoriteById(placeId: String) {
-        favoriteDao.deleteById(placeId)
-        val userId = authManager.currentUser.value?.uid ?: "guest"
-        scope.launch {
-            firestoreSync.deleteFavoriteFromCloud(userId, placeId)
-        }
-    }
-
-    suspend fun clearAllFavorites() {
-        favoriteDao.clearAllFavorites()
+    suspend fun clearHistory(userId: String = getCurrentUserId()) {
+        historyRepository.clearHistory(userId)
     }
 
     // ==========================================
-    // HISTORY (CO3 & CO4)
+    // MOOD HISTORY (CO3: MoodHistoryEntity)
     // ==========================================
 
-    val historyFlow: Flow<List<HistoryEntity>> = historyDao.getAllHistory()
+    val latestMoodFlow: Flow<MoodHistoryEntity?> =
+        moodRepository.getLatestMoodFlow(DatabaseSeeder.DEFAULT_USER_ID)
 
-    suspend fun recordPlaceView(place: Place) {
-        val historyEntry = HistoryEntity(
-            placeId = place.id,
-            placeName = place.name,
-            category = place.category,
-            categoryIcon = place.categoryIcon,
-            viewedAt = System.currentTimeMillis(),
-            peaceScore = place.peaceScore,
-            aqi = place.aqi,
-            noiseLevel = place.noiseDb,
-            distance = place.distanceKm,
-            imageUrl = place.imageUrl,
-            address = place.address
-        )
-        historyDao.insertHistory(historyEntry)
+    fun getMoodHistoryFlow(userId: String = getCurrentUserId()): Flow<List<MoodHistoryEntity>> =
+        moodRepository.getMoodHistoryFlow(userId)
 
-        val userId = authManager.currentUser.value?.uid ?: "guest"
-        scope.launch {
-            firestoreSync.syncHistoryToCloud(userId, historyEntry)
-        }
-    }
-
-    suspend fun clearHistory() {
-        historyDao.clearAllHistory()
-    }
-
-    // ==========================================
-    // USER PREFERENCES (CO3 & CO4)
-    // ==========================================
-
-    val preferencesFlow: Flow<UserPreferencesEntity> = preferencesDao.getPreferencesFlow()
-        .map { it ?: UserPreferencesEntity() }
-
-    suspend fun getPreferences(): UserPreferencesEntity {
-        return preferencesDao.getPreferences() ?: UserPreferencesEntity()
+    suspend fun recordMood(
+        mood: String,
+        recommendedPlaceId: String? = null,
+        selectedPlaceId: String? = null,
+        userId: String = getCurrentUserId()
+    ) {
+        moodRepository.recordMood(userId, mood, recommendedPlaceId, selectedPlaceId)
+        userRepository.updatePreferredMood(userId, mood)
     }
 
     suspend fun saveMood(mood: Mood) {
-        preferencesDao.updateSelectedMood(mood.id)
-        syncPreferencesToCloud()
+        recordMood(mood.title)
     }
 
-    suspend fun saveThemeMode(theme: String) {
-        preferencesDao.updateThemeMode(theme)
-        syncPreferencesToCloud()
+    // ==========================================
+    // USER PROFILE & PREFERENCES (CO3)
+    // ==========================================
+
+    val userProfileFlow: Flow<UserProfileEntity?> =
+        userRepository.getUserFlow(DatabaseSeeder.DEFAULT_USER_ID)
+
+    val preferencesFlow: Flow<UserPreferencesEntity> =
+        userRepository.getPreferencesFlow(DatabaseSeeder.DEFAULT_USER_ID)
+            .map { it ?: DatabaseSeeder.defaultPreferences }
+
+    suspend fun getUserProfile(userId: String = getCurrentUserId()): UserProfileEntity? =
+        userRepository.getUser(userId)
+
+    suspend fun getUserPreferences(userId: String = getCurrentUserId()): UserPreferencesEntity =
+        userRepository.getPreferences(userId) ?: DatabaseSeeder.defaultPreferences
+
+    suspend fun saveEnvironmentalPreferences(
+        maxAqi: Int,
+        noiseLevel: Int,
+        distanceKm: Double,
+        userId: String = getCurrentUserId()
+    ) {
+        userRepository.updateEnvironmentalTolerances(userId, maxAqi, noiseLevel, distanceKm)
     }
 
-    suspend fun saveNotifications(enabled: Boolean) {
-        preferencesDao.updateNotifications(enabled)
-        syncPreferencesToCloud()
+    // ==========================================
+    // APP SETTINGS (CO3: AppSettingsEntity)
+    // ==========================================
+
+    val settingsFlow: Flow<AppSettingsEntity> =
+        settingsRepository.getSettingsFlow(DatabaseSeeder.DEFAULT_USER_ID)
+            .map { it ?: DatabaseSeeder.defaultAppSettings }
+
+    suspend fun getAppSettings(userId: String = getCurrentUserId()): AppSettingsEntity =
+        settingsRepository.getSettings(userId) ?: DatabaseSeeder.defaultAppSettings
+
+    suspend fun saveTheme(theme: String, userId: String = getCurrentUserId()) {
+        settingsRepository.updateTheme(userId, theme)
     }
 
-    suspend fun saveEnvironmentalPreferences(maxAqi: Int, noiseLevel: Int, distanceKm: Int) {
-        preferencesDao.updateEnvironmentalPreferences(maxAqi, noiseLevel, distanceKm)
-        syncPreferencesToCloud()
+    suspend fun saveNotifications(enabled: Boolean, userId: String = getCurrentUserId()) {
+        settingsRepository.updateNotifications(userId, enabled)
     }
 
-    private fun syncPreferencesToCloud() {
-        val userId = authManager.currentUser.value?.uid ?: return
-        scope.launch {
-            val pref = preferencesDao.getPreferences()
-            if (pref != null) {
-                firestoreSync.syncPreferencesToCloud(userId, pref)
-            }
-        }
+    suspend fun saveUnits(distanceUnit: String, tempUnit: String, userId: String = getCurrentUserId()) {
+        settingsRepository.updateUnits(userId, distanceUnit, tempUnit)
     }
+
+    // ==========================================
+    // DASHBOARD & HEATMAP SUMMARY
+    // ==========================================
+
+    fun getEnvironmentalSummary(): EnvironmentalSummary = SampleDataSource.environmentalSummary
+
+    fun getHeatmapZones(): List<HeatmapZone> = SampleDataSource.heatmapZones
 }

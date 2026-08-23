@@ -3,7 +3,7 @@ package com.calmpath.ai.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.calmpath.ai.data.local.entities.HistoryEntity
+import com.calmpath.ai.data.local.entities.PlaceHistoryWithPlace
 import com.calmpath.ai.data.repository.CalmPathRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 data class HistoryUiState(
-    val historyList: List<HistoryEntity> = emptyList(),
+    val historyList: List<PlaceHistoryWithPlace> = emptyList(),
     val isLoading: Boolean = true
 )
 
@@ -28,7 +28,7 @@ class HistoryViewModel(
 
     private fun observeHistory() {
         viewModelScope.launch {
-            repository.historyFlow.collect { list ->
+            repository.historyWithPlacesFlow.collect { list ->
                 _uiState.value = _uiState.value.copy(
                     historyList = list,
                     isLoading = false
