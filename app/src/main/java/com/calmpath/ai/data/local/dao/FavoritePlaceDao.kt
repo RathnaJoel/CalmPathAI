@@ -35,6 +35,9 @@ interface FavoritePlaceDao {
     @Query("DELETE FROM favorite_places WHERE userId = :userId")
     suspend fun clearFavoritesForUser(userId: String)
 
+    @Query("SELECT * FROM favorite_places WHERE userId = :userId AND placeId = :placeId LIMIT 1")
+    suspend fun getFavorite(userId: String, placeId: String): FavoritePlaceEntity?
+
     @Query("SELECT EXISTS(SELECT 1 FROM favorite_places WHERE userId = :userId AND placeId = :placeId LIMIT 1)")
     fun isFavoriteFlow(userId: String, placeId: String): Flow<Boolean>
 

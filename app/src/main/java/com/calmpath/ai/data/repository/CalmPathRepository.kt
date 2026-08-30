@@ -26,9 +26,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 /**
- * Master Repository coordinating all 8 Room entities (CO3) and cloud sync (CO4).
+ * Master Repository coordinating all 8 Room entities (CO3) and Cloud Firestore synchronization (CO4).
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class CalmPathRepository(
@@ -48,6 +49,13 @@ class CalmPathRepository(
         scope.launch {
             // Seed 8 Room entities with initial realistic dataset
             DatabaseSeeder.seedDatabase(database)
+            
+            // Sync remote favorites from cloud for the current user
+            val currentId = getCurrentUserId()
+            val remoteFavs = firestoreSync.fetchRemoteFavorites(currentId)
+            remoteFavs.forEach { fav ->
+                database.favoritePlaceDao().insertFavorite(fav)
+            }
         }
     }
 
@@ -56,44 +64,50 @@ class CalmPathRepository(
     }
 
     suspend fun ensureUserExists(userId: String) {
-        if (database.userProfileDao().getUserById(userId) == null) {
+        val existing = database.userProfileDao().getUserById(userId)
+        if (existing == null) {
             val authUser = authManager.currentUser.value
             val name = if (authUser?.uid == userId) authUser.displayName else "Calm Traveler"
             val email = if (authUser?.uid == userId) authUser.email else "user@calmpath.ai"
-            database.userProfileDao().insertUser(
-                UserProfileEntity(
-                    userId = userId,
-                    name = name,
-                    email = email,
-                    profileImage = authUser?.photoUrl,
-                    createdAt = System.currentTimeMillis(),
-                    lastLogin = System.currentTimeMillis()
-                )
+            val newProfile = UserProfileEntity(
+                userId = userId,
+                name = name,
+                email = email,
+                profileImage = authUser?.photoUrl,
+                createdAt = System.currentTimeMillis(),
+                lastLogin = System.currentTimeMillis()
             )
-            database.userPreferencesDao().insertOrUpdate(
-                UserPreferencesEntity(
-                    preferenceId = "pref_$userId",
-                    userId = userId,
-                    preferredMood = "Relax",
-                    preferredCategory = "All",
-                    maxDistance = 10.0,
-                    maxAQI = 60,
-                    maxNoiseLevel = 45,
-                    preferredTemperature = 22.0
-                )
+            database.userProfileDao().insertUser(newProfile)
+            
+            val newPreferences = UserPreferencesEntity(
+                preferenceId = "pref_$userId",
+                userId = userId,
+                preferredMood = "Relax",
+                preferredCategory = "All",
+                maxDistance = 10.0,
+                maxAQI = 60,
+                maxNoiseLevel = 45,
+                preferredTemperature = 22.0
             )
-            database.appSettingsDao().insertOrUpdate(
-                AppSettingsEntity(
-                    settingsId = "settings_$userId",
-                    userId = userId,
-                    theme = "SYSTEM",
-                    notificationsEnabled = true,
-                    locationEnabled = true,
-                    distanceUnit = "km",
-                    temperatureUnit = "°C",
-                    soundUnit = "dB"
-                )
+            database.userPreferencesDao().insertOrUpdate(newPreferences)
+
+            val newSettings = AppSettingsEntity(
+                settingsId = "settings_$userId",
+                userId = userId,
+                theme = "SYSTEM",
+                notificationsEnabled = true,
+                locationEnabled = true,
+                distanceUnit = "km",
+                temperatureUnit = "°C",
+                soundUnit = "dB"
             )
+            database.appSettingsDao().insertOrUpdate(newSettings)
+
+            // Cloud sync profile and preferences
+            scope.launch {
+                firestoreSync.syncUserProfileToCloud(userId, newProfile)
+                firestoreSync.syncPreferencesToCloud(userId, newPreferences)
+            }
         }
     }
 
@@ -123,7 +137,7 @@ class CalmPathRepository(
         placeRepository.getLatestSnapshotFlow(placeId)
 
     // ==========================================
-    // FAVORITES (CO3: FavoritePlaceEntity)
+    // FAVORITES (CO3: FavoritePlaceEntity & CO4: Firestore Sync)
     // ==========================================
 
     val favoritesWithPlacesFlow: Flow<List<FavoriteWithPlace>> =
@@ -148,12 +162,27 @@ class CalmPathRepository(
         userId: String = getCurrentUserId()
     ): Boolean {
         ensureUserExists(userId)
-        return favoriteRepository.toggleFavorite(userId, placeId, userRating, personalNote)
+        val nowFav = favoriteRepository.toggleFavorite(userId, placeId, userRating, personalNote)
+        
+        scope.launch {
+            if (nowFav) {
+                val savedEntity = database.favoritePlaceDao().getFavorite(userId, placeId)
+                if (savedEntity != null) {
+                    firestoreSync.syncFavoriteToCloud(userId, savedEntity)
+                }
+            } else {
+                firestoreSync.deleteFavoriteFromCloud(userId, placeId)
+            }
+        }
+        return nowFav
     }
 
     suspend fun removeFavorite(placeId: String, userId: String = getCurrentUserId()) {
         ensureUserExists(userId)
         favoriteRepository.removeFavorite(userId, placeId)
+        scope.launch {
+            firestoreSync.deleteFavoriteFromCloud(userId, placeId)
+        }
     }
 
     suspend fun clearAllFavorites(userId: String = getCurrentUserId()) {
@@ -162,7 +191,7 @@ class CalmPathRepository(
     }
 
     // ==========================================
-    // HISTORY (CO3: PlaceHistoryEntity)
+    // HISTORY (CO3: PlaceHistoryEntity & CO4: Firestore Sync)
     // ==========================================
 
     val historyWithPlacesFlow: Flow<List<PlaceHistoryWithPlace>> =
@@ -182,7 +211,20 @@ class CalmPathRepository(
         userId: String = getCurrentUserId()
     ) {
         ensureUserExists(userId)
-        historyRepository.recordPlaceView(userId, placeId, peaceScore, aqi, noiseLevel)
+        val histId = UUID.randomUUID().toString()
+        val historyEntity = PlaceHistoryEntity(
+            historyId = histId,
+            userId = userId,
+            placeId = placeId,
+            viewedAt = System.currentTimeMillis(),
+            peaceScoreAtVisit = peaceScore,
+            aqiAtVisit = aqi,
+            noiseLevelAtVisit = noiseLevel
+        )
+        database.placeHistoryDao().insertHistory(historyEntity)
+        scope.launch {
+            firestoreSync.syncHistoryToCloud(userId, historyEntity)
+        }
     }
 
     suspend fun clearHistory(userId: String = getCurrentUserId()) {
@@ -191,7 +233,7 @@ class CalmPathRepository(
     }
 
     // ==========================================
-    // MOOD HISTORY (CO3: MoodHistoryEntity)
+    // MOOD HISTORY (CO3: MoodHistoryEntity & CO4: Firestore Sync)
     // ==========================================
 
     val latestMoodFlow: Flow<MoodHistoryEntity?> =
@@ -213,8 +255,21 @@ class CalmPathRepository(
         val validRecommended = if (recommendedPlaceId != null && database.placeDao().getPlaceById(recommendedPlaceId) != null) recommendedPlaceId else null
         val validSelected = if (selectedPlaceId != null && database.placeDao().getPlaceById(selectedPlaceId) != null) selectedPlaceId else null
 
-        moodRepository.recordMood(userId, mood, validRecommended, validSelected)
+        val moodId = UUID.randomUUID().toString()
+        val moodEntity = MoodHistoryEntity(
+            moodHistoryId = moodId,
+            userId = userId,
+            mood = mood,
+            selectedAt = System.currentTimeMillis(),
+            recommendedPlaceId = validRecommended,
+            selectedPlaceId = validSelected
+        )
+        database.moodHistoryDao().insertMoodHistory(moodEntity)
         userRepository.updatePreferredMood(userId, mood)
+
+        scope.launch {
+            firestoreSync.syncMoodToCloud(userId, moodEntity)
+        }
     }
 
     suspend fun saveMood(mood: Mood) {
@@ -222,7 +277,7 @@ class CalmPathRepository(
     }
 
     // ==========================================
-    // USER PROFILE & PREFERENCES (CO3)
+    // USER PROFILE & PREFERENCES (CO3 & CO4)
     // ==========================================
 
     val userProfileFlow: Flow<UserProfileEntity?> =
@@ -251,6 +306,13 @@ class CalmPathRepository(
     ) {
         ensureUserExists(userId)
         userRepository.updateEnvironmentalTolerances(userId, maxAqi, noiseLevel, distanceKm)
+        
+        scope.launch {
+            val updatedPref = userRepository.getPreferences(userId)
+            if (updatedPref != null) {
+                firestoreSync.syncPreferencesToCloud(userId, updatedPref)
+            }
+        }
     }
 
     // ==========================================

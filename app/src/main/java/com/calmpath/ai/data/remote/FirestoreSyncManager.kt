@@ -2,8 +2,10 @@ package com.calmpath.ai.data.remote
 
 import android.util.Log
 import com.calmpath.ai.data.local.entities.FavoritePlaceEntity
+import com.calmpath.ai.data.local.entities.MoodHistoryEntity
 import com.calmpath.ai.data.local.entities.PlaceHistoryEntity
 import com.calmpath.ai.data.local.entities.UserPreferencesEntity
+import com.calmpath.ai.data.local.entities.UserProfileEntity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.tasks.await
@@ -21,6 +23,36 @@ class FirestoreSyncManager {
         } catch (e: Exception) {
             Log.w(tag, "Firestore not available or offline: ${e.message}")
             null
+        }
+    }
+
+    /**
+     * Synchronizes user profile to Firestore `/users/{userId}/profile/info`.
+     */
+    suspend fun syncUserProfileToCloud(userId: String, profile: UserProfileEntity): Boolean {
+        if (userId.isBlank()) return false
+        return try {
+            val db = firestore ?: return false
+            val profileMap = hashMapOf(
+                "userId" to profile.userId,
+                "name" to profile.name,
+                "email" to profile.email,
+                "profileImage" to (profile.profileImage ?: ""),
+                "createdAt" to profile.createdAt,
+                "lastLogin" to profile.lastLogin,
+                "updatedAt" to System.currentTimeMillis()
+            )
+            db.collection("users")
+                .document(userId)
+                .collection("profile")
+                .document("info")
+                .set(profileMap, SetOptions.merge())
+                .await()
+            Log.d(tag, "Successfully synced user profile to Firestore")
+            true
+        } catch (e: Exception) {
+            Log.e(tag, "Failed to sync user profile to Firestore: ${e.message}", e)
+            false
         }
     }
 
@@ -133,6 +165,35 @@ class FirestoreSyncManager {
             true
         } catch (e: Exception) {
             Log.e(tag, "Failed to sync history to Firestore: ${e.message}", e)
+            false
+        }
+    }
+
+    /**
+     * Synchronizes a mood log entry to Firestore `/users/{userId}/moods/{moodHistoryId}`.
+     */
+    suspend fun syncMoodToCloud(userId: String, mood: MoodHistoryEntity): Boolean {
+        if (userId.isBlank()) return false
+        return try {
+            val db = firestore ?: return false
+            val moodMap = hashMapOf(
+                "moodHistoryId" to mood.moodHistoryId,
+                "userId" to mood.userId,
+                "mood" to mood.mood,
+                "selectedAt" to mood.selectedAt,
+                "recommendedPlaceId" to (mood.recommendedPlaceId ?: ""),
+                "selectedPlaceId" to (mood.selectedPlaceId ?: "")
+            )
+            db.collection("users")
+                .document(userId)
+                .collection("moods")
+                .document(mood.moodHistoryId)
+                .set(moodMap, SetOptions.merge())
+                .await()
+            Log.d(tag, "Synced mood log to Firestore")
+            true
+        } catch (e: Exception) {
+            Log.e(tag, "Failed to sync mood log to Firestore: ${e.message}", e)
             false
         }
     }
