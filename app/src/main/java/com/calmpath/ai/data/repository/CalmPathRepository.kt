@@ -56,7 +56,7 @@ class CalmPathRepository(
     private val weatherApi: WeatherApiService = RetrofitClient.weatherApi,
     private val airQualityApi: AirQualityApiService = RetrofitClient.airQualityApi,
     private val placesApi: PlacesApiService = RetrofitClient.placesApi,
-    private val peaceScoreCalculator: PeaceScoreCalculator = PeaceScoreCalculator.default,
+    val peaceScoreCalculator: PeaceScoreCalculator = PeaceScoreCalculator.default,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) {
     private val tag = "CalmPathRepository"

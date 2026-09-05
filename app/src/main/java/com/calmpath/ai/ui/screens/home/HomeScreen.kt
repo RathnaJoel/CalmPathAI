@@ -24,8 +24,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowDropDown
 import androidx.compose.material.icons.rounded.CloudOff
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.LocationCity
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material.icons.rounded.Public
 import androidx.compose.material.icons.rounded.Refresh
@@ -43,6 +45,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,6 +59,7 @@ import com.calmpath.ai.data.remote.NetworkStatus
 import com.calmpath.ai.ui.components.AqiIndicatorCard
 import com.calmpath.ai.ui.components.DecibelMeterCard
 import com.calmpath.ai.ui.components.HorizontalPlaceCard
+import com.calmpath.ai.ui.components.LocationSelectionSheet
 import com.calmpath.ai.ui.components.PeaceScoreCard
 import com.calmpath.ai.ui.components.VerticalPlaceCard
 import com.calmpath.ai.ui.components.WeatherCard
@@ -69,6 +75,7 @@ import java.util.Calendar
  * Screen 3 & 5: Home Dashboard & Recommended Places (CO1, CO2, CO3, CO4, CO5).
  * Integrates live REST API environmental telemetry, Location Services, and Room caching.
  */
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
@@ -77,6 +84,18 @@ fun HomeScreen(
     onNavigateToExplore: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    var showLocationSheet by remember { mutableStateOf(false) }
+
+    // Location Selection Bottom Sheet
+    if (showLocationSheet) {
+        LocationSelectionSheet(
+            activeLocality = uiState.currentLocality,
+            isManualSelection = uiState.isManualLocation,
+            onSelectLocation = { loc -> viewModel.selectManualLocation(loc) },
+            onUseGps = { viewModel.useDeviceGpsLocation() },
+            onDismiss = { showLocationSheet = false }
+        )
+    }
 
     // Location Permission Launcher
     val locationPermissionLauncher = rememberLauncherForActivityResult(
@@ -172,14 +191,15 @@ fun HomeScreen(
                 }
             }
 
-            // CO5: Location Banner & Network Telemetry Pill
+            // CO5: Interactive Location Banner & State Switcher
             item {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 4.dp),
+                        .padding(horizontal = 20.dp, vertical = 4.dp)
+                        .clickable { showLocationSheet = true },
                     shape = RoundedCornerShape(18.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f))
                 ) {
                     Row(
                         modifier = Modifier
@@ -189,50 +209,91 @@ fun HomeScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Row(
+                            modifier = Modifier.weight(1f),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            Icon(
-                                imageVector = Icons.Rounded.LocationOn,
-                                contentDescription = "Location",
-                                tint = Sage800,
-                                modifier = Modifier.size(18.dp)
-                            )
-                            Column {
-                                Text(
-                                    text = uiState.currentLocality,
-                                    style = MaterialTheme.typography.labelLarge,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSurface
+                            Box(
+                                modifier = Modifier
+                                    .size(36.dp)
+                                    .clip(CircleShape)
+                                    .background(Sage100),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.LocationOn,
+                                    contentDescription = "Location",
+                                    tint = Sage800,
+                                    modifier = Modifier.size(20.dp)
                                 )
+                            }
+                            Column {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                ) {
+                                    Text(
+                                        text = uiState.currentLocality,
+                                        style = MaterialTheme.typography.titleSmall,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        maxLines = 1,
+                                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                                    )
+                                    Icon(
+                                        imageVector = Icons.Rounded.ArrowDropDown,
+                                        contentDescription = "Change",
+                                        tint = Sage800,
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                }
                                 Text(
-                                    text = "Updated just now",
+                                    text = if (uiState.isManualLocation) "Manual State • Tap to change" else "Device GPS • Tap to change state",
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f)
+                                    color = if (uiState.isManualLocation) Sage800 else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f)
                                 )
                             }
                         }
 
-                        // Status Badge: Live API vs Cached Room
-                        val isLive = uiState.environmentalSummary.isLive
-                        val badgeBg = if (isLive) Sage100 else MaterialTheme.colorScheme.surface
-                        val badgeColor = if (isLive) Sage800 else OceanTeal
-                        val badgeText = if (isLive) "● Live API" else "○ Room Cache"
-
+                        // Status Badge: Live API vs Cached Room + Refresh Button
                         Row(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(badgeBg)
-                                .padding(horizontal = 10.dp, vertical = 4.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
-                            Text(
-                                text = badgeText,
-                                style = MaterialTheme.typography.labelSmall,
-                                fontWeight = FontWeight.Bold,
-                                color = badgeColor
-                            )
+                            val isLive = uiState.environmentalSummary.isLive
+                            val badgeBg = if (isLive) Sage100 else MaterialTheme.colorScheme.surface
+                            val badgeColor = if (isLive) Sage800 else OceanTeal
+                            val badgeText = if (isLive) "● Live API" else "○ Room Cache"
+
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(badgeBg)
+                                    .padding(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
+                                Text(
+                                    text = badgeText,
+                                    style = MaterialTheme.typography.labelSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = badgeColor
+                                )
+                            }
+
+                            Box(
+                                modifier = Modifier
+                                    .size(30.dp)
+                                    .clip(CircleShape)
+                                    .background(MaterialTheme.colorScheme.surface)
+                                    .clickable { viewModel.refreshEnvironmentalData() },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Refresh,
+                                    contentDescription = "Refresh",
+                                    tint = Sage800,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
                         }
                     }
                 }
@@ -385,9 +446,9 @@ fun HomeScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "Acoustic baseline: Estimated peaceful ambient",
+                            text = "Acoustic Telemetry: Dynamic real-time sound sensing",
                             style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f),
                             modifier = Modifier.padding(start = 6.dp)
                         )
                     }

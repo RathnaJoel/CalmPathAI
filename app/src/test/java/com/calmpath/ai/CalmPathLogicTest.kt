@@ -275,4 +275,42 @@ class CalmPathLogicTest {
         assertEquals(AqiCategory.GOOD, aqi.category)
         assertEquals(11.5, aqi.pm25, 0.01)
     }
+
+    // ==========================================
+    // CO5: INDIAN LOCATIONS & STATE SWITCHER TESTS
+    // ==========================================
+
+    @Test
+    fun testAllIndianLocationsAreWithinTerritorialBoundaries() {
+        val locations = com.calmpath.ai.data.location.IndianLocationsRegistry.allLocations
+        assertTrue("Registry should have multiple Indian locations", locations.size >= 20)
+
+        for (loc in locations) {
+            assertTrue(
+                "Location ${loc.cityName}, ${loc.stateName} (${loc.latitude}, ${loc.longitude}) must be within India boundaries",
+                LocationHelper.isLocationInIndia(loc.latitude, loc.longitude)
+            )
+        }
+    }
+
+    @Test
+    fun testIndianLocationsSearchAndLookup() {
+        val registry = com.calmpath.ai.data.location.IndianLocationsRegistry
+
+        val delhiSearch = registry.searchLocations("delhi")
+        assertTrue(delhiSearch.any { it.cityName == "New Delhi" })
+
+        val keralaSearch = registry.searchLocations("Kerala")
+        assertTrue(keralaSearch.any { it.stateName == "Kerala" })
+
+        val shimlaSearch = registry.searchLocations("shimla")
+        assertTrue(shimlaSearch.any { it.cityName == "Shimla" })
+
+        val found = registry.findById("bengaluru")
+        assertEquals("Bengaluru", found.cityName)
+        assertEquals("Karnataka", found.stateName)
+
+        val fallback = registry.findById("non_existent_city")
+        assertEquals("Mumbai", fallback.cityName)
+    }
 }

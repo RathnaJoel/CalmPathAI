@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Air
-import androidx.compose.material.icons.rounded.WbSunny
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -27,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.calmpath.ai.data.model.AqiCategory
@@ -37,8 +37,9 @@ import com.calmpath.ai.ui.theme.QualityPoorRed
 import com.calmpath.ai.ui.theme.QualityUnhealthyOrange
 
 /**
- * Air Quality Index Card (CO1).
- * Displays current AQI value, status category, EPA scale, and brief health advice.
+ * Air Quality Index Card (CO1, CO5).
+ * Features synchronized 168.dp equal-height layout, non-wrapping typography,
+ * and standard EPA color indicator bar.
  */
 @Composable
 fun AqiIndicatorCard(
@@ -49,7 +50,7 @@ fun AqiIndicatorCard(
     val aqiColor = Color(category.colorHex)
 
     Card(
-        modifier = modifier,
+        modifier = modifier.height(172.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
@@ -57,17 +58,21 @@ fun AqiIndicatorCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(18.dp)
+                .padding(14.dp)
         ) {
+            // Header Row: Icon + Title + Status Chip
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
                     Box(
                         modifier = Modifier
-                            .size(36.dp)
+                            .size(28.dp)
                             .clip(CircleShape)
                             .background(aqiColor.copy(alpha = 0.15f)),
                         contentAlignment = Alignment.Center
@@ -76,86 +81,96 @@ fun AqiIndicatorCard(
                             imageVector = Icons.Rounded.Air,
                             contentDescription = "AQI",
                             tint = aqiColor,
-                            modifier = Modifier.size(20.dp)
+                            modifier = Modifier.size(16.dp)
                         )
                     }
-                    Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = "Air Quality",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = 1
                     )
                 }
 
-                // Status chip
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(10.dp))
+                        .clip(RoundedCornerShape(8.dp))
                         .background(aqiColor.copy(alpha = 0.18f))
-                        .padding(horizontal = 10.dp, vertical = 4.dp)
+                        .padding(horizontal = 7.dp, vertical = 2.dp)
                 ) {
                     Text(
                         text = category.title,
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = aqiColor
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(14.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(verticalAlignment = Alignment.Bottom) {
-                    Text(
-                        text = "$currentAqi",
-                        style = MaterialTheme.typography.displaySmall ?: MaterialTheme.typography.headlineLarge,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = "AQI",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
                         color = aqiColor,
-                        modifier = Modifier.padding(bottom = 4.dp)
+                        maxLines = 1
                     )
                 }
-
-                Text(
-                    text = "Pristine Airflow",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
             }
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // EPA Multi-color bar
+            // Primary Metric Value (Synchronized Baseline)
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(4.dp))
-                    .height(6.dp)
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Box(modifier = Modifier.weight(50f).height(6.dp).background(QualityGoodGreen))
-                Box(modifier = Modifier.weight(50f).height(6.dp).background(QualityModerateYellow))
-                Box(modifier = Modifier.weight(50f).height(6.dp).background(QualityUnhealthyOrange))
-                Box(modifier = Modifier.weight(50f).height(6.dp).background(QualityPoorRed))
+                Text(
+                    text = "$currentAqi",
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = "AQI",
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = aqiColor,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+            }
+
+            // Subtitle Condition (Justified Single Line)
+            Text(
+                text = "${category.title} • Pristine Airflow",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            // Footer: EPA Multi-color Scale Bar
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(3.dp))
+                        .height(5.dp)
+                ) {
+                    Box(modifier = Modifier.weight(50f).fillMaxWidth().background(QualityGoodGreen))
+                    Box(modifier = Modifier.weight(50f).fillMaxWidth().background(QualityModerateYellow))
+                    Box(modifier = Modifier.weight(50f).fillMaxWidth().background(QualityUnhealthyOrange))
+                    Box(modifier = Modifier.weight(50f).fillMaxWidth().background(QualityPoorRed))
+                }
+                Text(
+                    text = "EPA Standard Scale (0-500)",
+                    style = MaterialTheme.typography.labelSmall,
+                    fontSize = 9.sp,
+                    color = MaterialTheme.colorScheme.outline,
+                    maxLines = 1
+                )
             }
         }
     }
 }
 
 /**
- * Weather Conditions Card (CO1).
- * Displays temperature, weather condition, humidity, and simple icon.
+ * Weather Conditions Card (CO1, CO5).
+ * Features synchronized 168.dp equal-height layout matching AqiIndicatorCard,
+ * non-wrapping typography, and humidity/thermal indicators.
  */
 @Composable
 fun WeatherCard(
@@ -163,10 +178,11 @@ fun WeatherCard(
     weatherCondition: String = "Pleasant & Breezy",
     humidityPercent: Int = 54,
     weatherIcon: String = "🌤️",
+    windSpeedKmH: Double = 12.0,
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier.height(172.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
@@ -174,46 +190,58 @@ fun WeatherCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(18.dp)
+                .padding(14.dp)
         ) {
+            // Header Row: Icon + Title + Humidity Pill
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
                     Box(
                         modifier = Modifier
-                            .size(36.dp)
+                            .size(28.dp)
                             .clip(CircleShape)
                             .background(OceanTeal.copy(alpha = 0.15f)),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(text = weatherIcon, fontSize = 18.sp)
+                        Text(text = weatherIcon, fontSize = 14.sp)
                     }
-                    Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = "Weather",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        style = MaterialTheme.typography.labelLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = 1
                     )
                 }
 
-                Text(
-                    text = "💧 $humidityPercent% Hum",
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(OceanTeal.copy(alpha = 0.12f))
+                        .padding(horizontal = 7.dp, vertical = 2.dp)
+                ) {
+                    Text(
+                        text = "💧 $humidityPercent%",
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = OceanTeal,
+                        maxLines = 1
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
+            // Primary Metric Value (Synchronized Baseline)
             Row(
-                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
                     text = "$temperatureC°C",
@@ -222,20 +250,51 @@ fun WeatherCard(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = weatherCondition,
-                    style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(bottom = 2.dp)
+                    text = weatherIcon,
+                    fontSize = 18.sp,
+                    modifier = Modifier.padding(bottom = 4.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            // Subtitle Condition (Justified Single Line)
             Text(
-                text = "Ideal thermal comfort for outdoor walks",
+                text = weatherCondition,
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.outline
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            // Footer: Ambient comfort and wind indicator
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                        .padding(horizontal = 8.dp, vertical = 3.dp)
+                ) {
+                    Text(
+                        text = "💨 ${windSpeedKmH.toInt()} km/h • Thermal Comfort",
+                        style = MaterialTheme.typography.labelSmall,
+                        fontSize = 10.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                Text(
+                    text = "Live telemetry from Open-Meteo",
+                    style = MaterialTheme.typography.labelSmall,
+                    fontSize = 9.sp,
+                    color = MaterialTheme.colorScheme.outline,
+                    maxLines = 1
+                )
+            }
         }
     }
 }
+
