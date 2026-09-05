@@ -126,5 +126,13 @@ data class EnvironmentalSummary(
     val isLive: Boolean = false,
     val isCached: Boolean = false,
     val localityName: String = "Mumbai, Maharashtra",
-    val lastUpdatedTimestamp: Long = System.currentTimeMillis()
+    val lastUpdatedTimestamp: Long = System.currentTimeMillis(),
+    val pm25: Double = 14.2,
+    val windSpeedKmH: Double = 12.0,
+    val baseAqi: Int = aqi,
+    val basePm25: Double = pm25,
+    val baseTemperatureC: Int = temperatureC,
+    val baseHumidityPercent: Int = humidityPercent,
+    val baseWindSpeedKmH: Double = windSpeedKmH,
+    val baseNoiseDb: Int = noiseDb
 )

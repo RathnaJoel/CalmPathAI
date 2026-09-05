@@ -460,6 +460,7 @@ fun HomeScreen(
                     ) {
                         AqiIndicatorCard(
                             currentAqi = uiState.environmentalSummary.aqi,
+                            pm25 = uiState.environmentalSummary.pm25,
                             modifier = Modifier.weight(1f)
                         )
 
@@ -468,6 +469,7 @@ fun HomeScreen(
                             weatherCondition = uiState.environmentalSummary.weatherCondition,
                             humidityPercent = uiState.environmentalSummary.humidityPercent,
                             weatherIcon = uiState.environmentalSummary.weatherIcon,
+                            windSpeedKmH = uiState.environmentalSummary.windSpeedKmH,
                             modifier = Modifier.weight(1f)
                         )
                     }

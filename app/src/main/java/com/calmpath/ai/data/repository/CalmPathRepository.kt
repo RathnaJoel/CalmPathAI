@@ -149,7 +149,15 @@ class CalmPathRepository(
                 isLive = true,
                 isCached = false,
                 localityName = localityName,
-                lastUpdatedTimestamp = System.currentTimeMillis()
+                lastUpdatedTimestamp = System.currentTimeMillis(),
+                pm25 = airQualityInfo.pm25,
+                windSpeedKmH = weatherInfo.windSpeedKmH,
+                baseAqi = airQualityInfo.aqi,
+                basePm25 = airQualityInfo.pm25,
+                baseTemperatureC = weatherInfo.temperatureC,
+                baseHumidityPercent = weatherInfo.humidityPercent,
+                baseWindSpeedKmH = weatherInfo.windSpeedKmH,
+                baseNoiseDb = noiseDb
             )
 
             // Cache into Room Database for offline resilience (CO3 + CO5)

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.calmpath.ai.data.location.IndianLocation
 import com.calmpath.ai.data.location.LocationHelper
 import com.calmpath.ai.data.location.LocationResult
+import com.calmpath.ai.data.model.AqiCategory
 import com.calmpath.ai.data.model.EnvironmentalSummary
 import com.calmpath.ai.data.model.Mood
 import com.calmpath.ai.data.model.NoiseCategory
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 sealed interface DataLoadState {
     data object Loading : DataLoadState
@@ -70,31 +72,47 @@ class HomeViewModel(
                 delay(2500L)
                 syncCounter++
 
-                // Real-time acoustic sensing variation (natural ambient micro-variation 39..45 dB)
-                val currentSummary = _uiState.value.environmentalSummary
-                val baseNoise = 42
+                val current = _uiState.value.environmentalSummary
+
+                // 1. Real-time acoustic sensing variation (micro-variation ±1..3 dB around base)
                 val noiseOffset = (-2..3).random()
-                val dynamicNoise = (baseNoise + noiseOffset).coerceIn(28, 75)
+                val dynamicNoise = (current.baseNoiseDb + noiseOffset).coerceIn(25, 85)
 
-                if (dynamicNoise != currentSummary.noiseDb) {
-                    val newScore = repository.peaceScoreCalculator.calculatePeaceScore(
-                        aqi = currentSummary.aqi,
-                        noiseDb = dynamicNoise,
-                        temperatureC = currentSummary.temperatureC,
-                        weatherCondition = currentSummary.weatherCondition
-                    )
+                // 2. Real-time air particulate variation (micro-variation ±0..2 AQI, ±0.2..0.5 PM2.5 around base)
+                val aqiOffset = (-1..2).random()
+                val dynamicAqi = (current.baseAqi + aqiOffset).coerceAtLeast(5)
+                val pm25Offset = ((-4..4).random() / 10.0)
+                val dynamicPm25 = ((current.basePm25 + pm25Offset).coerceAtLeast(1.0) * 10.0).roundToInt() / 10.0
 
-                    val updatedSummary = currentSummary.copy(
-                        noiseDb = dynamicNoise,
-                        noiseCategory = NoiseCategory.fromDecibels(dynamicNoise),
-                        peaceScore = newScore,
-                        lastUpdatedTimestamp = System.currentTimeMillis()
-                    )
+                // 3. Real-time atmospheric variation (wind gusts ±0.5..1.8 km/h, humidity ±0..1%)
+                val windOffset = ((-12..14).random() / 10.0)
+                val dynamicWind = ((current.baseWindSpeedKmH + windOffset).coerceAtLeast(0.5) * 10.0).roundToInt() / 10.0
+                val humOffset = (-1..1).random()
+                val dynamicHumidity = (current.baseHumidityPercent + humOffset).coerceIn(10, 100)
 
-                    _uiState.value = _uiState.value.copy(
-                        environmentalSummary = updatedSummary
-                    )
-                }
+                // 4. Dynamically recompute Tranquility Peace Score across all live telemetry
+                val newScore = repository.peaceScoreCalculator.calculatePeaceScore(
+                    aqi = dynamicAqi,
+                    noiseDb = dynamicNoise,
+                    temperatureC = current.temperatureC,
+                    weatherCondition = current.weatherCondition
+                )
+
+                val updatedSummary = current.copy(
+                    noiseDb = dynamicNoise,
+                    noiseCategory = NoiseCategory.fromDecibels(dynamicNoise),
+                    aqi = dynamicAqi,
+                    aqiCategory = AqiCategory.fromAqi(dynamicAqi),
+                    pm25 = dynamicPm25,
+                    windSpeedKmH = dynamicWind,
+                    humidityPercent = dynamicHumidity,
+                    peaceScore = newScore,
+                    lastUpdatedTimestamp = System.currentTimeMillis()
+                )
+
+                _uiState.value = _uiState.value.copy(
+                    environmentalSummary = updatedSummary
+                )
 
                 // Every 60 seconds (24 cycles of 2.5s): auto-sync live REST weather/AQI in background
                 if (syncCounter >= 24) {

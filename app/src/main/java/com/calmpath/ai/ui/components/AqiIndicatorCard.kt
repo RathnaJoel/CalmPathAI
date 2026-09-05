@@ -44,10 +44,17 @@ import com.calmpath.ai.ui.theme.QualityUnhealthyOrange
 @Composable
 fun AqiIndicatorCard(
     currentAqi: Int = 36,
+    pm25: Double = 14.2,
     modifier: Modifier = Modifier
 ) {
     val category = AqiCategory.fromAqi(currentAqi)
     val aqiColor = Color(category.colorHex)
+    val categoryAdvice = when (category) {
+        AqiCategory.GOOD -> "Clean Airflow"
+        AqiCategory.MODERATE -> "Acceptable Quality"
+        AqiCategory.UNHEALTHY_SENSITIVE -> "Sensitive Groups Alert"
+        AqiCategory.POOR -> "High Pollutant Alert"
+    }
 
     Card(
         modifier = modifier.height(172.dp),
@@ -84,13 +91,24 @@ fun AqiIndicatorCard(
                             modifier = Modifier.size(16.dp)
                         )
                     }
-                    Text(
-                        text = "Air Quality",
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        maxLines = 1
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(3.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(5.dp)
+                                .clip(CircleShape)
+                                .background(QualityGoodGreen)
+                        )
+                        Text(
+                            text = "Air Quality",
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            maxLines = 1
+                        )
+                    }
                 }
 
                 Box(
@@ -133,7 +151,7 @@ fun AqiIndicatorCard(
 
             // Subtitle Condition (Justified Single Line)
             Text(
-                text = "${category.title} • Pristine Airflow",
+                text = "${category.title} • $categoryAdvice",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,
@@ -142,7 +160,7 @@ fun AqiIndicatorCard(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Footer: EPA Multi-color Scale Bar
+            // Footer: EPA Multi-color Scale Bar with Live PM2.5
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Row(
                     modifier = Modifier
@@ -156,7 +174,7 @@ fun AqiIndicatorCard(
                     Box(modifier = Modifier.weight(50f).fillMaxWidth().background(QualityPoorRed))
                 }
                 Text(
-                    text = "EPA Standard Scale (0-500)",
+                    text = "PM2.5: ${String.format(java.util.Locale.US, "%.1f", pm25)} µg/m³ • EPA Scale",
                     style = MaterialTheme.typography.labelSmall,
                     fontSize = 9.sp,
                     color = MaterialTheme.colorScheme.outline,
@@ -211,13 +229,24 @@ fun WeatherCard(
                     ) {
                         Text(text = weatherIcon, fontSize = 14.sp)
                     }
-                    Text(
-                        text = "Weather",
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        maxLines = 1
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(3.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(5.dp)
+                                .clip(CircleShape)
+                                .background(QualityGoodGreen)
+                        )
+                        Text(
+                            text = "Weather",
+                            style = MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            maxLines = 1
+                        )
+                    }
                 }
 
                 Box(
@@ -278,7 +307,7 @@ fun WeatherCard(
                         .padding(horizontal = 8.dp, vertical = 3.dp)
                 ) {
                     Text(
-                        text = "💨 ${windSpeedKmH.toInt()} km/h • Thermal Comfort",
+                        text = "💨 ${String.format(java.util.Locale.US, "%.1f", windSpeedKmH)} km/h • Thermal Comfort",
                         style = MaterialTheme.typography.labelSmall,
                         fontSize = 10.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
