@@ -13,15 +13,15 @@ data class AirQualityResponse(
 )
 
 data class CurrentAirQualityDto(
-    @SerializedName("time") val time: String?,
-    @SerializedName("us_aqi") val usAqi: Int?,
-    @SerializedName("european_aqi") val europeanAqi: Int?,
-    @SerializedName("pm10") val pm10: Double?,
-    @SerializedName("pm2_5") val pm25: Double?,
-    @SerializedName("carbon_monoxide") val carbonMonoxide: Double?,
-    @SerializedName("nitrogen_dioxide") val nitrogenDioxide: Double?,
-    @SerializedName("sulphur_dioxide") val sulphurDioxide: Double?,
-    @SerializedName("ozone") val ozone: Double?
+    @SerializedName("time") val time: String? = null,
+    @SerializedName("us_aqi") val usAqi: Double? = null,
+    @SerializedName("european_aqi") val europeanAqi: Double? = null,
+    @SerializedName("pm10") val pm10: Double? = null,
+    @SerializedName("pm2_5") val pm25: Double? = null,
+    @SerializedName("carbon_monoxide") val carbonMonoxide: Double? = null,
+    @SerializedName("nitrogen_dioxide") val nitrogenDioxide: Double? = null,
+    @SerializedName("sulphur_dioxide") val sulphurDioxide: Double? = null,
+    @SerializedName("ozone") val ozone: Double? = null
 )
 
 /**
@@ -49,7 +49,7 @@ data class AirQualityInfo(
 
         fun fromDto(dto: CurrentAirQualityDto?): AirQualityInfo {
             if (dto == null) return default
-            val rawAqi = dto.usAqi ?: dto.europeanAqi ?: 48
+            val rawAqi = (dto.usAqi ?: dto.europeanAqi)?.toInt() ?: 48
             return AirQualityInfo(
                 aqi = rawAqi,
                 category = AqiCategory.fromAqi(rawAqi),

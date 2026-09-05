@@ -22,6 +22,10 @@ object RetrofitClient {
         level = HttpLoggingInterceptor.Level.BASIC
     }
 
+    private val gson = com.google.gson.GsonBuilder()
+        .setLenient()
+        .create()
+
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .connectTimeout(15, TimeUnit.SECONDS)
@@ -36,7 +40,7 @@ object RetrofitClient {
         Retrofit.Builder()
             .baseUrl(WEATHER_BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(WeatherApiService::class.java)
     }
@@ -45,7 +49,7 @@ object RetrofitClient {
         Retrofit.Builder()
             .baseUrl(AIR_QUALITY_BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(AirQualityApiService::class.java)
     }
@@ -54,7 +58,7 @@ object RetrofitClient {
         Retrofit.Builder()
             .baseUrl(OVERPASS_BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(PlacesApiService::class.java)
     }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +18,7 @@ enum class NetworkStatus {
 
 /**
  * Monitors real-time network connectivity status using Android ConnectivityManager (CO5).
- * Emits reactive StateFlow updates for Compose UI and provides synchronous queries.
+ * Uses registerDefaultNetworkCallback for immediate and accurate network tracking.
  */
 class NetworkMonitor(
     context: Context,
@@ -45,35 +44,27 @@ class NetworkMonitor(
 
     fun isOnline(): Boolean {
         return try {
-            val cm = connectivityManager ?: return false
+            val cm = connectivityManager ?: return true // Optimistic default
             val activeNetwork = cm.activeNetwork ?: return false
             val capabilities = cm.getNetworkCapabilities(activeNetwork) ?: return false
-            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
-                    (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) ||
-                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET))
+            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
         } catch (e: Exception) {
             Log.e(tag, "Error checking network status: ${e.message}")
-            false
+            true // Optimistic fallback: allow HTTP requests to attempt
         }
     }
 
     private fun registerNetworkCallback() {
         try {
             val cm = connectivityManager ?: return
-            val request = NetworkRequest.Builder()
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .build()
-
-            cm.registerNetworkCallback(request, object : ConnectivityManager.NetworkCallback() {
+            cm.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
-                    Log.d(tag, "Network became available")
+                    Log.d(tag, "Network is available (ONLINE)")
                     updateStatus(NetworkStatus.ONLINE)
                 }
 
                 override fun onLost(network: Network) {
-                    Log.d(tag, "Network connection lost")
+                    Log.d(tag, "Network lost (OFFLINE)")
                     updateStatus(NetworkStatus.OFFLINE)
                 }
 
@@ -86,7 +77,7 @@ class NetworkMonitor(
                 }
             })
         } catch (e: Exception) {
-            Log.e(tag, "Failed to register network callback", e)
+            Log.e(tag, "Failed to register default network callback", e)
         }
     }
 

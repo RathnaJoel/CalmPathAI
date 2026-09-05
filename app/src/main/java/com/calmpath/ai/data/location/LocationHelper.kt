@@ -118,13 +118,20 @@ class LocationHelper(private val context: Context) {
         }
 
         try {
-            // Attempt high accuracy current location with token cancellation
-            val cts = CancellationTokenSource()
             val location: Location? = try {
-                fusedLocationClient.getCurrentLocation(
-                    Priority.PRIORITY_BALANCED_POWER_ACCURACY,
-                    cts.token
-                ).await() ?: fusedLocationClient.lastLocation.await()
+                // Check cached lastLocation first for instant response
+                val lastLoc = try { fusedLocationClient.lastLocation.await() } catch (e: Exception) { null }
+                if (lastLoc != null) {
+                    lastLoc
+                } else {
+                    val cts = CancellationTokenSource()
+                    kotlinx.coroutines.withTimeoutOrNull(2500L) {
+                        fusedLocationClient.getCurrentLocation(
+                            Priority.PRIORITY_BALANCED_POWER_ACCURACY,
+                            cts.token
+                        ).await()
+                    }
+                }
             } catch (e: SecurityException) {
                 Log.e(tag, "SecurityException while accessing location: ${e.message}")
                 null

@@ -248,9 +248,9 @@ class CalmPathLogicTest {
         val weatherDto = CurrentWeatherDto(
             time = "2026-09-05T10:00",
             temperature2m = 26.8,
-            relativeHumidity2m = 65,
+            relativeHumidity2m = 65.0,
             apparentTemperature = 28.2,
-            weatherCode = 1,
+            weatherCode = 1.0,
             windSpeed10m = 8.5
         )
         val weather = WeatherInfo.fromDto(weatherDto)
@@ -261,8 +261,8 @@ class CalmPathLogicTest {
 
         val aqiDto = CurrentAirQualityDto(
             time = "2026-09-05T10:00",
-            usAqi = 42,
-            europeanAqi = 30,
+            usAqi = 42.0,
+            europeanAqi = 30.0,
             pm10 = 22.0,
             pm25 = 11.5,
             carbonMonoxide = 210.0,

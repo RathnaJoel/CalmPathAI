@@ -238,16 +238,30 @@ fun HomeScreen(
                 }
             }
 
-            // CO5: Offline Banner with Retry Button
+            // CO5: Offline / Sync Banner with Retry Button
             item {
-                val isOffline = uiState.networkStatus == NetworkStatus.OFFLINE || uiState.dataLoadState is DataLoadState.OfflineCached
-                AnimatedVisibility(visible = isOffline) {
+                val isOffline = uiState.networkStatus == NetworkStatus.OFFLINE
+                val isError = uiState.dataLoadState is DataLoadState.Error
+                val showBanner = isOffline || isError
+                val bannerMessage = if (isOffline) {
+                    "No internet connection. Showing last available data."
+                } else {
+                    "Live service temporarily unreachable. Showing cached data."
+                }
+
+                AnimatedVisibility(visible = showBanner) {
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp, vertical = 6.dp),
                         shape = RoundedCornerShape(14.dp),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.25f))
+                        colors = CardDefaults.cardColors(
+                            containerColor = if (isOffline) {
+                                MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.25f)
+                            } else {
+                                Sage100.copy(alpha = 0.6f)
+                            }
+                        )
                     ) {
                         Row(
                             modifier = Modifier
@@ -262,13 +276,13 @@ fun HomeScreen(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Icon(
-                                    imageVector = Icons.Rounded.CloudOff,
-                                    contentDescription = "Offline",
-                                    tint = MaterialTheme.colorScheme.error,
+                                    imageVector = if (isOffline) Icons.Rounded.CloudOff else Icons.Rounded.WarningAmber,
+                                    contentDescription = if (isOffline) "Offline" else "Cache Notice",
+                                    tint = if (isOffline) MaterialTheme.colorScheme.error else Sage800,
                                     modifier = Modifier.size(20.dp)
                                 )
                                 Text(
-                                    text = "No internet connection. Showing last available data.",
+                                    text = bannerMessage,
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )

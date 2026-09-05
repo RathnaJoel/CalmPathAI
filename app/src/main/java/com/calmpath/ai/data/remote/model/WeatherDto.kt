@@ -13,12 +13,12 @@ data class WeatherResponse(
 )
 
 data class CurrentWeatherDto(
-    @SerializedName("time") val time: String?,
-    @SerializedName("temperature_2m") val temperature2m: Double,
-    @SerializedName("relative_humidity_2m") val relativeHumidity2m: Int,
-    @SerializedName("apparent_temperature") val apparentTemperature: Double,
-    @SerializedName("weather_code") val weatherCode: Int,
-    @SerializedName("wind_speed_10m") val windSpeed10m: Double
+    @SerializedName("time") val time: String? = null,
+    @SerializedName("temperature_2m") val temperature2m: Double? = null,
+    @SerializedName("relative_humidity_2m") val relativeHumidity2m: Double? = null,
+    @SerializedName("apparent_temperature") val apparentTemperature: Double? = null,
+    @SerializedName("weather_code") val weatherCode: Double? = null,
+    @SerializedName("wind_speed_10m") val windSpeed10m: Double? = null
 )
 
 /**
@@ -44,14 +44,15 @@ data class WeatherInfo(
 
         fun fromDto(dto: CurrentWeatherDto?): WeatherInfo {
             if (dto == null) return default
-            val (condition, icon) = mapWmoWeatherCode(dto.weatherCode)
+            val code = dto.weatherCode?.toInt() ?: 0
+            val (condition, icon) = mapWmoWeatherCode(code)
             return WeatherInfo(
-                temperatureC = dto.temperature2m.toInt(),
-                feelsLikeC = dto.apparentTemperature.toInt(),
-                humidityPercent = dto.relativeHumidity2m,
+                temperatureC = dto.temperature2m?.toInt() ?: default.temperatureC,
+                feelsLikeC = dto.apparentTemperature?.toInt() ?: default.feelsLikeC,
+                humidityPercent = dto.relativeHumidity2m?.toInt() ?: default.humidityPercent,
                 weatherCondition = condition,
                 weatherIcon = icon,
-                windSpeedKmH = dto.windSpeed10m
+                windSpeedKmH = dto.windSpeed10m ?: default.windSpeedKmH
             )
         }
 
