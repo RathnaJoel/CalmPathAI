@@ -1,10 +1,15 @@
 package com.calmpath.ai.ui.screens.home
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,16 +24,23 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.CloudOff
 import androidx.compose.material.icons.rounded.Edit
-import androidx.compose.material.icons.rounded.Explore
-import androidx.compose.material.icons.rounded.Notifications
+import androidx.compose.material.icons.rounded.LocationOn
+import androidx.compose.material.icons.rounded.Public
+import androidx.compose.material.icons.rounded.Refresh
+import androidx.compose.material.icons.rounded.WarningAmber
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -38,19 +50,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.calmpath.ai.data.remote.NetworkStatus
 import com.calmpath.ai.ui.components.AqiIndicatorCard
 import com.calmpath.ai.ui.components.DecibelMeterCard
 import com.calmpath.ai.ui.components.HorizontalPlaceCard
 import com.calmpath.ai.ui.components.PeaceScoreCard
 import com.calmpath.ai.ui.components.VerticalPlaceCard
 import com.calmpath.ai.ui.components.WeatherCard
+import com.calmpath.ai.ui.theme.OceanTeal
 import com.calmpath.ai.ui.theme.Sage100
+import com.calmpath.ai.ui.theme.Sage700
 import com.calmpath.ai.ui.theme.Sage800
+import com.calmpath.ai.ui.viewmodel.DataLoadState
 import com.calmpath.ai.ui.viewmodel.HomeViewModel
 import java.util.Calendar
 
 /**
- * Screen 3 & 5: Home Dashboard & Recommended Places (CO1, CO2, CO3).
+ * Screen 3 & 5: Home Dashboard & Recommended Places (CO1, CO2, CO3, CO4, CO5).
+ * Integrates live REST API environmental telemetry, Location Services, and Room caching.
  */
 @Composable
 fun HomeScreen(
@@ -60,6 +77,24 @@ fun HomeScreen(
     onNavigateToExplore: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    // Location Permission Launcher
+    val locationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val fineGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+        val coarseGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+        viewModel.onLocationPermissionResult(fineGranted || coarseGranted)
+    }
+
+    LaunchedEffect(Unit) {
+        locationPermissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+    }
 
     val greeting = when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
         in 5..11 -> "Good morning!"
@@ -75,14 +110,14 @@ fun HomeScreen(
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = androidx.compose.foundation.layout.PaddingValues(bottom = 90.dp)
+            contentPadding = PaddingValues(bottom = 90.dp)
         ) {
             // Header: Greeting & Mood Badge
             item {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 16.dp)
+                        .padding(horizontal = 20.dp, vertical = 14.dp)
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -137,26 +172,213 @@ fun HomeScreen(
                 }
             }
 
-            // Environmental Dashboard Section
+            // CO5: Location Banner & Network Telemetry Pill
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 4.dp),
+                    shape = RoundedCornerShape(18.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 10.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.LocationOn,
+                                contentDescription = "Location",
+                                tint = Sage800,
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Column {
+                                Text(
+                                    text = uiState.currentLocality,
+                                    style = MaterialTheme.typography.labelLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = "Updated just now",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f)
+                                )
+                            }
+                        }
+
+                        // Status Badge: Live API vs Cached Room
+                        val isLive = uiState.environmentalSummary.isLive
+                        val badgeBg = if (isLive) Sage100 else MaterialTheme.colorScheme.surface
+                        val badgeColor = if (isLive) Sage800 else OceanTeal
+                        val badgeText = if (isLive) "● Live API" else "○ Room Cache"
+
+                        Row(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(badgeBg)
+                                .padding(horizontal = 10.dp, vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Text(
+                                text = badgeText,
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.Bold,
+                                color = badgeColor
+                            )
+                        }
+                    }
+                }
+            }
+
+            // CO5: Offline Banner with Retry Button
+            item {
+                val isOffline = uiState.networkStatus == NetworkStatus.OFFLINE || uiState.dataLoadState is DataLoadState.OfflineCached
+                AnimatedVisibility(visible = isOffline) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 6.dp),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.25f))
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(
+                                modifier = Modifier.weight(1f),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.CloudOff,
+                                    contentDescription = "Offline",
+                                    tint = MaterialTheme.colorScheme.error,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                                Text(
+                                    text = "No internet connection. Showing last available data.",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                            Button(
+                                onClick = { viewModel.refreshEnvironmentalData() },
+                                shape = RoundedCornerShape(12.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = Sage800),
+                                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Refresh,
+                                    contentDescription = "Retry",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(14.dp)
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(text = "Retry", style = MaterialTheme.typography.labelSmall, color = Color.White)
+                            }
+                        }
+                    }
+                }
+            }
+
+            // CO5: Outside India Notice
+            item {
+                AnimatedVisibility(visible = uiState.dataLoadState is DataLoadState.OutsideIndia) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 6.dp),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f))
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(14.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Public,
+                                contentDescription = "Country Notice",
+                                tint = Sage800,
+                                modifier = Modifier.size(24.dp)
+                            )
+                            Text(
+                                text = "CalmPath is currently available only in India.",
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                    }
+                }
+            }
+
+            // Loading state indicator
+            item {
+                AnimatedVisibility(visible = uiState.isLoading) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 4.dp)
+                    ) {
+                        LinearProgressIndicator(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(3.dp),
+                            color = Sage800,
+                            trackColor = Sage100
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Updating environmental data...",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Sage700
+                        )
+                    }
+                }
+            }
+
+            // Environmental Dashboard Section (CO5)
             item {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp),
+                        .padding(horizontal = 20.dp, vertical = 6.dp),
                     verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
-                    // Peace Score Summary Card
+                    // Peace Score Summary Card (Calculated via PeaceScoreCalculator)
                     PeaceScoreCard(
                         score = uiState.environmentalSummary.peaceScore,
                         description = uiState.environmentalSummary.peaceDescription
                     )
 
-                    // Decibel / Noise Meter Card
-                    DecibelMeterCard(
-                        currentDb = uiState.environmentalSummary.noiseDb
-                    )
+                    // Decibel / Noise Meter Card (Clearly distinguished as baseline estimate)
+                    Column {
+                        DecibelMeterCard(
+                            currentDb = uiState.environmentalSummary.noiseDb
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Acoustic baseline: Estimated peaceful ambient",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                            modifier = Modifier.padding(start = 6.dp)
+                        )
+                    }
 
-                    // Side-by-Side AQI & Weather Cards
+                    // Side-by-Side Live AQI & Weather Cards
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -179,7 +401,7 @@ fun HomeScreen(
 
             // Recommended Places Section
             item {
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -215,7 +437,7 @@ fun HomeScreen(
             // Horizontal Carousel of places
             item {
                 LazyRow(
-                    contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 20.dp),
+                    contentPadding = PaddingValues(horizontal = 20.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(uiState.recommendedPlaces.take(4)) { place ->

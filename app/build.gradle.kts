@@ -1,11 +1,21 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
-
 }
+
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { load(it) }
+    }
+}
+val weatherApiKey: String = localProperties.getProperty("WEATHER_API_KEY", "")
+val aqiApiKey: String = localProperties.getProperty("AQI_API_KEY", "")
 
 android {
     namespace = "com.calmpath.ai"
@@ -22,6 +32,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "WEATHER_API_KEY", "\"$weatherApiKey\"")
+        buildConfigField("String", "AQI_API_KEY", "\"$aqiApiKey\"")
     }
 
     buildTypes {
@@ -42,6 +55,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     packaging {
         resources {
@@ -81,6 +95,16 @@ dependencies {
 
     // Image loading
     implementation(libs.coil.compose)
+
+    // Networking (CO5)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.gson)
+
+    // Location Services (CO5)
+    implementation(libs.play.services.location)
 
     // Testing
     testImplementation(libs.junit)

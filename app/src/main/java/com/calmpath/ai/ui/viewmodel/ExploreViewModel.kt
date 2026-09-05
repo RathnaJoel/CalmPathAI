@@ -3,8 +3,11 @@ package com.calmpath.ai.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.calmpath.ai.data.location.LocationHelper
+import com.calmpath.ai.data.location.LocationResult
 import com.calmpath.ai.data.model.HeatmapZone
 import com.calmpath.ai.data.model.Place
+import com.calmpath.ai.data.remote.NetworkStatus
 import com.calmpath.ai.data.repository.CalmPathRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +24,13 @@ data class ExploreUiState(
     val filteredPlaces: List<Place> = emptyList(),
     val selectedPlaceForPreview: Place? = null,
     val favoritePlaceIds: Set<String> = emptySet(),
-    val isMapView: Boolean = true
+    val isMapView: Boolean = true,
+    val networkStatus: NetworkStatus = NetworkStatus.ONLINE,
+    val currentLocality: String = LocationHelper.DEFAULT_LOCALITY,
+    val currentLatitude: Double = LocationHelper.DEFAULT_LATITUDE,
+    val currentLongitude: Double = LocationHelper.DEFAULT_LONGITUDE,
+    val isOutsideIndia: Boolean = false,
+    val isLoading: Boolean = false
 )
 
 class ExploreViewModel(
@@ -34,7 +43,17 @@ class ExploreViewModel(
     val uiState: StateFlow<ExploreUiState> = _uiState.asStateFlow()
 
     init {
+        observeNetwork()
         observeRoomPlaces()
+        refreshNearbyPlaces()
+    }
+
+    private fun observeNetwork() {
+        viewModelScope.launch {
+            repository.networkMonitor?.networkStatus?.collect { status ->
+                _uiState.value = _uiState.value.copy(networkStatus = status)
+            }
+        }
     }
 
     private fun observeRoomPlaces() {
@@ -43,7 +62,13 @@ class ExploreViewModel(
                 repository.placesFlow,
                 repository.favoritesWithPlacesFlow
             ) { placesEntities, favorites ->
-                val domainPlaces = placesEntities.map { it.toDomainModel() }
+                val lat = _uiState.value.currentLatitude
+                val lon = _uiState.value.currentLongitude
+                val domainPlaces = placesEntities.map { entity ->
+                    val dist = LocationHelper.calculateDistanceKm(lat, lon, entity.latitude, entity.longitude)
+                    entity.toDomainModel().copy(distanceKm = dist)
+                }.sortedBy { it.distanceKm }
+
                 val favIds = favorites.map { it.favorite.placeId }.toSet()
 
                 val query = _uiState.value.searchQuery
@@ -67,6 +92,60 @@ class ExploreViewModel(
             }.collect { newState ->
                 _uiState.value = newState
             }
+        }
+    }
+
+    fun refreshNearbyPlaces() {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true)
+
+            val locationResult = repository.locationHelper?.getCurrentLocation()
+                ?: LocationHelper.defaultLocation
+
+            when (locationResult) {
+                is LocationResult.OutsideIndia -> {
+                    _uiState.value = _uiState.value.copy(
+                        isOutsideIndia = true,
+                        currentLocality = locationResult.country,
+                        isLoading = false
+                    )
+                    return@launch
+                }
+                is LocationResult.Success -> {
+                    _uiState.value = _uiState.value.copy(
+                        isOutsideIndia = false,
+                        currentLocality = locationResult.locality,
+                        currentLatitude = locationResult.latitude,
+                        currentLongitude = locationResult.longitude
+                    )
+                }
+                is LocationResult.Unavailable -> {
+                    _uiState.value = _uiState.value.copy(
+                        isOutsideIndia = false,
+                        currentLocality = locationResult.fallbackLocation.locality,
+                        currentLatitude = locationResult.fallbackLocation.latitude,
+                        currentLongitude = locationResult.fallbackLocation.longitude
+                    )
+                }
+                is LocationResult.PermissionDenied -> {
+                    _uiState.value = _uiState.value.copy(
+                        isOutsideIndia = false,
+                        currentLocality = LocationHelper.DEFAULT_LOCALITY,
+                        currentLatitude = LocationHelper.DEFAULT_LATITUDE,
+                        currentLongitude = LocationHelper.DEFAULT_LONGITUDE
+                    )
+                }
+            }
+
+            val lat = _uiState.value.currentLatitude
+            val lon = _uiState.value.currentLongitude
+
+            val places = repository.fetchNearbyPeacefulPlaces(lat, lon)
+            _uiState.value = _uiState.value.copy(
+                places = places,
+                isLoading = false
+            )
+            filterPlaces()
         }
     }
 

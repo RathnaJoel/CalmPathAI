@@ -110,7 +110,7 @@ enum class AqiCategory(
 }
 
 /**
- * Current environmental snapshot at user's location or sanctuary.
+ * Current environmental snapshot at user's location or sanctuary (CO5 extended).
  */
 data class EnvironmentalSummary(
     val aqi: Int = 36,
@@ -122,5 +122,9 @@ data class EnvironmentalSummary(
     val weatherIcon: String = "🌤️",
     val humidityPercent: Int = 54,
     val peaceScore: Int = 88,
-    val peaceDescription: String = "Excellent environment for relaxation and clarity."
+    val peaceDescription: String = "Excellent environment for relaxation and clarity.",
+    val isLive: Boolean = false,
+    val isCached: Boolean = false,
+    val localityName: String = "Mumbai, Maharashtra",
+    val lastUpdatedTimestamp: Long = System.currentTimeMillis()
 )
