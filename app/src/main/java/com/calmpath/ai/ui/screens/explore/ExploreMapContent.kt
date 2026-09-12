@@ -1,12 +1,17 @@
 package com.calmpath.ai.ui.screens.explore
 
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +31,7 @@ import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.LocationOn
 import androidx.compose.material.icons.rounded.MyLocation
 import androidx.compose.material.icons.rounded.Navigation
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -39,6 +45,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,6 +72,7 @@ import com.calmpath.ai.util.NavigationUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.compose.Circle
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
@@ -110,15 +121,52 @@ fun ExploreMapContent(
         position = CameraPosition.fromLatLngZoom(initialPosition, 13f)
     }
 
+    var showApiKeyDialog by remember { mutableStateOf(false) }
+
     // Animate camera whenever user taps a marker, clicks "My Location", or GPS position updates
     LaunchedEffect(cameraMoveTrigger) {
         if (cameraMoveTrigger > 0L) {
-            val target = LatLng(cameraTargetLat, cameraTargetLon)
-            val zoom = if (activeRouteDestination != null) 14.5f else 14f
-            cameraPositionState.animate(
-                update = CameraUpdateFactory.newLatLngZoom(target, zoom),
-                durationMs = 900
-            )
+            if (activeRouteDestination != null && routeCoordinates.isNotEmpty()) {
+                val boundsBuilder = LatLngBounds.builder()
+                boundsBuilder.include(LatLng(currentLat, currentLon))
+                boundsBuilder.include(LatLng(activeRouteDestination.latitude, activeRouteDestination.longitude))
+                routeCoordinates.forEach { (lat, lon) ->
+                    boundsBuilder.include(LatLng(lat, lon))
+                }
+                val bounds = boundsBuilder.build()
+                try {
+                    cameraPositionState.animate(
+                        update = CameraUpdateFactory.newLatLngBounds(bounds, 160),
+                        durationMs = 1000
+                    )
+                } catch (e: Exception) {
+                    val dLat = Math.abs(currentLat - activeRouteDestination.latitude)
+                    val dLon = Math.abs(currentLon - activeRouteDestination.longitude)
+                    val maxDelta = Math.max(dLat, dLon)
+                    val dynamicZoom = when {
+                        maxDelta > 15.0 -> 4.5f
+                        maxDelta > 8.0 -> 5.5f
+                        maxDelta > 4.0 -> 7.0f
+                        maxDelta > 2.0 -> 8.5f
+                        maxDelta > 1.0 -> 10.0f
+                        maxDelta > 0.5 -> 11.5f
+                        maxDelta > 0.1 -> 13.0f
+                        else -> 14.5f
+                    }
+                    val midLat = (currentLat + activeRouteDestination.latitude) / 2.0
+                    val midLon = (currentLon + activeRouteDestination.longitude) / 2.0
+                    cameraPositionState.animate(
+                        update = CameraUpdateFactory.newLatLngZoom(LatLng(midLat, midLon), dynamicZoom),
+                        durationMs = 1000
+                    )
+                }
+            } else {
+                val target = LatLng(cameraTargetLat, cameraTargetLon)
+                cameraPositionState.animate(
+                    update = CameraUpdateFactory.newLatLngZoom(target, 14f),
+                    durationMs = 900
+                )
+            }
         }
     }
 
@@ -157,8 +205,11 @@ fun ExploreMapContent(
 
             // Peaceful Sanctuary Place Markers
             places.forEach { place ->
+                val markerState = remember(place.id, place.latitude, place.longitude) {
+                    MarkerState(position = LatLng(place.latitude, place.longitude))
+                }
                 Marker(
-                    state = MarkerState(position = LatLng(place.latitude, place.longitude)),
+                    state = markerState,
                     title = "${place.categoryIcon} ${place.name}",
                     snippet = "Peace Score: ${place.peaceScore}/100 • AQI: ${place.aqi} • ${place.noiseDb} dB",
                     onClick = {
@@ -184,8 +235,11 @@ fun ExploreMapContent(
                     width = 6f
                 )
                 // Origin location pin
+                val originState = remember(currentLat, currentLon) {
+                    MarkerState(position = LatLng(currentLat, currentLon))
+                }
                 Marker(
-                    state = MarkerState(position = LatLng(currentLat, currentLon)),
+                    state = originState,
                     title = "📍 Your Location",
                     snippet = "Navigation Starting Point"
                 )
@@ -224,30 +278,46 @@ fun ExploreMapContent(
         if (isDemoApiKey) {
             Surface(
                 modifier = Modifier
-                    .align(Alignment.TopCenter)
+                    .align(if (activeRouteDestination != null) Alignment.BottomCenter else Alignment.TopCenter)
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 6.dp),
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = if (activeRouteDestination != null) 20.dp else 8.dp
+                    )
+                    .clickable { showApiKeyDialog = true },
                 shape = RoundedCornerShape(10.dp),
-                color = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.92f),
-                shadowElevation = 2.dp
+                color = Color(0xFFFFF3CD),
+                shadowElevation = 3.dp,
+                border = BorderStroke(1.dp, Color(0xFFFFEEBA))
             ) {
                 Row(
-                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(
-                        imageVector = Icons.Rounded.Info,
-                        contentDescription = "Maps Info",
-                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
-                        modifier = Modifier.size(16.dp)
-                    )
+                    Row(
+                        modifier = Modifier.weight(1f),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Info,
+                            contentDescription = "Maps Info",
+                            tint = Color(0xFF856404),
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Text(
+                            text = "Blank Map? Tap to add Google Maps API Key",
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFF856404)
+                        )
+                    }
                     Text(
-                        text = "Demo Mode: Add MAPS_API_KEY in local.properties for production tiles.",
+                        text = "Setup ➔",
                         style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onTertiaryContainer,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF856404)
                     )
                 }
             }
@@ -259,7 +329,7 @@ fun ExploreMapContent(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = if (isDemoApiKey) 40.dp else 10.dp),
+                .padding(horizontal = 16.dp, vertical = 10.dp),
             enter = slideInVertically(initialOffsetY = { -it }) + fadeIn(),
             exit = slideOutVertically(targetOffsetY = { -it }) + fadeOut()
         ) {
@@ -587,6 +657,82 @@ fun ExploreMapContent(
                     }
                 }
             }
+        }
+
+        // 5. Setup Guide Dialog for Google Maps API Key
+        if (showApiKeyDialog) {
+            AlertDialog(
+                onDismissRequest = { showApiKeyDialog = false },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Rounded.LocationOn,
+                        contentDescription = null,
+                        tint = Sage800,
+                        modifier = Modifier.size(28.dp)
+                    )
+                },
+                title = {
+                    Text(
+                        text = "Google Maps API Key Setup",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                },
+                text = {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = "Why is the map background blank beige?",
+                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = "Google Maps requires a free API key from Google Cloud Console to stream street and terrain map tiles. Without it, Google servers refuse authorization, showing only a beige canvas with the Google logo.",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "3-Step Setup Instructions:",
+                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = Sage800
+                        )
+                        Text(
+                            text = "1. Open Google Cloud Console\n2. Enable 'Maps SDK for Android'\n3. Generate an API Key (package: com.calmpath.ai)\n4. Paste into D:\\CalmPathAI\\local.properties:\n   MAPS_API_KEY=AIzaSy...\n5. Rebuild and launch the app!",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            val intent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://console.cloud.google.com/google/maps-apis/credentials")
+                            )
+                            try {
+                                context.startActivity(intent)
+                            } catch (e: Exception) {
+                                Toast.makeText(context, "Could not open browser", Toast.LENGTH_SHORT).show()
+                            }
+                            showApiKeyDialog = false
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Sage800)
+                    ) {
+                        Text("Open Cloud Console", color = Color.White)
+                    }
+                },
+                dismissButton = {
+                    OutlinedButton(onClick = { showApiKeyDialog = false }) {
+                        Text("Close")
+                    }
+                }
+            )
         }
     }
 }
