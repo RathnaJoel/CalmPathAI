@@ -34,8 +34,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -45,11 +47,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.calmpath.ai.data.model.CalmnessLevel
+import com.calmpath.ai.ui.components.CalmExperienceCard
 import com.calmpath.ai.ui.components.DecibelMeterCard
 import com.calmpath.ai.ui.components.PeaceScoreCard
 import com.calmpath.ai.ui.theme.OceanTeal
@@ -69,7 +73,7 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 
 /**
- * Screen 5: Place Details Screen (CO1, CO2, CO3, CO4, CO6).
+ * Screen 5: Place Details Screen (CO1, CO2, CO3, CO4, CO6, CO7).
  */
 @Composable
 fun PlaceDetailsScreen(
@@ -78,9 +82,17 @@ fun PlaceDetailsScreen(
     onNavigateToExplore: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val audioPlayerState by viewModel.audioPlayerState.collectAsState()
     val place = uiState.place
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+
+    // CO7: Automatically stop audio playback when leaving PlaceDetailsScreen to prevent background leaks
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.stopAudio()
+        }
+    }
 
     if (place == null) {
         Box(
@@ -248,6 +260,57 @@ fun PlaceDetailsScreen(
                     description = "Combines pristine AQI of ${place.aqi} and ultra-quiet ${place.noiseDb} dB ambient acoustics."
                 )
 
+                // CO9: Machine Learning Suitability Predictor Card
+                Card(
+                    shape = RoundedCornerShape(18.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(14.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(text = "🧠", fontSize = 22.sp)
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Column {
+                                Text(
+                                    text = "Personalized ML Suitability",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = uiState.mlMatchReason ?: "Random Forest Regressor • Model v1.0",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+                        }
+
+                        Surface(
+                            shape = RoundedCornerShape(10.dp),
+                            color = Sage800
+                        ) {
+                            Text(
+                                text = "${uiState.mlSuitabilityScore ?: place.peaceScore}/100",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                style = MaterialTheme.typography.labelMedium,
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                            )
+                        }
+                    }
+                }
+
                 // Decibel / Noise Meter
                 DecibelMeterCard(
                     currentDb = place.noiseDb
@@ -379,6 +442,18 @@ fun PlaceDetailsScreen(
                         }
                     }
                 }
+
+                // CO7: Interactive Multimedia "Calm Experience" Audio Player
+                CalmExperienceCard(
+                    playerState = audioPlayerState,
+                    selectedCategory = place.category,
+                    onPlayTrack = { track -> viewModel.playAudio(track) },
+                    onPause = { viewModel.pauseAudio() },
+                    onResume = { viewModel.resumeAudio() },
+                    onStop = { viewModel.stopAudio() },
+                    onSeek = { positionMs -> viewModel.seekAudio(positionMs) }
+                )
+
                 // CO6: Embedded Interactive Google Map for Sanctuary Location
                 Card(
                     shape = RoundedCornerShape(18.dp),

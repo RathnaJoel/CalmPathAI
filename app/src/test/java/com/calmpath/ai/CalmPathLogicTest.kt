@@ -4,6 +4,7 @@ import com.calmpath.ai.data.domain.PeaceScoreCalculator
 import com.calmpath.ai.data.local.Converters
 import com.calmpath.ai.data.local.DatabaseSeeder
 import com.calmpath.ai.data.local.entities.AppSettingsEntity
+import com.calmpath.ai.data.local.entities.ChatMessageEntity
 import com.calmpath.ai.data.local.entities.EnvironmentalSnapshotEntity
 import com.calmpath.ai.data.local.entities.FavoritePlaceEntity
 import com.calmpath.ai.data.local.entities.MoodHistoryEntity
@@ -20,6 +21,18 @@ import com.calmpath.ai.data.remote.model.AirQualityInfo
 import com.calmpath.ai.data.remote.model.CurrentAirQualityDto
 import com.calmpath.ai.data.remote.model.CurrentWeatherDto
 import com.calmpath.ai.data.remote.model.WeatherInfo
+import com.calmpath.ai.data.local.entities.RecommendationInteractionEntity
+import com.calmpath.ai.data.model.Place
+import com.calmpath.ai.media.AudioPlaybackState
+import com.calmpath.ai.media.AudioPlayerUiState
+import com.calmpath.ai.media.AudioTrack
+import com.calmpath.ai.ml.FeaturePreprocessor
+import com.calmpath.ai.ml.PeaceRecommendationModel
+import com.calmpath.ai.ml.PlaceFeatureBuilder
+import com.calmpath.ai.ml.RawPlaceFeatures
+import com.calmpath.ai.ml.RecommendationEngine
+import com.calmpath.ai.ml.TreeNode
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -481,5 +494,483 @@ class CalmPathLogicTest {
         val rawHtml = "Head <b>east</b> on <b>Old Custom House Rd</b> toward <div style=\"font-size:0.9em\">Mint Rd</div>"
         val cleaned = com.calmpath.ai.util.NavigationUtils.cleanHtmlInstructions(rawHtml)
         assertEquals("Head east on Old Custom House Rd toward Mint Rd", cleaned)
+    }
+
+    // ==========================================
+    // CO7: MULTIMEDIA & AUDIO SERVICE TESTS
+    // ==========================================
+
+    @Test
+    fun testAudioTrackCategoryRecommendations() {
+        assertEquals(AudioTrack.NATURE, AudioTrack.recommendedForCategory("Parks"))
+        assertEquals(AudioTrack.NATURE, AudioTrack.recommendedForCategory("Fitness"))
+        assertEquals(AudioTrack.MEDITATION, AudioTrack.recommendedForCategory("Meditation"))
+        assertEquals(AudioTrack.MEDITATION, AudioTrack.recommendedForCategory("Libraries"))
+        assertEquals(AudioTrack.RAIN, AudioTrack.recommendedForCategory("Lakes"))
+        assertEquals(AudioTrack.RAIN, AudioTrack.recommendedForCategory("Cafes"))
+        assertEquals(AudioTrack.NATURE, AudioTrack.recommendedForCategory("unknown_category"))
+    }
+
+    @Test
+    fun testAudioPlayerUiStateProgressCalculation() {
+        val idleState = AudioPlayerUiState(state = AudioPlaybackState.IDLE, durationMs = 0L, currentPositionMs = 0L)
+        assertEquals(0f, idleState.progressPercent, 0.001f)
+        assertFalse(idleState.isPlaying)
+        assertFalse(idleState.isPaused)
+
+        val playingState = AudioPlayerUiState(
+            state = AudioPlaybackState.PLAYING,
+            currentTrack = AudioTrack.NATURE,
+            currentPositionMs = 30000L,
+            durationMs = 60000L
+        )
+        assertEquals(0.5f, playingState.progressPercent, 0.001f)
+        assertTrue(playingState.isPlaying)
+        assertFalse(playingState.isPaused)
+
+        val pausedState = AudioPlayerUiState(
+            state = AudioPlaybackState.PAUSED,
+            currentTrack = AudioTrack.MEDITATION,
+            currentPositionMs = 45000L,
+            durationMs = 60000L
+        )
+        assertEquals(0.75f, pausedState.progressPercent, 0.001f)
+        assertFalse(pausedState.isPlaying)
+        assertTrue(pausedState.isPaused)
+
+        // Clamped bounds: position > duration
+        val clampedState = AudioPlayerUiState(
+            state = AudioPlaybackState.PLAYING,
+            currentPositionMs = 70000L,
+            durationMs = 60000L
+        )
+        assertEquals(1.0f, clampedState.progressPercent, 0.001f)
+    }
+
+    @Test
+    fun testAllAudioTracksHaveValidMetadata() {
+        assertEquals(3, AudioTrack.ALL_TRACKS.size)
+        for (track in AudioTrack.ALL_TRACKS) {
+            assertTrue("Track ID must not be blank", track.id.isNotBlank())
+            assertTrue("Track title must not be blank", track.title.isNotBlank())
+            assertTrue("Track subtitle must not be blank", track.subtitle.isNotBlank())
+            assertTrue("Track icon must not be blank", track.icon.isNotBlank())
+            assertTrue("Track rawResId must be valid resource", track.rawResId != 0)
+        }
+    }
+
+    @Test
+    fun testCO7EndToEndInteractiveWorkflow() {
+        // 1. GPS Location Determination
+        val userLat = 18.9322
+        val userLon = 72.8358
+        assertTrue("User location must be within India geofence", LocationHelper.isLocationInIndia(userLat, userLon))
+
+        // 2. Network Environmental Telemetry (Open-Meteo & CPCB NAQI simulated)
+        val weatherDto = CurrentWeatherDto(
+            time = "2026-09-12T10:00",
+            temperature2m = 25.0,
+            relativeHumidity2m = 60.0,
+            apparentTemperature = 26.0,
+            weatherCode = 0.0, // Clear Sky
+            windSpeed10m = 5.0
+        )
+        val weather = WeatherInfo.fromDto(weatherDto)
+        val aqiDto = CurrentAirQualityDto(
+            time = "2026-09-12T10:00",
+            usAqi = 35.0,
+            europeanAqi = 25.0,
+            pm10 = 18.0,
+            pm25 = 8.0,
+            carbonMonoxide = 150.0,
+            nitrogenDioxide = 10.0,
+            sulphurDioxide = 2.0,
+            ozone = 25.0
+        )
+        val aqi = AirQualityInfo.fromDto(aqiDto)
+
+        // 3. Peace Score Engine evaluates sanctuary
+        val calculator = PeaceScoreCalculator()
+        val peaceScore = calculator.calculatePeaceScore(
+            aqi = aqi.indianAqi,
+            noiseDb = 38,
+            temperatureC = weather.temperatureC,
+            weatherCondition = weather.weatherCondition,
+            distanceKm = 1.8,
+            userRating = 4.8
+        )
+        assertTrue("Peace Score must reflect high tranquility (>= 80)", peaceScore >= 80)
+
+        // 4. Google Maps Route Rendering to Sanctuary
+        val destLat = 18.9220
+        val destLon = 72.8347
+        val routeWaypoints = com.calmpath.ai.util.NavigationUtils.generateTranquilRouteCoordinates(
+            userLat, userLon, destLat, destLon
+        )
+        assertTrue("Map route should have waypoints", routeWaypoints.size >= 5)
+
+        // 5. Multimedia Service Experience (Image + Recommended Audio)
+        val placeCategory = "Parks"
+        val recommendedAudio = AudioTrack.recommendedForCategory(placeCategory)
+        assertEquals(AudioTrack.NATURE, recommendedAudio)
+        assertEquals("🌿", recommendedAudio.icon)
+    }
+
+    @Test
+    fun testChatMessageEntityCreation() {
+        val now = System.currentTimeMillis()
+        val userMsg = ChatMessageEntity(
+            messageId = "msg_1",
+            userId = "guest",
+            conversationId = "conv_default",
+            role = ChatMessageEntity.ROLE_USER,
+            message = "Find a quiet park near me with good AQI",
+            timestamp = now
+        )
+        val modelMsg = ChatMessageEntity(
+            messageId = "msg_2",
+            userId = "guest",
+            conversationId = "conv_default",
+            role = ChatMessageEntity.ROLE_ASSISTANT,
+            message = "I recommend Hanging Gardens in Malabar Hill with an AQI of 42 and Peace Score of 88.",
+            recommendedPlaceId = "place_1",
+            action = ChatMessageEntity.ACTION_SHOW_PLACE,
+            timestamp = now + 1000
+        )
+
+        assertEquals("msg_1", userMsg.messageId)
+        assertEquals(ChatMessageEntity.ROLE_USER, userMsg.role)
+        assertEquals("Find a quiet park near me with good AQI", userMsg.message)
+        assertEquals(null, userMsg.recommendedPlaceId)
+        assertEquals("NONE", userMsg.action)
+        assertTrue(userMsg.isUser)
+        assertFalse(userMsg.isAssistant)
+
+        assertEquals("msg_2", modelMsg.messageId)
+        assertEquals(ChatMessageEntity.ROLE_ASSISTANT, modelMsg.role)
+        assertEquals("place_1", modelMsg.recommendedPlaceId)
+        assertEquals(ChatMessageEntity.ACTION_SHOW_PLACE, modelMsg.action)
+        assertTrue(modelMsg.timestamp > userMsg.timestamp)
+        assertTrue(modelMsg.isAssistant)
+        assertFalse(modelMsg.isUser)
+    }
+
+    @Test
+    fun testDynamicDistanceCalculation() {
+        val place = PlaceEntity(
+            placeId = "pl_dist_test",
+            name = "Marine Drive Promenade",
+            category = "Waterfronts",
+            address = "Marine Drive, Mumbai",
+            latitude = 18.9432,
+            longitude = 72.8230,
+            description = "Tranquil sea breeze and gentle wave sounds",
+            imageUrl = "https://images.unsplash.com/photo-1570168007204-dfb528c6958f",
+            averageAQI = 48,
+            averageNoiseLevel = 52,
+            peaceScore = 84
+        )
+
+        // Point A: Nariman Point (~1.5 km away)
+        val userLatA = 18.9256
+        val userLonA = 72.8242
+        val domainModelA = place.toDomainModel(userLat = userLatA, userLon = userLonA)
+
+        // Point B: Bandra Bandstand (~14 km away)
+        val userLatB = 19.0475
+        val userLonB = 72.8180
+        val domainModelB = place.toDomainModel(userLat = userLatB, userLon = userLonB)
+
+        // Verify distance is dynamically calculated and NOT hardcoded to 1.5 km
+        assertTrue("Distance from Point A should be around 1.0 - 3.0 km (was ${domainModelA.distanceKm})", domainModelA.distanceKm in 1.0..3.0)
+        assertTrue("Distance from Point B should be around 10.0 - 16.0 km (was ${domainModelB.distanceKm})", domainModelB.distanceKm in 10.0..16.0)
+        assertFalse("Dynamic distance must change when user location changes", domainModelA.distanceKm == domainModelB.distanceKm)
+    }
+
+    @Test
+    fun testCO8AIAssistantContextReasoning() {
+        val contextDto = com.calmpath.ai.data.remote.api.CalmPathContextDto(
+            mood = "meditate",
+            latitude = 18.9322,
+            longitude = 72.8358,
+            locality = "Mumbai, Maharashtra",
+            aqi = 45,
+            noiseDb = 42,
+            temperatureC = 26,
+            weather = "26°C, Clear Sky",
+            places = listOf(
+                com.calmpath.ai.data.remote.api.CandidatePlaceDto(
+                    id = "place_1",
+                    name = "Hanging Gardens",
+                    category = "Parks",
+                    distanceKm = 2.1,
+                    peaceScore = 91,
+                    aqi = 40,
+                    noiseDb = 36,
+                    address = "Malabar Hill, Mumbai"
+                )
+            )
+        )
+
+        assertEquals("meditate", contextDto.mood)
+        assertEquals(45, contextDto.aqi)
+        assertEquals(1, contextDto.places.size)
+        assertEquals("Hanging Gardens", contextDto.places[0].name)
+        assertEquals("Parks", contextDto.places[0].category)
+        assertEquals(91, contextDto.places[0].peaceScore)
+    }
+
+    // ==========================================
+    // CO9: MACHINE LEARNING RECOMMENDATION TESTS
+    // ==========================================
+
+    @Test
+    fun testFeaturePreprocessorEncoding() {
+        assertEquals(0f, FeaturePreprocessor.encodeWeather("Clear"))
+        assertEquals(1f, FeaturePreprocessor.encodeWeather("Partly Cloudy"))
+        assertEquals(2f, FeaturePreprocessor.encodeWeather("Cloudy"))
+        assertEquals(3f, FeaturePreprocessor.encodeWeather("Rainy"))
+        assertEquals(4f, FeaturePreprocessor.encodeWeather("Thunderstorm"))
+        assertEquals(5f, FeaturePreprocessor.encodeWeather("Mist/Fog"))
+
+        assertEquals(0f, FeaturePreprocessor.encodeCategory("Parks"))
+        assertEquals(1f, FeaturePreprocessor.encodeCategory("Lakes"))
+        assertEquals(2f, FeaturePreprocessor.encodeCategory("Cafes"))
+        assertEquals(3f, FeaturePreprocessor.encodeCategory("Libraries"))
+        assertEquals(4f, FeaturePreprocessor.encodeCategory("Meditation"))
+        assertEquals(5f, FeaturePreprocessor.encodeCategory("Fitness"))
+
+        assertEquals(0f, FeaturePreprocessor.encodeMood("Relax"))
+        assertEquals(1f, FeaturePreprocessor.encodeMood("Meditate"))
+        assertEquals(2f, FeaturePreprocessor.encodeMood("Study"))
+        assertEquals(3f, FeaturePreprocessor.encodeMood("Exercise"))
+        assertEquals(4f, FeaturePreprocessor.encodeMood("Fresh Air"))
+        assertEquals(5f, FeaturePreprocessor.encodeMood("Quiet Time"))
+
+        val raw = RawPlaceFeatures(
+            aqi = 35.0,
+            pm25 = 18.0,
+            pm10 = 32.0,
+            noiseDb = 34.0,
+            temperature = 24.0,
+            humidity = 55.0,
+            weatherCondition = "Clear",
+            distanceKm = 1.8,
+            placeCategory = "Parks",
+            placeRating = 4.7,
+            timeOfDay = 10.0,
+            dayOfWeek = 4.0,
+            userMood = "Relax",
+            preferredCategory = "Parks",
+            maxDistance = 10.0,
+            userPreviousRating = 5.0
+        )
+
+        val array = FeaturePreprocessor.preprocess(raw)
+        assertEquals(FeaturePreprocessor.FEATURE_COUNT, array.size)
+        assertEquals(35f, array[0], 0.01f) // aqi
+        assertEquals(18f, array[1], 0.01f) // pm25
+        assertEquals(34f, array[3], 0.01f) // noiseDb
+        assertEquals(0f, array[6], 0.01f)  // weather Clear -> 0
+        assertEquals(0f, array[8], 0.01f)  // category Parks -> 0
+        assertEquals(0f, array[12], 0.01f) // mood Relax -> 0
+    }
+
+    @Test
+    fun testPeaceRecommendationModelPrediction() {
+        val modelFile = listOf(
+            File("src/main/assets/ml/peace_recommendation_rf_v1.json"),
+            File("app/src/main/assets/ml/peace_recommendation_rf_v1.json"),
+            File("D:/CalmPathAI/app/src/main/assets/ml/peace_recommendation_rf_v1.json")
+        ).firstOrNull { it.exists() }
+
+        val model = if (modelFile != null) {
+            PeaceRecommendationModel.loadFromStream(modelFile.inputStream())
+        } else {
+            PeaceRecommendationModel.createBaselineModel()
+        }
+
+        assertNotNull("Model must be loaded", model)
+        assertTrue("Model must have trees", model.trees.isNotEmpty())
+
+        val testFeatures = FloatArray(FeaturePreprocessor.FEATURE_COUNT) { 0f }
+        testFeatures[0] = 30f // Low AQI
+        testFeatures[3] = 32f // Low noise dB
+        testFeatures[4] = 23f // 23°C
+        testFeatures[7] = 1.2f // 1.2 km away
+        testFeatures[9] = 4.8f // 4.8 stars
+
+        val prediction = model.predict(testFeatures)
+        assertNotNull(prediction)
+        assertTrue("Predicted suitability must be in 0..100 range, was ${prediction.suitabilityScore}", prediction.suitabilityScore in 0..100)
+        assertTrue("Raw prediction must be in 0..100 range", prediction.rawPrediction in 0f..100f)
+        assertEquals("v1.0", prediction.modelVersion)
+    }
+
+    @Test
+    fun testDifferentMoodsProduceDifferentSuitabilityScores() {
+        val modelFile = listOf(
+            File("src/main/assets/ml/peace_recommendation_rf_v1.json"),
+            File("app/src/main/assets/ml/peace_recommendation_rf_v1.json"),
+            File("D:/CalmPathAI/app/src/main/assets/ml/peace_recommendation_rf_v1.json")
+        ).firstOrNull { it.exists() }
+
+        val model = if (modelFile != null) {
+            PeaceRecommendationModel.loadFromStream(modelFile.inputStream())
+        } else {
+            PeaceRecommendationModel.createBaselineModel()
+        }
+
+        // Feature vector for an ultra-quiet indoor library: noise 30 dB, AQI 25, category Libraries
+        val studyRaw = RawPlaceFeatures(
+            aqi = 25.0,
+            pm25 = 12.0,
+            pm10 = 22.0,
+            noiseDb = 30.0,
+            temperature = 22.0,
+            humidity = 50.0,
+            weatherCondition = "Clear",
+            distanceKm = 2.0,
+            placeCategory = "Libraries",
+            placeRating = 4.8,
+            timeOfDay = 14.0,
+            dayOfWeek = 3.0,
+            userMood = "Study",
+            preferredCategory = "Libraries",
+            maxDistance = 10.0,
+            userPreviousRating = 0.0
+        )
+
+        // Same physical place, but user is looking to "Exercise"
+        val exerciseRaw = studyRaw.copy(
+            userMood = "Exercise",
+            preferredCategory = "Fitness"
+        )
+
+        val studyVec = FeaturePreprocessor.preprocess(studyRaw)
+        val exerciseVec = FeaturePreprocessor.preprocess(exerciseRaw)
+
+        val studyPred = model.predict(studyVec)
+        val exercisePred = model.predict(exerciseVec)
+
+        // Different moods must produce distinct personalized suitability scores
+        assertTrue(
+            "Suitability scores must differ across different moods (Study: ${studyPred.suitabilityScore}, Exercise: ${exercisePred.suitabilityScore})",
+            studyPred.suitabilityScore != exercisePred.suitabilityScore
+        )
+
+        // For a noisy place (62 dB), Exercise suitability should be higher than Meditation
+        val noisyPlace = studyRaw.copy(noiseDb = 62.0)
+        val medNoisyVec = FeaturePreprocessor.preprocess(noisyPlace.copy(userMood = "Meditate", preferredCategory = "Meditation"))
+        val exNoisyVec = FeaturePreprocessor.preprocess(noisyPlace.copy(userMood = "Exercise", preferredCategory = "Fitness"))
+        val medPred = model.predict(medNoisyVec)
+        val exPred = model.predict(exNoisyVec)
+        assertTrue(
+            "Exercise suitability (${exPred.suitabilityScore}) should exceed Meditate suitability (${medPred.suitabilityScore}) for 62 dB place",
+            exPred.suitabilityScore > medPred.suitabilityScore
+        )
+    }
+
+    @Test
+    fun testRecommendationEngineRanking() {
+        val modelFile = listOf(
+            File("src/main/assets/ml/peace_recommendation_rf_v1.json"),
+            File("app/src/main/assets/ml/peace_recommendation_rf_v1.json"),
+            File("D:/CalmPathAI/app/src/main/assets/ml/peace_recommendation_rf_v1.json")
+        ).firstOrNull { it.exists() }
+
+        val model = if (modelFile != null) {
+            PeaceRecommendationModel.loadFromStream(modelFile.inputStream())
+        } else {
+            PeaceRecommendationModel.createBaselineModel()
+        }
+
+        val engine = RecommendationEngine(model)
+
+        val placeA = Place(
+            id = "p_gardens",
+            name = "Hanging Gardens",
+            category = "Parks",
+            categoryIcon = "🌿",
+            latitude = 18.9554,
+            longitude = 72.8052,
+            distanceKm = 1.2,
+            peaceScore = 92,
+            aqi = 28,
+            noiseDb = 32,
+            temperatureC = 24,
+            imageUrl = "",
+            address = "Malabar Hill, Mumbai",
+            description = "Quiet botanical garden",
+            recommendationReasons = emptyList()
+        )
+
+        val placeB = Place(
+            id = "p_busy_cafe",
+            name = "Noisy Traffic Cafe",
+            category = "Cafes",
+            categoryIcon = "☕",
+            latitude = 18.9322,
+            longitude = 72.8358,
+            distanceKm = 8.5,
+            peaceScore = 55,
+            aqi = 110,
+            noiseDb = 72,
+            temperatureC = 34,
+            imageUrl = "",
+            address = "Downtown Traffic Circle",
+            description = "Loud cafe",
+            recommendationReasons = emptyList()
+        )
+
+        val ranked = engine.rankPlaces(listOf(placeB, placeA), Mood.RELAX)
+        assertEquals(2, ranked.size)
+
+        // placeA should be ranked first due to high peace and clean air
+        assertEquals("p_gardens", ranked.first().place.id)
+        assertTrue("Top ranked place must be marked as best match", ranked.first().isBestMatch)
+        assertFalse("Second place should not be best match", ranked[1].isBestMatch)
+        assertTrue(
+            "Top place ML suitability (${ranked.first().mlSuitabilityScore}) should be >= second place (${ranked[1].mlSuitabilityScore})",
+            ranked.first().mlSuitabilityScore >= ranked[1].mlSuitabilityScore
+        )
+    }
+
+    @Test
+    fun testRecommendationInteractionEntityPersistence() {
+        val interaction = RecommendationInteractionEntity(
+            interactionId = "int_1",
+            userId = "test_user",
+            placeId = "place_hanging_gardens",
+            mood = "Relax",
+            mlScore = 94,
+            action = RecommendationInteractionEntity.ACTION_NAVIGATED,
+            userRating = 5,
+            timestamp = System.currentTimeMillis()
+        )
+
+        assertEquals("int_1", interaction.interactionId)
+        assertEquals("test_user", interaction.userId)
+        assertEquals("place_hanging_gardens", interaction.placeId)
+        assertEquals("Relax", interaction.mood)
+        assertEquals(94, interaction.mlScore)
+        assertEquals("NAVIGATED", interaction.action)
+        assertEquals(5, interaction.userRating)
+    }
+
+    @Test
+    fun testChatMessageEntityHoldsMlSuitabilityScore() {
+        val assistantMsg = ChatMessageEntity.createAssistantMessage(
+            userId = "guest",
+            message = "Since you're feeling stressed, Hanging Gardens is your best match.",
+            recommendedPlaceId = "place_1",
+            action = ChatMessageEntity.ACTION_SHOW_PLACE,
+            mlSuitabilityScore = 94
+        )
+
+        assertEquals("place_1", assistantMsg.recommendedPlaceId)
+        assertEquals(94, assistantMsg.mlSuitabilityScore)
+        assertEquals("SHOW_PLACE", assistantMsg.action)
+        assertTrue(assistantMsg.isAssistant)
     }
 }

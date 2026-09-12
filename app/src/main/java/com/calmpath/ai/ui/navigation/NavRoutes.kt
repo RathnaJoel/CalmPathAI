@@ -13,6 +13,8 @@ sealed class NavRoutes(val route: String) {
     data object Profile : NavRoutes("profile")
     data object History : NavRoutes("history")
     data object Settings : NavRoutes("settings")
+    data object Chat : NavRoutes("chat")
+    data object SmartAlerts : NavRoutes("smart_alerts")
 
     data object PlaceDetails : NavRoutes("place_details/{placeId}") {
         fun createRoute(placeId: String) = "place_details/$placeId"

@@ -34,5 +34,16 @@ data class AppSettingsEntity(
     val locationEnabled: Boolean = true,
     val distanceUnit: String = "km", // "km", "mi"
     val temperatureUnit: String = "°C", // "°C", "°F"
-    val soundUnit: String = "dB" // "dB"
+    val soundUnit: String = "dB", // "dB"
+    // CO10: Smart Alerts & Notifications Preferences
+    val smartAlertsEnabled: Boolean = true,
+    val environmentalAlertsEnabled: Boolean = true,
+    val aqiAlertsEnabled: Boolean = true,
+    val noiseAlertsEnabled: Boolean = true,
+    val weatherAlertsEnabled: Boolean = true,
+    val mlRecommendationsEnabled: Boolean = true,
+    val maxAqiThreshold: Int = 100,
+    val maxNoiseThreshold: Int = 60,
+    val minMlScoreThreshold: Int = 80,
+    val alertCooldownMinutes: Int = 30
 )

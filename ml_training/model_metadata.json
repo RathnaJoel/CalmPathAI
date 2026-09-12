@@ -1,0 +1,88 @@
+{
+  "modelVersion": "v1.0",
+  "modelName": "CalmPathPeaceRecommendationModel",
+  "target": "suitability_score",
+  "targetScale": [
+    0,
+    100
+  ],
+  "algorithm": "RandomForestRegressor",
+  "nEstimators": 30,
+  "maxDepth": 8,
+  "evaluationMetrics": {
+    "mae": 9.01,
+    "rmse": 11.361,
+    "r2": 0.7716
+  },
+  "featureNames": [
+    "aqi",
+    "pm25",
+    "pm10",
+    "noise_db",
+    "temperature",
+    "humidity",
+    "weather_condition",
+    "distance_km",
+    "place_category",
+    "place_rating",
+    "time_of_day",
+    "day_of_week",
+    "user_mood",
+    "preferred_category",
+    "max_distance",
+    "user_previous_rating"
+  ],
+  "categoricalEncodings": {
+    "weather_condition": {
+      "Clear": 0,
+      "Partly Cloudy": 1,
+      "Cloudy": 2,
+      "Rainy": 3,
+      "Thunderstorm": 4,
+      "Mist/Fog": 5
+    },
+    "place_category": {
+      "Parks": 0,
+      "Lakes": 1,
+      "Cafes": 2,
+      "Libraries": 3,
+      "Meditation": 4,
+      "Fitness": 5
+    },
+    "user_mood": {
+      "Relax": 0,
+      "Meditate": 1,
+      "Study": 2,
+      "Exercise": 3,
+      "Fresh Air": 4,
+      "Quiet Time": 5
+    },
+    "preferred_category": {
+      "All": 0,
+      "Parks": 1,
+      "Lakes": 2,
+      "Cafes": 3,
+      "Libraries": 4,
+      "Meditation": 5,
+      "Fitness": 6
+    }
+  },
+  "defaultFeatureValues": {
+    "aqi": 45.0,
+    "pm25": 22.0,
+    "pm10": 40.0,
+    "noise_db": 42.0,
+    "temperature": 25.0,
+    "humidity": 55.0,
+    "weather_condition": 0.0,
+    "distance_km": 2.5,
+    "place_category": 0.0,
+    "place_rating": 4.2,
+    "time_of_day": 12.0,
+    "day_of_week": 3.0,
+    "user_mood": 0.0,
+    "preferred_category": 0.0,
+    "max_distance": 10.0,
+    "user_previous_rating": 0.0
+  }
+}

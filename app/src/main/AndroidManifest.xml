@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- Audio permission for decibel meter -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Notification permission for Android 13+ (CO10) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- Package queries for Google Maps (CO6) -->
     <queries>

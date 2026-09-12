@@ -7,6 +7,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -20,6 +21,7 @@ import com.calmpath.ai.data.repository.AuthRepository
 import com.calmpath.ai.data.repository.CalmPathRepository
 import com.calmpath.ai.ui.components.CalmPathBottomNavBar
 import com.calmpath.ai.ui.screens.auth.AuthScreen
+import com.calmpath.ai.ui.screens.chat.ChatScreen
 import com.calmpath.ai.ui.screens.details.PlaceDetailsScreen
 import com.calmpath.ai.ui.screens.explore.ExploreScreen
 import com.calmpath.ai.ui.screens.favorites.FavoritesScreen
@@ -31,6 +33,8 @@ import com.calmpath.ai.ui.screens.settings.SettingsScreen
 import com.calmpath.ai.ui.screens.welcome.WelcomeScreen
 import com.calmpath.ai.ui.viewmodel.AuthViewModel
 import com.calmpath.ai.ui.viewmodel.AuthViewModelFactory
+import com.calmpath.ai.ui.viewmodel.ChatViewModel
+import com.calmpath.ai.ui.viewmodel.ChatViewModelFactory
 import com.calmpath.ai.ui.viewmodel.ExploreViewModel
 import com.calmpath.ai.ui.viewmodel.ExploreViewModelFactory
 import com.calmpath.ai.ui.viewmodel.FavoritesViewModel
@@ -53,8 +57,17 @@ import com.calmpath.ai.ui.viewmodel.SettingsViewModelFactory
 fun CalmPathNavHost(
     repository: CalmPathRepository,
     authRepository: AuthRepository,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    initialRoute: String? = null
 ) {
+    androidx.compose.runtime.LaunchedEffect(initialRoute) {
+        if (!initialRoute.isNullOrEmpty()) {
+            navController.navigate(initialRoute) {
+                launchSingleTop = true
+            }
+        }
+    }
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -155,6 +168,12 @@ fun CalmPathNavHost(
                         },
                         onNavigateToExplore = {
                             navController.navigate(NavRoutes.Explore.route)
+                        },
+                        onNavigateToChat = {
+                            navController.navigate(NavRoutes.Chat.route)
+                        },
+                        onNavigateToAlerts = {
+                            navController.navigate(NavRoutes.SmartAlerts.route)
                         }
                     )
                 }
@@ -221,8 +240,9 @@ fun CalmPathNavHost(
                     arguments = listOf(navArgument("placeId") { type = NavType.StringType })
                 ) { backStackEntry ->
                     val placeId = backStackEntry.arguments?.getString("placeId") ?: "place_1"
+                    val context = LocalContext.current
                     val detailsViewModel: PlaceDetailsViewModel = viewModel(
-                        factory = PlaceDetailsViewModelFactory(placeId, repository)
+                        factory = PlaceDetailsViewModelFactory(placeId, repository, context)
                     )
                     PlaceDetailsScreen(
                         viewModel = detailsViewModel,
@@ -265,6 +285,52 @@ fun CalmPathNavHost(
                             }
                         }
                     )
+                }
+
+                // 11. CalmPath AI Assistant Chat (CO8)
+                composable(NavRoutes.Chat.route) {
+                    val chatViewModel: ChatViewModel = viewModel(
+                        factory = ChatViewModelFactory(repository.chatRepository, repository)
+                    )
+                    ChatScreen(
+                        viewModel = chatViewModel,
+                        onBackClick = { navController.popBackStack() },
+                        onNavigateToDetails = { placeId ->
+                            navController.navigate(NavRoutes.PlaceDetails.createRoute(placeId))
+                        },
+                        onNavigateToMap = { placeId ->
+                            repository.requestInAppNavigation(placeId)
+                            navController.navigate(NavRoutes.Explore.route) {
+                                popUpTo(NavRoutes.Home.route) { saveState = true }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        }
+                    )
+                }
+
+                // 12. CalmPath Smart Alerts & Notifications Center (CO10)
+                composable(NavRoutes.SmartAlerts.route) {
+                    val alertRepo = repository.smartAlertRepository
+                    if (alertRepo != null) {
+                        val alertViewModel: com.calmpath.ai.ui.viewmodel.SmartAlertViewModel = viewModel(
+                            factory = com.calmpath.ai.ui.viewmodel.SmartAlertViewModelFactory(alertRepo)
+                        )
+                        com.calmpath.ai.ui.screens.alerts.SmartAlertsScreen(
+                            viewModel = alertViewModel,
+                            onBackClick = { navController.popBackStack() },
+                            onNavigateToPlace = { placeId ->
+                                navController.navigate(NavRoutes.PlaceDetails.createRoute(placeId))
+                            },
+                            onNavigateToExplore = {
+                                navController.navigate(NavRoutes.Explore.route) {
+                                    popUpTo(NavRoutes.Home.route) { saveState = true }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        )
+                    }
                 }
             }
         }

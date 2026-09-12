@@ -1,0 +1,2001 @@
+aqi,pm25,pm10,noise_db,temperature,humidity,weather_condition,distance_km,place_category,place_rating,time_of_day,day_of_week,user_mood,preferred_category,max_distance,user_previous_rating,suitability_score
+146,67.3,113.3,47,34.1,39,Mist/Fog,2.2,Fitness,3.6,13,5,Relax,All,5.0,0.0,29
+78,42.7,89.1,45,30.6,52,Partly Cloudy,0.9,Fitness,3.7,18,1,Fresh Air,Cafes,10.0,3.7,68
+109,47.0,101.2,43,32.9,65,Cloudy,7.2,Cafes,3.8,8,1,Relax,Meditation,20.0,0.0,54
+48,23.6,43.0,37,30.6,69,Cloudy,0.6,Lakes,4.3,13,2,Relax,Cafes,8.0,0.0,93
+122,69.7,146.8,55,32.8,75,Partly Cloudy,2.1,Cafes,3.8,16,2,Quiet Time,Meditation,5.0,0.0,51
+68,39.9,76.7,39,34.2,54,Rainy,1.2,Libraries,4.3,8,7,Meditate,Lakes,8.0,3.2,86
+138,75.8,138.8,58,27.5,83,Rainy,7.2,Fitness,4.5,9,6,Meditate,Fitness,5.0,0.0,6
+106,54.4,118.2,57,35.5,73,Cloudy,2.8,Cafes,4.8,15,7,Relax,Lakes,5.0,0.0,37
+27,17.2,37.0,42,23.8,35,Thunderstorm,9.6,Meditation,3.9,13,5,Meditate,Parks,10.0,0.0,98
+49,31.2,53.0,43,25.6,45,Thunderstorm,3.0,Parks,4.6,18,6,Fresh Air,Fitness,8.0,0.0,80
+65,29.7,53.5,37,28.6,35,Partly Cloudy,4.6,Libraries,3.8,7,7,Fresh Air,Cafes,5.0,4.0,71
+124,64.3,133.2,40,19.7,67,Partly Cloudy,1.8,Meditation,4.2,7,6,Meditate,Meditation,15.0,0.0,84
+102,49.5,104.8,50,27.7,42,Partly Cloudy,1.0,Fitness,3.9,8,4,Relax,All,15.0,0.0,59
+51,21.6,44.3,50,26.7,45,Rainy,2.1,Fitness,3.7,6,4,Fresh Air,Fitness,5.0,4.6,66
+140,81.6,168.9,38,20.8,49,Rainy,12.4,Libraries,4.6,7,6,Study,Cafes,20.0,3.1,69
+60,26.8,52.4,38,25.3,82,Partly Cloudy,3.3,Meditation,4.4,8,4,Meditate,All,20.0,0.0,98
+76,44.0,76.7,34,29.6,57,Mist/Fog,9.6,Meditation,3.5,9,1,Fresh Air,Lakes,5.0,0.0,54
+98,43.1,90.5,54,35.7,75,Thunderstorm,2.9,Cafes,3.9,9,2,Relax,Parks,20.0,4.8,52
+85,46.9,95.2,49,33.4,60,Mist/Fog,1.3,Fitness,3.6,19,7,Fresh Air,Parks,5.0,3.0,52
+107,61.7,119.5,44,34.3,62,Mist/Fog,6.6,Cafes,4.3,19,2,Meditate,Meditation,20.0,3.7,41
+50,24.4,47.2,49,31.5,81,Thunderstorm,1.2,Parks,5.0,11,4,Study,Parks,8.0,4.5,67
+82,36.1,72.9,53,33.5,46,Clear,6.2,Fitness,4.0,13,2,Quiet Time,Fitness,15.0,3.4,64
+59,35.0,63.4,51,35.7,61,Mist/Fog,10.1,Cafes,4.8,14,2,Study,Fitness,5.0,0.0,59
+90,49.6,94.6,34,21.4,37,Thunderstorm,2.3,Meditation,4.9,12,3,Exercise,Lakes,20.0,0.0,92
+90,55.1,112.0,51,30.0,51,Cloudy,4.5,Fitness,3.7,19,6,Study,Libraries,20.0,0.0,45
+57,27.1,46.8,40,29.8,58,Thunderstorm,2.3,Meditation,4.3,11,6,Fresh Air,Lakes,8.0,4.0,80
+62,39.6,68.9,52,20.7,37,Partly Cloudy,14.8,Fitness,4.8,8,4,Fresh Air,Lakes,20.0,0.0,71
+101,44.1,88.8,65,32.0,45,Clear,6.0,Fitness,4.2,13,7,Exercise,Cafes,20.0,3.3,65
+178,97.7,212.0,42,32.7,79,Thunderstorm,2.2,Libraries,4.2,11,6,Quiet Time,Libraries,20.0,0.0,64
+151,78.7,137.2,55,23.1,48,Mist/Fog,1.6,Fitness,3.6,10,2,Study,Fitness,20.0,3.3,42
+44,22.2,38.3,41,35.0,35,Thunderstorm,7.7,Lakes,4.1,6,3,Relax,Cafes,20.0,3.8,66
+47,21.4,37.1,34,25.0,68,Clear,5.9,Meditation,4.8,10,5,Quiet Time,Meditation,8.0,0.0,99
+136,57.3,106.4,41,18.9,53,Partly Cloudy,1.1,Libraries,4.0,18,3,Fresh Air,Libraries,10.0,0.0,67
+56,35.7,61.9,35,18.7,36,Mist/Fog,1.3,Parks,4.4,13,2,Exercise,All,5.0,0.0,99
+31,15.3,30.0,51,20.1,75,Mist/Fog,12.0,Parks,4.4,15,5,Fresh Air,Parks,5.0,0.0,95
+126,76.6,133.7,61,33.3,65,Cloudy,0.8,Fitness,4.7,17,5,Meditate,All,20.0,0.0,28
+134,54.0,100.0,50,35.3,66,Rainy,6.5,Cafes,4.2,22,6,Relax,Libraries,8.0,4.6,40
+84,51.5,108.1,29,22.4,58,Rainy,3.6,Libraries,4.0,21,7,Quiet Time,Libraries,15.0,4.0,99
+86,47.2,100.4,52,35.1,39,Thunderstorm,4.8,Cafes,4.3,13,6,Study,Lakes,15.0,0.0,65
+51,24.3,47.4,42,24.2,84,Thunderstorm,3.1,Parks,4.6,14,3,Relax,Lakes,10.0,3.2,71
+173,99.0,169.8,47,31.0,83,Cloudy,2.9,Lakes,5.0,12,3,Study,All,10.0,3.4,38
+121,69.5,116.5,57,19.8,35,Rainy,1.5,Cafes,4.2,11,1,Relax,All,15.0,4.7,58
+45,25.7,43.5,48,19.5,47,Cloudy,3.2,Parks,4.4,13,7,Relax,Cafes,15.0,0.0,86
+22,14.1,23.4,40,21.8,68,Mist/Fog,0.9,Meditation,4.3,11,1,Exercise,Lakes,8.0,0.0,99
+87,39.8,80.6,61,19.3,46,Rainy,1.4,Fitness,4.5,12,4,Fresh Air,Cafes,20.0,3.4,34
+33,19.4,37.7,39,26.4,50,Clear,2.1,Lakes,4.3,21,4,Relax,All,10.0,3.1,99
+128,52.0,90.3,38,28.6,36,Thunderstorm,5.4,Libraries,4.4,11,4,Quiet Time,Lakes,10.0,0.0,73
+175,90.6,167.2,33,33.4,51,Clear,4.4,Meditation,4.5,18,7,Exercise,Meditation,10.0,0.0,56
+34,21.8,40.2,43,29.8,62,Clear,2.2,Parks,4.3,21,6,Exercise,All,8.0,0.0,99
+113,46.0,91.0,48,20.9,62,Mist/Fog,3.1,Lakes,3.8,9,4,Study,Cafes,5.0,0.0,47
+171,80.9,163.7,54,35.6,47,Rainy,3.1,Fitness,3.8,22,6,Meditate,Cafes,15.0,0.0,5
+116,70.2,124.2,32,28.4,67,Thunderstorm,7.3,Libraries,4.3,17,3,Study,Fitness,15.0,0.0,80
+163,105.2,183.4,34,18.8,72,Rainy,4.6,Meditation,4.1,10,4,Exercise,Cafes,15.0,0.0,58
+159,67.6,145.1,42,25.4,67,Partly Cloudy,0.9,Cafes,4.7,14,3,Relax,Fitness,15.0,0.0,57
+160,98.1,207.5,34,29.3,79,Cloudy,2.6,Libraries,3.6,8,2,Quiet Time,All,20.0,0.0,67
+177,104.4,211.1,47,30.5,80,Partly Cloudy,0.5,Fitness,3.9,17,4,Relax,Cafes,5.0,4.1,32
+27,14.9,27.3,38,34.4,42,Rainy,2.5,Meditation,4.2,6,7,Quiet Time,Fitness,10.0,0.0,83
+88,56.4,113.6,42,21.6,54,Cloudy,2.6,Parks,4.1,17,5,Exercise,Lakes,8.0,4.4,99
+45,25.7,52.6,34,31.4,76,Thunderstorm,8.5,Parks,4.4,17,2,Quiet Time,Cafes,8.0,0.0,55
+158,88.0,188.5,59,32.2,36,Cloudy,1.9,Fitness,3.6,15,3,Quiet Time,Meditation,8.0,0.0,25
+163,80.1,152.3,38,22.6,76,Partly Cloudy,2.6,Lakes,4.6,16,7,Meditate,Parks,10.0,4.9,55
+177,113.6,236.6,53,18.3,61,Rainy,2.4,Fitness,4.4,17,1,Quiet Time,Meditation,10.0,0.0,11
+164,88.6,190.4,31,29.4,58,Clear,4.5,Libraries,3.7,7,1,Relax,Libraries,15.0,4.0,59
+62,35.6,68.5,44,20.8,55,Mist/Fog,0.7,Lakes,4.4,14,1,Exercise,Cafes,15.0,0.0,91
+161,68.4,137.6,43,24.5,54,Mist/Fog,1.0,Lakes,4.9,20,1,Exercise,Cafes,5.0,0.0,61
+64,38.2,65.8,48,21.7,45,Thunderstorm,7.4,Parks,4.7,6,3,Relax,Fitness,10.0,0.0,63
+27,15.3,24.7,34,28.6,35,Partly Cloudy,1.4,Lakes,4.6,22,1,Meditate,Libraries,8.0,0.0,86
+29,16.1,32.8,42,27.4,57,Mist/Fog,11.9,Meditation,5.0,18,4,Fresh Air,All,5.0,0.0,75
+59,24.8,48.7,29,29.2,64,Cloudy,4.7,Libraries,5.0,22,3,Quiet Time,Cafes,15.0,0.0,99
+135,83.6,161.4,64,26.1,46,Rainy,1.7,Fitness,4.1,9,3,Relax,Fitness,15.0,0.0,24
+173,98.9,186.4,47,19.7,39,Clear,5.0,Fitness,4.3,16,6,Study,Lakes,8.0,3.7,25
+128,62.5,121.7,49,26.7,77,Mist/Fog,1.8,Fitness,4.1,14,5,Relax,Lakes,20.0,3.9,53
+45,24.9,49.7,39,21.2,70,Clear,1.6,Meditation,4.0,11,7,Fresh Air,Libraries,10.0,4.3,95
+36,18.5,31.3,39,32.0,63,Cloudy,0.6,Parks,3.7,7,6,Relax,Meditation,5.0,3.9,99
+107,50.1,102.9,29,20.0,68,Rainy,3.4,Libraries,4.5,7,2,Exercise,Libraries,20.0,4.2,99
+34,13.7,28.1,37,27.6,46,Rainy,3.2,Lakes,3.6,7,4,Meditate,Fitness,10.0,4.8,58
+124,71.6,132.5,44,35.4,43,Clear,10.6,Cafes,4.7,17,1,Fresh Air,Cafes,15.0,0.0,62
+101,48.2,86.9,33,19.4,66,Partly Cloudy,2.9,Libraries,4.9,17,3,Fresh Air,All,8.0,0.0,79
+63,29.2,49.8,48,19.4,82,Mist/Fog,3.8,Fitness,4.6,20,6,Meditate,Parks,15.0,0.0,57
+91,46.4,87.3,38,28.6,52,Cloudy,0.6,Meditation,4.2,7,3,Study,Fitness,15.0,0.0,67
+61,33.5,61.3,44,34.1,57,Mist/Fog,6.1,Parks,4.0,21,5,Quiet Time,Fitness,8.0,3.1,62
+115,51.0,89.2,49,27.4,65,Rainy,1.9,Cafes,4.1,16,6,Quiet Time,All,10.0,0.0,81
+58,24.6,49.4,51,33.3,83,Mist/Fog,3.5,Fitness,4.0,10,3,Quiet Time,Lakes,8.0,4.3,62
+122,68.4,122.9,47,32.9,71,Mist/Fog,4.3,Fitness,3.6,19,5,Relax,Lakes,20.0,3.7,45
+113,51.6,86.8,35,27.1,61,Clear,5.0,Lakes,3.6,16,7,Meditate,Lakes,20.0,0.0,68
+60,34.8,56.6,40,22.3,57,Mist/Fog,1.5,Lakes,3.9,13,3,Quiet Time,Fitness,15.0,0.0,95
+138,74.9,139.6,40,27.1,55,Rainy,0.9,Libraries,4.7,10,7,Meditate,Lakes,8.0,4.3,80
+25,10.5,17.8,42,20.7,56,Thunderstorm,10.5,Parks,4.7,17,1,Quiet Time,Fitness,8.0,0.0,61
+80,51.9,94.7,28,33.1,67,Clear,5.8,Libraries,3.6,21,6,Fresh Air,Lakes,8.0,0.0,63
+29,12.7,27.5,37,20.0,49,Rainy,1.6,Meditation,3.9,20,1,Relax,All,5.0,4.8,99
+45,26.1,46.3,28,22.3,55,Cloudy,4.1,Meditation,4.3,17,1,Fresh Air,All,5.0,0.0,90
+41,22.9,50.1,32,24.4,38,Clear,1.3,Meditation,4.7,16,2,Fresh Air,All,5.0,4.1,99
+151,77.9,157.1,59,19.1,73,Partly Cloudy,2.4,Fitness,3.8,12,1,Meditate,Fitness,10.0,3.6,23
+147,65.8,119.4,40,24.0,41,Mist/Fog,1.9,Libraries,4.6,18,3,Study,All,15.0,0.0,80
+97,58.1,102.3,29,19.4,65,Rainy,6.3,Libraries,3.9,9,1,Quiet Time,Cafes,20.0,3.6,85
+21,13.0,23.5,51,29.5,74,Cloudy,0.5,Lakes,4.0,11,1,Quiet Time,Cafes,15.0,4.2,99
+58,34.5,62.8,34,18.6,42,Thunderstorm,2.4,Libraries,4.1,8,5,Relax,Parks,10.0,3.7,80
+43,27.0,45.1,47,26.0,84,Mist/Fog,1.5,Parks,3.8,10,7,Relax,Meditation,15.0,3.3,94
+155,99.5,218.1,60,19.2,62,Mist/Fog,8.1,Fitness,4.6,11,7,Exercise,All,8.0,3.4,60
+45,23.3,51.0,36,19.2,54,Clear,4.7,Lakes,4.3,19,7,Exercise,All,15.0,0.0,97
+40,21.2,35.6,48,29.5,44,Thunderstorm,12.2,Lakes,4.3,7,7,Study,Meditation,15.0,3.3,43
+173,91.6,162.2,46,29.4,62,Partly Cloudy,0.8,Fitness,4.4,8,5,Meditate,Lakes,10.0,0.0,31
+48,30.0,54.1,42,32.9,36,Clear,0.5,Meditation,3.9,12,7,Fresh Air,Parks,20.0,0.0,78
+133,63.2,110.4,63,23.4,38,Rainy,0.5,Fitness,4.1,20,2,Fresh Air,Lakes,15.0,3.3,17
+178,86.6,159.3,62,28.1,50,Thunderstorm,2.5,Fitness,4.2,10,1,Study,Meditation,10.0,4.9,5
+74,32.5,71.4,42,27.0,39,Cloudy,2.0,Lakes,5.0,12,5,Study,Libraries,15.0,3.1,76
+135,69.9,134.3,41,20.4,48,Rainy,1.9,Libraries,4.0,18,1,Fresh Air,Fitness,15.0,0.0,64
+44,26.7,52.7,44,35.6,54,Partly Cloudy,5.8,Parks,4.3,17,7,Exercise,Libraries,10.0,4.2,97
+55,23.9,43.0,35,20.7,79,Rainy,0.8,Libraries,4.0,18,5,Fresh Air,All,20.0,0.0,94
+88,53.1,96.7,38,28.5,74,Rainy,4.8,Meditation,4.4,14,6,Fresh Air,Cafes,5.0,0.0,72
+125,55.3,109.4,37,20.7,69,Rainy,0.4,Meditation,3.8,20,3,Fresh Air,Parks,5.0,0.0,67
+145,60.3,101.5,31,36.0,58,Cloudy,2.0,Meditation,4.2,16,5,Fresh Air,Cafes,8.0,4.5,58
+154,71.8,135.7,67,28.0,46,Cloudy,12.9,Fitness,4.7,12,6,Quiet Time,Meditation,10.0,0.0,13
+65,37.0,67.6,67,35.2,75,Cloudy,1.5,Fitness,4.9,8,3,Study,Lakes,10.0,0.0,43
+112,50.5,97.1,66,22.9,40,Mist/Fog,5.0,Fitness,3.9,22,2,Study,Meditation,8.0,0.0,30
+138,59.9,130.5,67,25.3,81,Partly Cloudy,7.7,Fitness,4.5,15,3,Exercise,All,15.0,3.1,61
+53,32.5,52.7,50,33.9,43,Rainy,9.1,Parks,4.7,11,6,Quiet Time,Libraries,15.0,0.0,46
+61,29.5,55.2,45,26.9,81,Thunderstorm,7.0,Parks,3.9,9,3,Study,Libraries,15.0,3.9,44
+51,24.7,43.9,54,21.2,77,Partly Cloudy,8.3,Cafes,4.3,8,4,Quiet Time,Parks,15.0,0.0,84
+83,38.1,78.2,59,28.5,63,Cloudy,1.4,Cafes,4.5,7,6,Meditate,All,10.0,3.6,51
+170,105.7,217.9,39,34.5,49,Mist/Fog,3.6,Libraries,4.9,21,2,Quiet Time,Libraries,8.0,0.0,66
+148,88.9,186.3,62,31.6,78,Mist/Fog,0.6,Fitness,4.3,17,1,Fresh Air,Cafes,15.0,0.0,33
+42,22.8,38.5,39,26.0,69,Thunderstorm,4.7,Parks,3.6,22,4,Relax,Fitness,15.0,0.0,70
+122,69.3,123.7,28,32.7,72,Cloudy,3.3,Libraries,4.1,8,5,Fresh Air,All,5.0,0.0,66
+28,12.1,24.0,47,24.7,79,Rainy,2.4,Parks,4.1,10,6,Exercise,All,15.0,0.0,93
+144,65.6,105.1,28,26.3,70,Cloudy,2.2,Libraries,4.7,13,4,Fresh Air,Parks,15.0,3.6,70
+155,78.2,161.1,65,22.3,38,Clear,3.5,Fitness,4.4,7,2,Relax,All,15.0,0.0,27
+33,19.9,40.6,39,31.9,75,Thunderstorm,1.2,Lakes,5.0,22,2,Relax,Parks,8.0,0.0,87
+173,107.2,230.2,53,28.0,37,Rainy,1.8,Cafes,4.7,16,6,Relax,Libraries,15.0,0.0,38
+89,51.3,106.9,42,25.4,55,Thunderstorm,2.9,Meditation,3.9,12,3,Exercise,Parks,15.0,0.0,80
+119,72.3,117.9,34,28.9,78,Thunderstorm,1.0,Libraries,4.6,12,4,Study,All,20.0,4.8,97
+64,33.3,58.1,44,25.1,46,Partly Cloudy,1.7,Lakes,4.1,17,3,Meditate,Meditation,10.0,4.0,75
+154,89.4,183.9,33,24.7,55,Partly Cloudy,3.2,Libraries,4.6,6,3,Exercise,All,8.0,0.0,65
+92,45.5,95.6,50,35.0,51,Mist/Fog,5.3,Cafes,4.9,21,4,Meditate,Parks,15.0,4.6,50
+28,17.4,38.2,51,18.6,77,Thunderstorm,10.5,Lakes,4.6,19,2,Meditate,Meditation,5.0,0.0,29
+22,12.3,26.6,50,26.8,35,Mist/Fog,3.1,Parks,3.5,14,5,Meditate,Libraries,5.0,0.0,67
+39,24.8,42.3,50,20.7,44,Thunderstorm,2.9,Parks,3.9,18,1,Fresh Air,Fitness,10.0,3.8,69
+60,38.9,77.4,34,24.8,62,Rainy,0.5,Lakes,4.6,8,4,Study,Meditation,5.0,0.0,62
+177,113.9,243.4,66,21.8,78,Partly Cloudy,7.9,Fitness,3.9,8,6,Study,Libraries,15.0,0.0,7
+63,34.4,70.6,46,34.7,49,Rainy,3.2,Parks,4.8,18,6,Meditate,Fitness,20.0,0.0,33
+146,87.3,175.8,43,35.5,37,Mist/Fog,2.3,Cafes,4.0,18,7,Exercise,Fitness,5.0,4.3,48
+106,60.4,120.6,35,23.3,47,Thunderstorm,0.6,Lakes,3.7,10,6,Study,Libraries,10.0,3.7,43
+54,23.0,38.0,41,28.0,55,Thunderstorm,0.4,Parks,4.3,16,7,Relax,Lakes,10.0,3.6,72
+50,22.1,38.9,32,19.1,56,Partly Cloudy,2.2,Meditation,4.7,17,3,Meditate,Libraries,15.0,0.0,99
+127,57.0,94.9,52,24.0,66,Rainy,6.0,Fitness,4.2,19,7,Quiet Time,Cafes,10.0,0.0,26
+173,77.9,139.3,59,23.2,69,Cloudy,2.7,Cafes,4.7,16,4,Study,Libraries,20.0,4.6,46
+75,48.7,83.2,55,35.2,58,Clear,4.6,Cafes,4.7,8,7,Relax,Libraries,15.0,0.0,51
+49,28.4,58.9,35,26.6,55,Thunderstorm,2.8,Lakes,4.3,17,6,Quiet Time,Lakes,15.0,0.0,88
+64,29.6,59.2,30,18.8,84,Thunderstorm,4.3,Meditation,5.0,16,7,Fresh Air,Meditation,15.0,0.0,99
+50,22.8,41.6,35,28.6,60,Mist/Fog,1.8,Meditation,4.2,15,4,Quiet Time,Libraries,5.0,0.0,84
+68,32.5,60.9,37,24.3,39,Rainy,4.8,Parks,4.0,15,1,Relax,Fitness,15.0,0.0,72
+154,97.4,199.1,56,20.9,62,Thunderstorm,11.4,Fitness,4.7,11,2,Relax,Meditation,8.0,0.0,6
+145,90.0,168.3,34,30.7,45,Clear,5.2,Libraries,4.4,11,3,Exercise,All,5.0,3.9,62
+47,25.7,46.5,41,21.1,68,Thunderstorm,5.9,Meditation,4.4,10,3,Quiet Time,Lakes,20.0,3.6,92
+37,20.3,39.5,41,29.4,69,Rainy,3.9,Lakes,4.3,21,3,Study,Meditation,8.0,3.6,53
+67,40.5,88.2,51,25.4,59,Rainy,4.6,Cafes,4.2,8,5,Relax,Cafes,15.0,4.5,87
+79,37.3,77.2,52,27.9,40,Rainy,0.7,Cafes,4.7,17,5,Relax,Lakes,20.0,0.0,71
+57,33.5,59.6,43,22.7,78,Rainy,0.6,Meditation,4.7,13,2,Meditate,Cafes,5.0,0.0,99
+129,65.4,128.8,40,32.5,63,Partly Cloudy,3.0,Meditation,4.3,16,6,Quiet Time,Lakes,20.0,4.1,61
+175,104.4,224.6,67,20.3,78,Mist/Fog,1.3,Fitness,4.7,18,4,Relax,Parks,10.0,4.3,26
+108,60.3,128.3,47,31.5,69,Thunderstorm,7.6,Fitness,4.9,16,5,Exercise,Cafes,15.0,4.5,68
+140,85.8,178.2,34,32.8,59,Rainy,1.7,Libraries,4.0,10,5,Quiet Time,Meditation,10.0,0.0,72
+56,23.8,49.3,50,34.7,42,Clear,2.4,Cafes,3.8,10,6,Quiet Time,Fitness,15.0,4.7,81
+98,61.3,104.2,49,31.1,72,Cloudy,2.3,Cafes,4.6,6,2,Study,All,5.0,0.0,74
+40,16.1,29.1,36,30.5,58,Rainy,1.2,Lakes,4.6,9,1,Fresh Air,Parks,5.0,4.8,96
+43,17.3,34.4,41,21.8,72,Mist/Fog,9.1,Lakes,4.5,12,1,Quiet Time,Meditation,20.0,0.0,99
+95,48.2,100.0,38,19.5,62,Mist/Fog,3.5,Lakes,3.9,6,7,Relax,Libraries,20.0,0.0,80
+88,36.4,77.9,43,24.9,47,Rainy,3.9,Meditation,4.3,6,3,Fresh Air,Parks,5.0,0.0,72
+104,55.8,95.1,42,18.3,38,Clear,1.4,Lakes,4.9,18,5,Exercise,Fitness,5.0,4.4,90
+119,65.9,116.4,32,34.6,83,Thunderstorm,0.9,Libraries,4.1,8,3,Relax,Meditation,10.0,0.0,59
+81,51.1,85.3,59,23.6,72,Clear,5.0,Fitness,3.5,10,6,Meditate,All,5.0,4.0,41
+98,57.6,122.3,61,31.9,36,Clear,6.1,Fitness,4.3,14,6,Study,Parks,10.0,0.0,38
+109,53.4,101.4,58,20.8,73,Cloudy,8.2,Fitness,3.8,22,1,Relax,Cafes,5.0,4.7,40
+171,105.1,203.0,42,29.8,46,Mist/Fog,1.3,Libraries,3.9,8,5,Meditate,Parks,10.0,4.0,54
+177,113.0,185.5,42,31.9,50,Cloudy,0.6,Parks,3.5,12,3,Meditate,Parks,15.0,0.0,36
+176,114.3,236.1,39,31.7,47,Thunderstorm,0.3,Libraries,3.5,17,6,Study,Libraries,15.0,0.0,69
+98,57.3,102.3,37,25.6,83,Partly Cloudy,12.9,Parks,4.6,8,1,Study,All,8.0,0.0,62
+176,74.1,122.8,48,19.3,63,Rainy,2.3,Fitness,3.9,14,7,Study,Cafes,8.0,4.6,5
+91,42.6,70.1,49,20.0,40,Thunderstorm,2.4,Fitness,4.1,17,7,Quiet Time,Lakes,10.0,3.6,44
+140,57.4,120.6,39,30.8,83,Clear,2.1,Lakes,4.5,14,7,Quiet Time,Lakes,5.0,0.0,86
+53,24.5,46.0,48,20.2,38,Partly Cloudy,5.6,Parks,3.7,18,3,Exercise,Fitness,8.0,0.0,93
+64,28.8,57.2,40,34.3,76,Clear,1.7,Meditation,4.9,7,2,Study,Fitness,5.0,0.0,71
+114,56.5,104.9,33,22.9,57,Partly Cloudy,0.9,Libraries,4.4,13,6,Quiet Time,Cafes,20.0,3.8,90
+104,58.3,121.2,46,32.3,84,Thunderstorm,5.6,Cafes,4.2,21,3,Exercise,Parks,10.0,0.0,68
+21,11.5,18.6,40,19.1,84,Cloudy,2.9,Meditation,5.0,11,1,Study,Cafes,20.0,3.5,86
+179,81.4,171.6,63,34.8,84,Cloudy,1.0,Fitness,4.4,17,5,Relax,Fitness,8.0,4.4,27
+28,18.1,38.5,35,21.2,36,Cloudy,0.5,Meditation,3.8,22,4,Fresh Air,Parks,20.0,4.8,99
+159,76.5,123.4,58,31.9,77,Partly Cloudy,7.2,Fitness,4.1,18,5,Meditate,Fitness,5.0,3.6,19
+152,97.3,193.6,37,30.5,81,Thunderstorm,5.7,Lakes,4.5,11,4,Meditate,Meditation,8.0,4.4,26
+160,94.8,184.0,49,34.6,83,Cloudy,1.2,Fitness,3.7,21,2,Fresh Air,Cafes,20.0,3.2,31
+132,84.6,177.1,54,34.0,57,Mist/Fog,1.4,Cafes,4.5,17,3,Study,Parks,8.0,0.0,51
+175,108.7,206.1,34,24.8,76,Thunderstorm,5.7,Libraries,4.5,13,2,Quiet Time,Cafes,20.0,0.0,67
+62,26.0,44.3,40,19.4,82,Mist/Fog,13.7,Parks,4.4,21,6,Study,All,10.0,4.9,73
+63,31.6,61.1,50,22.8,49,Thunderstorm,1.2,Lakes,4.1,21,2,Relax,All,5.0,3.0,69
+47,21.1,34.1,37,35.6,58,Cloudy,0.7,Parks,4.2,14,1,Study,Fitness,15.0,0.0,71
+107,49.8,93.6,31,28.2,42,Cloudy,4.5,Libraries,3.6,17,7,Study,Parks,5.0,0.0,74
+37,19.6,42.7,38,28.3,46,Rainy,1.5,Meditation,4.9,7,5,Meditate,Libraries,15.0,0.0,99
+108,68.8,117.0,31,20.3,56,Partly Cloudy,15.9,Meditation,3.8,10,7,Meditate,All,15.0,0.0,79
+58,28.8,52.9,47,27.4,80,Cloudy,0.3,Cafes,4.4,19,1,Quiet Time,Fitness,20.0,0.0,92
+152,93.8,199.6,49,24.9,59,Cloudy,3.6,Parks,3.8,18,2,Relax,Libraries,5.0,0.0,54
+55,34.2,61.5,50,26.6,48,Mist/Fog,1.9,Fitness,4.7,15,3,Quiet Time,Cafes,10.0,4.0,85
+107,64.9,114.3,41,19.6,57,Mist/Fog,8.9,Lakes,4.6,22,7,Meditate,Lakes,15.0,3.1,62
+102,60.7,116.2,44,21.5,76,Partly Cloudy,6.6,Lakes,3.5,7,3,Relax,Lakes,8.0,0.0,83
+138,63.5,120.2,35,28.6,52,Rainy,0.9,Meditation,4.6,8,3,Exercise,Meditation,10.0,3.1,85
+30,13.6,27.1,36,18.2,80,Mist/Fog,3.9,Meditation,4.7,13,3,Meditate,Fitness,20.0,0.0,99
+105,51.9,93.9,50,23.4,61,Rainy,3.7,Fitness,3.7,22,6,Quiet Time,Lakes,20.0,0.0,34
+127,59.8,120.2,50,35.8,67,Cloudy,7.2,Cafes,4.5,15,2,Fresh Air,Meditation,10.0,4.5,50
+26,10.6,20.1,32,25.3,71,Rainy,3.4,Meditation,4.7,16,6,Exercise,Meditation,20.0,0.0,99
+152,95.2,190.7,56,33.1,78,Partly Cloudy,1.0,Fitness,4.2,14,6,Fresh Air,Meditation,5.0,0.0,30
+61,29.8,61.0,52,24.7,64,Cloudy,2.5,Fitness,4.2,8,4,Study,Meditation,5.0,0.0,59
+43,21.6,45.8,30,24.2,84,Partly Cloudy,8.1,Meditation,3.7,11,7,Relax,Fitness,15.0,3.7,86
+54,23.9,49.2,42,20.3,56,Clear,2.3,Parks,4.9,18,1,Relax,Cafes,15.0,3.4,99
+148,78.8,126.9,42,22.5,69,Mist/Fog,1.8,Cafes,3.7,22,5,Relax,Lakes,8.0,3.1,51
+127,61.5,131.2,43,35.9,59,Cloudy,5.2,Libraries,4.9,18,1,Quiet Time,Libraries,8.0,4.5,83
+42,18.1,36.7,48,33.8,47,Rainy,3.0,Lakes,4.4,7,6,Meditate,Meditation,5.0,4.7,41
+121,62.8,106.2,39,18.2,56,Mist/Fog,0.7,Libraries,3.9,10,4,Exercise,All,20.0,0.0,70
+32,19.1,36.3,44,33.0,83,Cloudy,1.9,Parks,3.9,7,5,Fresh Air,Meditation,15.0,0.0,99
+51,21.5,35.8,52,20.7,39,Rainy,2.8,Cafes,4.9,13,4,Meditate,All,5.0,0.0,76
+56,33.8,71.8,57,32.4,50,Cloudy,5.0,Cafes,4.8,7,1,Study,Cafes,5.0,0.0,83
+84,49.0,89.4,48,25.2,83,Clear,1.4,Cafes,4.5,21,7,Exercise,Libraries,15.0,0.0,81
+22,14.0,23.7,41,26.7,63,Thunderstorm,2.3,Lakes,4.1,17,5,Relax,Parks,20.0,4.4,91
+38,15.6,27.4,39,33.6,61,Mist/Fog,5.1,Lakes,3.8,16,5,Exercise,Cafes,20.0,0.0,74
+106,61.7,116.6,60,24.9,76,Mist/Fog,3.2,Fitness,3.6,11,5,Fresh Air,All,20.0,0.0,51
+63,26.0,45.1,45,32.7,38,Rainy,2.4,Parks,4.2,21,4,Exercise,Lakes,20.0,5.0,78
+63,31.7,61.3,45,32.3,83,Clear,3.9,Fitness,4.3,20,3,Quiet Time,All,20.0,3.1,74
+49,28.4,47.4,40,18.0,52,Partly Cloudy,3.8,Meditation,4.3,17,6,Fresh Air,Libraries,10.0,4.8,87
+143,83.0,138.1,37,20.2,77,Partly Cloudy,1.1,Libraries,4.6,9,7,Meditate,Fitness,8.0,0.0,78
+109,59.7,113.6,43,27.5,37,Clear,9.9,Meditation,4.2,22,7,Relax,Fitness,20.0,0.0,55
+56,23.8,47.5,44,27.1,54,Cloudy,13.9,Lakes,3.9,16,3,Quiet Time,Libraries,8.0,0.0,69
+88,50.6,107.1,61,29.4,45,Thunderstorm,3.7,Fitness,4.5,10,6,Quiet Time,Libraries,10.0,0.0,30
+34,14.6,26.4,42,35.0,70,Thunderstorm,4.2,Lakes,3.9,19,7,Fresh Air,Libraries,20.0,3.2,66
+70,33.0,57.8,49,32.1,45,Mist/Fog,3.0,Parks,4.7,9,5,Meditate,Lakes,10.0,0.0,57
+79,44.4,81.4,56,23.2,68,Mist/Fog,9.4,Fitness,4.1,16,5,Fresh Air,Fitness,15.0,4.5,78
+141,79.2,162.6,36,21.5,71,Thunderstorm,1.1,Libraries,3.8,8,2,Meditate,Meditation,15.0,0.0,78
+99,50.2,97.1,47,33.2,35,Thunderstorm,2.5,Fitness,3.6,16,5,Fresh Air,All,8.0,4.9,37
+96,57.2,102.4,31,27.4,74,Partly Cloudy,0.9,Libraries,4.3,8,3,Fresh Air,Libraries,20.0,3.4,86
+88,56.1,110.6,50,32.8,84,Thunderstorm,0.3,Cafes,4.2,13,1,Study,Lakes,10.0,0.0,76
+32,20.1,42.1,40,26.0,37,Thunderstorm,8.3,Parks,4.0,8,1,Exercise,Lakes,8.0,4.9,94
+29,16.2,28.0,38,21.7,76,Clear,7.7,Meditation,4.5,8,6,Fresh Air,All,15.0,0.0,99
+55,29.7,57.8,38,25.3,57,Cloudy,2.1,Parks,3.5,9,5,Relax,All,10.0,4.4,99
+58,28.4,54.0,39,23.4,39,Mist/Fog,5.4,Parks,4.1,6,4,Quiet Time,Libraries,15.0,3.4,79
+50,31.4,65.2,39,35.2,35,Cloudy,7.6,Meditation,3.7,6,5,Study,Meditation,8.0,0.0,67
+53,33.2,60.0,34,33.3,42,Mist/Fog,1.0,Meditation,4.8,12,1,Fresh Air,All,20.0,4.6,95
+33,13.8,22.9,39,35.1,52,Rainy,4.2,Meditation,3.7,8,2,Exercise,Meditation,8.0,3.9,93
+26,14.1,29.4,43,18.1,47,Partly Cloudy,1.2,Meditation,3.9,17,2,Quiet Time,Lakes,15.0,0.0,85
+89,47.9,81.7,37,33.5,42,Cloudy,3.0,Libraries,4.6,8,6,Study,Fitness,10.0,3.0,77
+125,74.0,127.8,28,27.8,84,Cloudy,2.5,Meditation,4.0,13,7,Quiet Time,All,8.0,0.0,66
+42,23.8,50.2,40,30.3,72,Thunderstorm,0.8,Meditation,3.8,10,6,Fresh Air,All,8.0,0.0,88
+148,67.8,119.2,46,21.7,80,Mist/Fog,1.9,Cafes,4.9,7,1,Relax,Parks,15.0,0.0,54
+53,28.9,56.1,34,24.6,67,Rainy,6.6,Meditation,3.9,13,5,Quiet Time,Fitness,20.0,0.0,89
+112,61.7,117.3,44,22.1,60,Partly Cloudy,1.5,Cafes,3.8,17,5,Exercise,Fitness,8.0,0.0,71
+112,58.2,100.5,44,18.4,37,Rainy,3.3,Cafes,3.7,22,1,Quiet Time,All,8.0,0.0,76
+28,17.9,35.1,44,33.8,71,Clear,6.3,Lakes,3.8,21,7,Relax,Parks,5.0,0.0,86
+131,69.1,117.5,46,28.7,38,Rainy,2.0,Lakes,3.7,12,5,Fresh Air,Fitness,8.0,0.0,48
+128,56.9,121.8,37,27.1,40,Thunderstorm,2.6,Meditation,4.9,6,7,Quiet Time,Cafes,8.0,0.0,64
+62,32.3,66.6,40,34.3,76,Mist/Fog,3.3,Parks,3.7,21,7,Quiet Time,Libraries,15.0,4.7,71
+103,46.1,93.4,56,27.4,60,Thunderstorm,1.9,Cafes,4.5,16,4,Fresh Air,Libraries,8.0,3.3,59
+32,18.2,37.4,34,26.7,53,Thunderstorm,3.1,Meditation,5.0,17,7,Exercise,Libraries,10.0,0.0,99
+162,69.6,121.0,63,19.8,60,Partly Cloudy,5.7,Fitness,4.4,7,2,Meditate,Fitness,20.0,4.3,28
+61,28.4,51.8,37,24.9,84,Mist/Fog,3.6,Libraries,3.9,7,7,Fresh Air,Cafes,20.0,0.0,76
+51,31.2,67.3,56,18.6,64,Partly Cloudy,2.8,Fitness,4.4,7,3,Exercise,Cafes,8.0,3.0,91
+101,55.2,105.5,39,34.5,62,Clear,4.8,Libraries,4.9,17,3,Study,Meditation,20.0,0.0,82
+175,89.9,165.6,42,25.3,40,Partly Cloudy,0.6,Cafes,4.0,9,7,Meditate,Libraries,10.0,0.0,35
+36,18.8,32.8,33,30.3,79,Rainy,7.2,Meditation,3.7,8,4,Study,Meditation,15.0,0.0,95
+34,21.7,41.4,34,22.5,39,Cloudy,4.2,Lakes,3.6,11,4,Quiet Time,Meditation,10.0,3.4,98
+114,51.3,104.7,65,22.1,76,Partly Cloudy,6.6,Fitness,3.7,9,1,Quiet Time,Parks,10.0,0.0,35
+129,76.2,146.7,45,24.7,50,Rainy,8.3,Fitness,4.8,21,2,Quiet Time,Cafes,20.0,0.0,40
+55,28.6,55.0,43,33.5,73,Rainy,2.4,Lakes,4.5,20,3,Fresh Air,Parks,5.0,0.0,64
+24,11.8,25.0,37,22.3,58,Cloudy,3.6,Parks,3.8,19,2,Quiet Time,Parks,10.0,0.0,99
+73,31.6,61.5,31,31.0,75,Clear,3.1,Libraries,3.8,10,4,Study,Cafes,15.0,0.0,85
+60,33.5,64.3,39,23.4,63,Rainy,3.2,Lakes,3.6,11,1,Exercise,Cafes,15.0,3.5,60
+96,51.8,111.8,50,25.4,52,Clear,4.3,Fitness,3.8,11,7,Study,Lakes,20.0,3.7,52
+165,81.7,144.8,38,33.6,67,Partly Cloudy,9.5,Meditation,4.4,18,7,Exercise,Fitness,15.0,0.0,43
+87,40.6,80.7,46,32.1,81,Rainy,5.1,Cafes,4.9,19,2,Study,Meditation,20.0,3.0,82
+82,48.0,98.4,49,19.9,38,Rainy,7.7,Fitness,3.6,18,5,Meditate,Meditation,20.0,0.0,24
+100,45.7,93.3,41,20.4,76,Partly Cloudy,0.4,Lakes,4.8,16,7,Relax,Meditation,10.0,0.0,92
+63,36.2,61.8,37,31.5,78,Mist/Fog,2.3,Meditation,4.0,17,4,Study,Libraries,20.0,0.0,71
+70,28.2,54.0,55,24.2,58,Partly Cloudy,0.3,Cafes,4.9,21,3,Exercise,Lakes,15.0,3.9,85
+153,82.2,140.8,57,25.1,43,Rainy,5.0,Cafes,4.7,13,3,Fresh Air,Parks,15.0,4.3,46
+49,26.1,46.0,31,21.3,49,Clear,3.8,Meditation,4.2,21,2,Quiet Time,Meditation,20.0,3.3,99
+86,37.1,69.1,28,20.7,59,Clear,1.8,Meditation,4.7,21,3,Relax,Parks,10.0,0.0,87
+59,30.5,52.3,49,32.9,41,Rainy,5.4,Lakes,4.1,20,2,Relax,Lakes,8.0,0.0,66
+62,35.1,60.5,41,34.9,42,Cloudy,4.9,Parks,4.3,14,4,Meditate,Cafes,20.0,0.0,59
+80,40.7,65.5,63,20.2,74,Thunderstorm,0.3,Fitness,4.4,21,6,Meditate,All,5.0,0.0,32
+70,29.6,58.3,58,19.1,52,Mist/Fog,0.9,Cafes,4.7,10,4,Relax,Parks,20.0,5.0,70
+52,25.7,52.3,32,26.7,56,Clear,1.5,Libraries,3.8,11,5,Quiet Time,Parks,15.0,4.5,99
+122,50.9,86.2,47,27.7,57,Cloudy,5.5,Cafes,4.1,11,1,Fresh Air,Fitness,20.0,0.0,50
+135,72.2,132.3,51,31.8,42,Rainy,1.5,Cafes,4.5,9,1,Quiet Time,All,15.0,0.0,75
+73,29.8,49.6,37,28.3,76,Clear,4.1,Parks,4.4,14,1,Relax,Fitness,20.0,4.2,99
+158,81.7,162.0,40,34.9,55,Mist/Fog,1.9,Lakes,4.7,14,5,Quiet Time,Cafes,5.0,3.1,59
+174,73.8,150.2,51,21.5,67,Partly Cloudy,3.3,Cafes,4.3,19,6,Relax,Parks,8.0,4.3,35
+71,31.6,58.2,52,27.6,64,Partly Cloudy,9.8,Fitness,4.3,16,7,Exercise,All,10.0,4.5,95
+129,69.8,120.6,40,22.6,83,Mist/Fog,2.4,Libraries,3.5,7,3,Quiet Time,Lakes,15.0,0.0,63
+177,80.3,143.7,55,32.8,80,Mist/Fog,2.8,Cafes,4.9,10,1,Relax,Lakes,20.0,3.7,28
+82,38.1,67.8,44,34.5,71,Thunderstorm,4.8,Lakes,3.8,9,5,Study,Lakes,15.0,0.0,43
+57,33.8,61.1,41,34.7,41,Rainy,5.4,Libraries,4.9,18,1,Relax,Fitness,20.0,3.1,73
+51,22.4,44.9,43,31.6,63,Rainy,0.6,Meditation,3.9,18,2,Fresh Air,Parks,15.0,3.2,79
+101,51.4,103.8,40,28.1,59,Rainy,4.0,Libraries,4.3,22,2,Study,All,8.0,3.5,85
+170,71.8,143.8,34,21.4,52,Cloudy,4.0,Libraries,3.8,17,5,Study,Meditation,10.0,0.0,59
+80,45.7,77.4,39,20.0,37,Clear,10.7,Libraries,4.8,15,1,Relax,Fitness,8.0,4.6,72
+52,23.5,45.2,45,31.5,62,Thunderstorm,3.7,Cafes,4.5,6,4,Exercise,Cafes,8.0,0.0,97
+51,23.9,44.9,51,25.0,48,Clear,7.0,Lakes,4.8,6,3,Relax,Lakes,10.0,0.0,99
+177,93.3,189.0,65,33.6,61,Rainy,1.0,Fitness,5.0,6,1,Exercise,Parks,20.0,4.1,26
+35,16.6,36.5,51,32.6,66,Cloudy,7.7,Lakes,4.9,14,2,Relax,Lakes,5.0,4.8,99
+144,76.3,153.1,65,22.1,47,Mist/Fog,0.9,Fitness,4.9,16,4,Meditate,All,10.0,0.0,32
+26,14.9,31.9,42,35.9,83,Rainy,0.8,Meditation,4.9,16,1,Quiet Time,Fitness,20.0,0.0,92
+91,56.4,114.8,62,35.3,50,Rainy,5.1,Fitness,3.7,12,1,Relax,Parks,10.0,3.1,8
+30,17.2,31.2,39,20.4,77,Rainy,2.5,Meditation,3.8,18,4,Fresh Air,Libraries,10.0,0.0,90
+54,21.8,38.4,41,30.1,45,Mist/Fog,1.1,Lakes,4.9,20,7,Meditate,Parks,8.0,0.0,74
+129,78.2,158.9,41,28.3,61,Mist/Fog,3.9,Lakes,4.3,20,4,Exercise,Cafes,5.0,0.0,55
+64,26.2,48.0,47,21.4,56,Clear,7.9,Parks,4.2,19,3,Meditate,Libraries,10.0,0.0,67
+24,12.6,21.5,44,27.8,54,Mist/Fog,1.7,Lakes,3.8,12,4,Exercise,Fitness,5.0,3.6,92
+71,41.4,68.5,61,24.5,61,Mist/Fog,2.0,Fitness,4.4,11,4,Quiet Time,Fitness,20.0,0.0,77
+135,59.1,125.4,45,18.9,50,Mist/Fog,4.9,Cafes,3.9,11,1,Fresh Air,Fitness,15.0,0.0,47
+51,26.7,50.7,48,33.9,46,Thunderstorm,3.4,Lakes,4.2,20,1,Relax,Libraries,15.0,0.0,59
+122,74.0,120.6,44,24.3,42,Mist/Fog,0.4,Cafes,4.8,15,3,Fresh Air,Meditation,20.0,0.0,69
+70,33.0,65.9,46,32.2,43,Thunderstorm,2.4,Parks,4.0,7,1,Relax,Cafes,20.0,0.0,57
+33,14.3,28.8,38,25.4,45,Thunderstorm,1.1,Parks,3.7,22,1,Exercise,Fitness,5.0,0.0,93
+178,84.0,165.1,52,28.4,66,Thunderstorm,9.5,Fitness,4.3,22,6,Fresh Air,Fitness,20.0,0.0,17
+28,12.0,22.5,40,33.3,74,Mist/Fog,24.4,Meditation,3.6,17,5,Meditate,Meditation,15.0,0.0,70
+32,19.1,34.1,43,31.8,40,Cloudy,1.7,Lakes,4.6,6,7,Relax,Meditation,15.0,3.7,99
+67,29.4,55.2,41,26.3,75,Cloudy,9.5,Libraries,4.8,15,5,Relax,Meditation,5.0,0.0,68
+52,28.3,50.9,58,19.2,42,Cloudy,6.7,Cafes,5.0,11,5,Fresh Air,Libraries,10.0,0.0,65
+90,36.7,67.8,50,24.7,76,Partly Cloudy,1.6,Cafes,4.0,9,3,Quiet Time,Fitness,20.0,0.0,83
+55,34.4,58.2,40,31.2,61,Rainy,5.5,Lakes,4.7,9,7,Relax,Cafes,8.0,0.0,64
+52,27.6,44.2,50,33.3,78,Mist/Fog,1.7,Lakes,3.7,15,1,Quiet Time,All,5.0,0.0,80
+91,40.8,72.1,47,30.1,48,Rainy,0.9,Cafes,3.5,22,1,Quiet Time,Parks,5.0,3.7,80
+81,33.8,66.5,52,18.9,36,Rainy,8.5,Fitness,3.7,7,1,Study,Libraries,5.0,0.0,15
+131,75.0,140.1,40,32.7,70,Cloudy,4.2,Lakes,3.6,20,5,Quiet Time,Libraries,20.0,4.6,72
+133,78.7,148.1,43,33.5,65,Partly Cloudy,8.8,Libraries,3.8,16,7,Study,Meditation,15.0,0.0,50
+53,27.5,49.8,50,23.1,52,Partly Cloudy,3.3,Cafes,3.7,9,3,Exercise,Cafes,20.0,0.0,91
+103,57.2,110.3,43,19.2,45,Rainy,4.4,Libraries,4.7,19,5,Exercise,Libraries,15.0,0.0,88
+50,29.2,59.2,41,28.7,58,Clear,3.1,Meditation,3.8,18,1,Quiet Time,Parks,15.0,0.0,73
+133,55.2,95.5,30,34.3,66,Thunderstorm,0.3,Libraries,4.5,20,5,Study,Cafes,8.0,4.2,78
+138,66.1,128.4,42,34.5,81,Cloudy,4.7,Libraries,5.0,6,5,Meditate,Parks,10.0,0.0,56
+167,107.2,171.6,52,20.0,49,Cloudy,0.4,Cafes,4.6,18,6,Relax,Lakes,15.0,3.8,42
+77,34.1,57.4,36,33.1,42,Cloudy,21.2,Libraries,3.7,8,6,Exercise,Libraries,8.0,4.4,50
+38,19.5,40.4,44,29.2,57,Rainy,2.2,Lakes,4.1,13,2,Relax,Parks,15.0,0.0,70
+80,42.0,77.6,43,18.6,36,Cloudy,2.6,Parks,3.7,21,6,Fresh Air,Cafes,10.0,4.5,84
+60,37.3,61.7,50,29.9,68,Mist/Fog,4.3,Cafes,4.7,15,5,Exercise,Libraries,20.0,3.7,79
+41,23.9,44.3,51,23.2,36,Cloudy,9.3,Parks,4.6,14,1,Exercise,Cafes,10.0,0.0,98
+145,59.0,111.6,47,33.3,48,Clear,0.8,Fitness,3.9,14,1,Study,Fitness,10.0,0.0,42
+135,66.5,113.4,40,26.7,74,Partly Cloudy,7.2,Meditation,5.0,10,5,Meditate,Libraries,10.0,0.0,72
+135,78.5,133.5,37,19.0,48,Cloudy,6.3,Libraries,3.8,18,4,Exercise,Parks,5.0,4.5,58
+37,17.2,33.0,34,34.7,57,Cloudy,4.3,Meditation,4.5,7,1,Meditate,Cafes,20.0,0.0,90
+161,77.9,137.1,29,28.5,58,Mist/Fog,4.2,Libraries,4.6,12,5,Fresh Air,Meditation,8.0,4.4,54
+20,8.3,15.3,43,26.0,45,Mist/Fog,1.5,Lakes,3.6,8,1,Study,Libraries,8.0,0.0,82
+65,39.9,66.9,38,28.2,83,Mist/Fog,8.2,Meditation,3.9,20,6,Quiet Time,All,8.0,0.0,69
+150,86.0,172.0,62,20.9,38,Cloudy,5.6,Fitness,4.1,7,3,Exercise,Lakes,15.0,0.0,57
+101,56.7,94.4,36,21.9,67,Rainy,8.8,Libraries,3.7,8,1,Meditate,Libraries,10.0,0.0,94
+166,72.6,144.1,58,25.0,42,Mist/Fog,1.7,Cafes,4.4,22,6,Exercise,All,15.0,0.0,50
+79,39.2,78.9,62,28.2,81,Clear,1.9,Fitness,4.1,8,3,Relax,Libraries,10.0,0.0,49
+109,64.5,128.3,45,35.4,68,Clear,1.5,Cafes,4.8,17,4,Relax,Fitness,15.0,4.3,62
+81,40.3,83.6,45,27.6,76,Rainy,2.4,Lakes,3.6,7,3,Relax,Meditation,5.0,0.0,51
+49,26.0,56.3,49,20.7,63,Thunderstorm,9.4,Parks,4.6,21,6,Exercise,All,5.0,4.8,78
+72,29.7,53.0,63,29.0,76,Rainy,0.5,Fitness,3.7,13,1,Meditate,All,5.0,0.0,18
+158,92.3,169.9,29,28.4,41,Mist/Fog,6.6,Libraries,4.6,11,3,Study,Fitness,8.0,3.5,65
+107,67.6,109.8,43,29.0,73,Mist/Fog,0.4,Cafes,3.6,6,2,Fresh Air,Parks,15.0,0.0,59
+165,83.2,173.4,62,20.3,42,Mist/Fog,1.4,Fitness,4.1,11,5,Quiet Time,Libraries,15.0,0.0,28
+89,44.9,86.9,31,35.6,65,Thunderstorm,7.3,Meditation,4.3,20,7,Relax,Meditation,20.0,0.0,78
+55,31.4,68.5,42,20.9,81,Partly Cloudy,0.5,Lakes,3.9,19,3,Study,All,10.0,4.6,86
+72,42.9,81.1,47,31.0,64,Partly Cloudy,1.7,Fitness,4.6,16,2,Relax,Libraries,8.0,0.0,70
+80,40.3,69.3,58,26.5,59,Clear,8.0,Cafes,3.8,20,2,Meditate,All,8.0,3.3,41
+66,37.8,61.8,44,26.3,43,Rainy,1.8,Cafes,4.4,11,5,Meditate,Lakes,10.0,0.0,72
+113,73.3,143.3,49,18.3,56,Cloudy,7.5,Lakes,4.0,13,5,Relax,Cafes,8.0,0.0,64
+178,103.8,197.5,34,26.6,74,Rainy,6.3,Libraries,4.2,8,5,Relax,All,15.0,0.0,49
+173,74.9,133.1,59,18.3,68,Clear,0.9,Fitness,4.8,6,4,Quiet Time,Cafes,15.0,0.0,33
+48,29.5,48.5,50,27.6,49,Cloudy,5.2,Lakes,4.3,12,7,Study,Meditation,20.0,0.0,65
+116,72.8,132.4,28,24.6,65,Rainy,1.9,Meditation,4.5,8,5,Study,Meditation,8.0,0.0,91
+53,31.2,66.2,46,31.7,51,Mist/Fog,8.3,Lakes,4.5,14,1,Fresh Air,All,20.0,3.7,99
+157,81.3,156.0,41,26.1,53,Cloudy,4.2,Libraries,3.8,20,1,Fresh Air,Libraries,5.0,4.8,62
+26,11.4,19.6,51,23.3,83,Clear,3.0,Parks,4.2,19,4,Meditate,Lakes,8.0,0.0,79
+59,27.0,58.5,45,28.4,67,Rainy,5.7,Parks,4.4,22,7,Study,Parks,15.0,0.0,53
+83,43.2,94.3,55,20.7,49,Clear,11.2,Cafes,4.9,15,2,Meditate,Fitness,20.0,0.0,53
+153,67.4,112.6,67,20.3,48,Thunderstorm,1.0,Fitness,4.6,16,3,Quiet Time,Meditation,20.0,3.9,15
+149,94.9,204.7,36,27.8,60,Mist/Fog,3.9,Parks,4.2,15,7,Relax,Cafes,10.0,0.0,62
+144,90.8,163.7,29,34.2,41,Rainy,3.1,Meditation,3.5,13,4,Quiet Time,Parks,10.0,3.7,47
+86,34.9,67.1,35,35.2,83,Mist/Fog,2.1,Meditation,4.0,22,1,Meditate,Fitness,15.0,0.0,74
+143,72.5,132.8,42,24.3,83,Cloudy,7.6,Cafes,3.8,20,6,Exercise,Parks,5.0,0.0,47
+166,72.2,141.0,46,23.5,84,Partly Cloudy,2.9,Fitness,3.6,18,1,Exercise,Meditation,10.0,4.3,63
+122,70.5,144.7,44,33.0,49,Partly Cloudy,2.7,Cafes,4.8,15,4,Exercise,Parks,10.0,0.0,65
+48,26.8,44.9,45,25.5,59,Cloudy,4.4,Parks,3.5,14,4,Meditate,Lakes,8.0,0.0,61
+41,20.9,36.7,46,32.7,53,Mist/Fog,4.9,Parks,4.8,11,5,Fresh Air,Meditation,5.0,3.6,97
+48,30.7,50.0,39,34.9,60,Mist/Fog,5.4,Lakes,4.6,11,5,Relax,Lakes,8.0,3.6,98
+139,79.5,131.8,58,18.2,60,Partly Cloudy,1.9,Fitness,4.1,11,1,Study,Lakes,15.0,4.0,34
+118,62.9,121.4,40,25.5,80,Clear,0.7,Meditation,4.9,21,3,Fresh Air,Meditation,8.0,3.7,84
+149,72.3,146.5,28,22.0,77,Clear,0.8,Libraries,4.0,12,2,Fresh Air,Libraries,8.0,0.0,72
+148,60.8,101.2,48,28.7,58,Thunderstorm,8.7,Parks,3.6,6,7,Relax,All,5.0,3.2,20
+74,36.1,59.7,41,35.1,52,Cloudy,0.9,Meditation,4.7,13,5,Meditate,Libraries,20.0,0.0,83
+175,77.5,159.1,34,19.8,45,Mist/Fog,2.8,Parks,4.0,11,4,Fresh Air,Parks,15.0,0.0,72
+37,16.8,29.2,36,20.2,40,Cloudy,0.8,Parks,4.6,7,1,Meditate,Fitness,10.0,3.2,87
+107,57.6,102.2,57,33.4,79,Partly Cloudy,6.0,Cafes,3.8,21,6,Quiet Time,Fitness,10.0,3.9,54
+65,32.4,65.4,67,34.7,83,Mist/Fog,0.5,Fitness,4.0,18,1,Quiet Time,All,8.0,3.8,46
+154,97.9,177.6,38,35.8,60,Rainy,0.9,Meditation,3.7,14,4,Fresh Air,Lakes,15.0,0.0,44
+62,25.6,42.0,60,24.9,68,Partly Cloudy,0.9,Fitness,4.4,8,6,Meditate,All,20.0,0.0,58
+42,22.5,46.9,43,35.1,36,Clear,2.3,Lakes,4.1,16,7,Study,Meditation,5.0,3.9,68
+55,34.2,58.1,41,30.9,59,Cloudy,0.7,Parks,4.5,21,4,Meditate,Libraries,15.0,0.0,73
+176,97.5,176.6,59,19.1,64,Cloudy,0.8,Cafes,4.0,6,7,Exercise,Libraries,10.0,0.0,35
+105,68.0,125.6,43,22.5,67,Partly Cloudy,3.4,Cafes,4.8,9,3,Exercise,All,5.0,4.1,85
+167,77.9,157.2,37,24.8,54,Cloudy,3.3,Libraries,3.7,12,3,Fresh Air,Libraries,15.0,0.0,57
+129,63.3,117.8,56,33.1,61,Clear,1.5,Fitness,3.9,18,7,Study,Parks,5.0,4.5,36
+45,24.0,44.6,40,29.7,50,Clear,6.0,Parks,4.5,16,2,Fresh Air,Lakes,15.0,0.0,99
+108,63.8,109.0,42,27.3,44,Mist/Fog,2.7,Cafes,3.9,19,5,Fresh Air,Libraries,15.0,0.0,60
+69,39.4,70.1,34,33.5,80,Cloudy,3.8,Libraries,3.9,15,6,Meditate,Parks,15.0,4.4,84
+28,12.9,27.0,42,35.8,56,Thunderstorm,8.6,Lakes,3.7,10,1,Exercise,Parks,8.0,4.6,58
+57,35.6,63.7,39,34.2,55,Clear,1.9,Parks,4.1,10,2,Quiet Time,Cafes,5.0,4.5,84
+173,109.5,191.7,49,28.8,73,Partly Cloudy,1.6,Parks,4.6,13,4,Fresh Air,Meditation,20.0,3.2,57
+126,65.8,120.1,43,27.8,58,Cloudy,1.3,Libraries,4.8,10,3,Study,Fitness,10.0,0.0,76
+133,83.3,135.0,55,30.4,74,Clear,1.3,Cafes,4.1,17,7,Study,All,20.0,0.0,56
+168,83.7,183.0,32,34.9,72,Clear,1.5,Libraries,4.9,16,7,Exercise,All,8.0,0.0,58
+162,98.1,212.3,35,34.7,51,Rainy,2.2,Libraries,4.7,14,5,Relax,Lakes,5.0,3.8,45
+53,21.9,43.5,53,20.4,55,Mist/Fog,3.8,Cafes,4.4,9,2,Exercise,Meditation,10.0,4.4,84
+127,63.8,138.0,55,20.4,43,Mist/Fog,3.4,Fitness,4.7,12,1,Meditate,Fitness,10.0,0.0,52
+170,95.5,188.7,42,21.6,70,Rainy,0.9,Meditation,4.4,14,2,Meditate,All,15.0,3.7,71
+106,66.8,125.1,38,22.0,45,Clear,10.5,Meditation,3.9,21,4,Relax,All,10.0,4.7,66
+74,32.9,68.3,42,22.2,57,Cloudy,1.3,Cafes,4.5,20,1,Quiet Time,Meditation,20.0,3.3,91
+139,80.4,162.8,55,19.3,62,Cloudy,0.5,Cafes,4.2,17,5,Quiet Time,Cafes,8.0,0.0,71
+82,45.5,81.1,54,20.4,79,Cloudy,0.4,Fitness,3.9,22,4,Relax,All,8.0,0.0,64
+91,48.5,81.7,29,35.6,59,Clear,13.0,Libraries,4.6,19,3,Meditate,All,10.0,0.0,75
+106,46.8,95.6,50,28.0,81,Partly Cloudy,3.8,Cafes,3.6,10,1,Fresh Air,Lakes,15.0,3.1,52
+110,47.2,100.9,50,24.4,70,Rainy,2.6,Cafes,3.7,10,1,Meditate,Meditation,15.0,3.4,45
+85,52.9,103.2,58,27.5,63,Clear,2.2,Fitness,3.9,21,6,Fresh Air,Fitness,5.0,3.7,66
+65,32.1,69.3,43,20.8,39,Cloudy,6.5,Cafes,4.2,14,5,Quiet Time,Meditation,15.0,0.0,89
+179,112.2,233.2,30,32.4,49,Clear,5.9,Meditation,4.3,18,1,Exercise,Lakes,5.0,3.4,44
+160,70.5,145.8,32,20.8,49,Mist/Fog,6.0,Libraries,4.9,10,3,Relax,All,10.0,0.0,60
+111,60.0,111.2,40,29.0,56,Cloudy,2.2,Libraries,4.3,20,6,Exercise,Cafes,5.0,4.4,70
+43,20.3,37.8,50,23.4,84,Rainy,4.3,Lakes,4.8,22,4,Exercise,Libraries,10.0,3.1,65
+40,23.2,48.4,40,19.5,60,Thunderstorm,0.7,Parks,3.8,11,7,Fresh Air,Cafes,15.0,3.2,76
+126,64.7,129.5,59,24.1,80,Cloudy,6.1,Fitness,3.8,14,7,Study,Lakes,8.0,0.0,29
+72,37.4,75.4,41,28.8,59,Mist/Fog,3.7,Libraries,4.0,18,7,Relax,All,20.0,3.3,70
+140,62.6,101.2,42,29.7,56,Partly Cloudy,3.7,Parks,3.8,15,7,Meditate,All,20.0,0.0,40
+175,90.6,191.7,44,23.3,76,Partly Cloudy,2.0,Lakes,3.5,19,4,Meditate,Meditation,10.0,0.0,29
+145,94.2,152.8,54,28.6,65,Thunderstorm,4.3,Fitness,3.8,7,5,Fresh Air,Libraries,15.0,4.2,15
+65,36.1,71.8,55,18.4,49,Rainy,1.0,Fitness,4.2,22,2,Exercise,Cafes,10.0,0.0,68
+160,92.6,174.2,65,30.8,82,Mist/Fog,6.6,Fitness,4.7,11,5,Study,Libraries,10.0,4.4,20
+24,12.1,26.6,39,28.0,84,Partly Cloudy,1.9,Lakes,4.0,11,2,Meditate,Parks,10.0,0.0,82
+39,21.6,36.1,31,35.9,74,Cloudy,5.4,Meditation,3.9,10,7,Relax,Fitness,20.0,0.0,72
+153,98.0,201.2,67,29.0,77,Thunderstorm,0.7,Fitness,3.6,9,2,Relax,Cafes,20.0,0.0,5
+142,83.8,159.1,49,29.6,51,Partly Cloudy,0.8,Lakes,4.2,19,7,Study,Parks,8.0,0.0,40
+72,33.6,68.2,49,30.0,42,Mist/Fog,5.2,Cafes,4.7,10,7,Study,Libraries,15.0,0.0,82
+117,66.8,144.7,35,30.9,60,Clear,0.6,Libraries,4.0,11,4,Exercise,Fitness,10.0,4.5,75
+153,94.7,206.8,34,30.6,78,Mist/Fog,4.8,Meditation,4.9,6,7,Relax,Meditation,10.0,4.1,65
+29,15.5,32.1,45,24.2,75,Mist/Fog,4.0,Lakes,4.8,8,1,Quiet Time,Cafes,8.0,0.0,99
+24,12.9,24.7,47,18.4,79,Partly Cloudy,3.0,Lakes,3.9,15,6,Fresh Air,Libraries,10.0,0.0,99
+36,20.0,36.3,28,34.9,57,Mist/Fog,3.3,Meditation,4.2,13,7,Relax,Meditation,5.0,0.0,87
+159,72.9,129.7,60,28.3,41,Mist/Fog,2.0,Fitness,3.7,22,5,Quiet Time,Libraries,8.0,4.6,31
+142,86.2,142.2,28,26.6,57,Partly Cloudy,1.9,Libraries,4.1,22,7,Relax,Parks,20.0,3.5,61
+145,73.1,124.1,36,30.8,41,Rainy,4.6,Libraries,3.7,12,4,Quiet Time,Cafes,20.0,0.0,65
+98,62.5,122.6,54,24.7,49,Clear,2.9,Fitness,4.1,17,3,Meditate,Libraries,5.0,3.1,43
+165,74.9,156.7,35,27.9,38,Clear,0.5,Libraries,4.4,20,3,Relax,Lakes,15.0,0.0,51
+128,75.6,143.9,35,30.0,42,Rainy,4.9,Libraries,4.7,19,4,Quiet Time,Fitness,5.0,3.8,74
+133,82.0,166.0,37,23.6,67,Mist/Fog,3.9,Libraries,3.8,7,5,Quiet Time,Lakes,5.0,0.0,67
+65,41.2,70.4,28,22.4,70,Partly Cloudy,8.0,Libraries,3.6,16,4,Fresh Air,All,15.0,0.0,79
+103,63.3,113.3,46,35.6,62,Clear,1.5,Cafes,3.9,8,2,Exercise,Parks,8.0,3.8,63
+73,42.2,75.1,35,25.4,51,Partly Cloudy,1.9,Lakes,3.6,13,7,Relax,Libraries,5.0,0.0,93
+34,18.3,30.0,28,22.2,79,Mist/Fog,1.4,Meditation,4.5,13,7,Exercise,All,20.0,0.0,99
+23,12.9,22.2,51,27.7,43,Cloudy,1.3,Lakes,4.9,20,1,Study,Libraries,15.0,3.9,83
+112,61.5,129.4,40,33.2,45,Cloudy,6.7,Lakes,3.6,8,3,Relax,All,10.0,4.4,68
+164,74.2,141.2,48,35.0,66,Mist/Fog,13.9,Lakes,3.9,16,3,Quiet Time,Libraries,15.0,4.9,45
+20,8.0,13.6,44,30.7,73,Mist/Fog,3.0,Lakes,4.3,20,6,Quiet Time,All,5.0,4.9,99
+100,61.0,127.3,43,26.3,81,Clear,2.4,Libraries,4.6,14,6,Fresh Air,Lakes,8.0,0.0,70
+78,50.3,109.7,28,34.3,70,Rainy,1.1,Meditation,5.0,18,1,Quiet Time,Lakes,8.0,0.0,86
+28,16.4,32.9,37,19.2,41,Partly Cloudy,0.5,Meditation,4.9,13,5,Fresh Air,Cafes,10.0,0.0,96
+31,16.7,31.3,50,30.1,67,Mist/Fog,7.0,Parks,4.1,19,3,Quiet Time,Meditation,10.0,4.0,80
+148,91.9,159.4,32,27.6,50,Rainy,2.0,Libraries,3.6,6,6,Study,Libraries,10.0,4.4,91
+48,20.4,38.5,48,32.3,81,Thunderstorm,6.7,Lakes,3.7,13,3,Meditate,Lakes,8.0,0.0,42
+80,33.5,65.7,49,29.3,63,Clear,0.6,Cafes,4.9,18,3,Fresh Air,Fitness,5.0,0.0,73
+48,20.0,40.1,44,33.3,55,Cloudy,3.7,Parks,3.8,6,4,Exercise,All,15.0,4.6,95
+62,36.9,69.1,33,19.9,35,Partly Cloudy,4.7,Meditation,4.7,12,5,Fresh Air,All,20.0,4.0,88
+55,22.8,40.7,34,31.6,50,Mist/Fog,7.9,Meditation,3.7,15,5,Exercise,Parks,8.0,3.7,81
+26,11.9,24.9,44,25.6,44,Clear,1.1,Parks,4.7,16,2,Fresh Air,Libraries,8.0,0.0,99
+123,59.5,105.9,33,26.2,74,Clear,0.5,Meditation,4.9,13,6,Quiet Time,Lakes,8.0,4.2,75
+155,93.3,170.3,41,24.5,38,Clear,0.4,Lakes,3.7,20,2,Exercise,Meditation,5.0,0.0,64
+29,13.5,23.0,49,21.2,36,Partly Cloudy,6.8,Parks,3.5,10,4,Meditate,Parks,5.0,0.0,68
+30,18.1,36.1,50,33.9,78,Thunderstorm,0.5,Parks,4.8,10,7,Study,Parks,8.0,4.1,63
+169,99.8,194.8,41,32.2,51,Cloudy,0.5,Libraries,4.8,22,5,Quiet Time,Parks,10.0,0.0,61
+152,84.2,143.2,40,31.5,53,Mist/Fog,2.9,Lakes,4.0,17,5,Quiet Time,All,8.0,0.0,62
+132,78.9,157.0,45,26.1,46,Partly Cloudy,1.2,Cafes,4.8,11,7,Fresh Air,Cafes,15.0,4.1,78
+35,19.1,35.9,45,26.1,56,Rainy,1.9,Lakes,4.0,18,1,Relax,Lakes,15.0,3.5,89
+44,18.5,32.7,38,19.3,36,Clear,1.1,Parks,4.5,14,3,Study,Fitness,8.0,0.0,87
+141,91.6,201.4,62,27.8,48,Mist/Fog,5.4,Fitness,4.7,18,4,Study,Parks,10.0,0.0,24
+173,106.6,185.1,61,26.5,60,Partly Cloudy,5.7,Fitness,4.6,20,3,Fresh Air,Fitness,15.0,0.0,39
+150,86.2,148.8,50,18.5,41,Thunderstorm,7.5,Cafes,4.9,6,4,Meditate,Cafes,10.0,0.0,47
+147,86.8,174.8,32,18.4,74,Thunderstorm,9.2,Libraries,5.0,16,5,Exercise,Meditation,8.0,0.0,62
+177,79.8,146.4,36,26.5,51,Partly Cloudy,11.7,Meditation,3.6,9,6,Fresh Air,Libraries,10.0,0.0,36
+75,47.1,86.3,31,29.9,38,Cloudy,0.5,Libraries,3.5,16,7,Relax,Parks,20.0,0.0,73
+66,33.3,68.1,34,20.3,45,Partly Cloudy,2.3,Libraries,3.7,15,5,Meditate,All,15.0,4.4,98
+128,59.1,106.2,44,26.3,63,Rainy,5.0,Lakes,4.5,20,3,Exercise,All,10.0,0.0,47
+129,77.7,132.5,50,31.2,57,Thunderstorm,8.8,Fitness,4.5,9,4,Study,Cafes,8.0,0.0,17
+49,20.4,41.5,50,25.4,73,Rainy,0.8,Lakes,3.6,9,5,Study,Meditation,10.0,0.0,45
+71,32.1,52.2,42,30.5,72,Mist/Fog,2.0,Cafes,4.8,18,1,Exercise,Cafes,15.0,3.2,97
+109,45.8,91.3,61,20.5,76,Rainy,6.7,Fitness,4.8,9,2,Exercise,Cafes,8.0,4.1,57
+137,55.2,97.4,35,21.9,36,Partly Cloudy,4.2,Libraries,4.2,7,7,Meditate,All,8.0,0.0,71
+139,71.0,139.1,46,31.8,81,Rainy,1.9,Fitness,3.8,6,4,Relax,Cafes,8.0,3.0,20
+63,26.7,56.1,45,21.0,55,Mist/Fog,0.7,Lakes,4.0,12,5,Quiet Time,Meditation,10.0,4.1,97
+20,11.3,18.2,37,19.2,75,Partly Cloudy,4.0,Lakes,3.6,12,4,Relax,Lakes,10.0,4.2,99
+169,91.6,160.4,35,35.7,69,Cloudy,4.3,Parks,4.0,16,7,Quiet Time,Libraries,8.0,0.0,34
+53,27.9,56.4,28,29.1,79,Clear,1.6,Meditation,4.6,8,1,Exercise,Cafes,15.0,4.0,99
+21,13.2,25.9,51,33.8,41,Mist/Fog,1.6,Lakes,4.3,19,6,Meditate,Cafes,5.0,0.0,64
+81,43.3,92.8,60,32.4,69,Partly Cloudy,1.2,Fitness,4.3,11,4,Study,Lakes,15.0,0.0,46
+56,36.3,78.5,36,28.7,76,Partly Cloudy,9.7,Parks,4.3,19,6,Exercise,All,8.0,0.0,98
+82,38.6,72.1,38,33.5,59,Cloudy,10.9,Libraries,4.1,11,4,Meditate,Libraries,10.0,0.0,81
+27,17.2,32.5,40,33.4,72,Rainy,9.2,Meditation,4.3,11,3,Fresh Air,Meditation,20.0,3.6,94
+67,34.7,58.7,31,33.5,71,Clear,1.9,Libraries,4.9,18,6,Relax,Lakes,15.0,4.0,84
+103,42.2,90.9,53,20.9,73,Thunderstorm,11.3,Fitness,4.3,21,6,Fresh Air,All,10.0,0.0,34
+81,33.1,69.1,38,18.5,68,Mist/Fog,0.9,Libraries,4.2,10,3,Quiet Time,Parks,20.0,4.2,91
+65,27.5,55.7,53,28.6,80,Mist/Fog,2.9,Fitness,4.8,11,7,Meditate,All,8.0,0.0,57
+53,31.2,67.2,41,29.5,73,Clear,1.8,Meditation,3.9,12,6,Quiet Time,Cafes,8.0,3.6,76
+54,27.2,50.3,39,21.1,53,Rainy,4.6,Lakes,4.2,22,1,Exercise,All,8.0,0.0,69
+74,47.8,101.5,41,20.0,66,Thunderstorm,0.6,Parks,4.1,14,1,Quiet Time,Parks,5.0,4.2,72
+148,59.6,104.9,43,28.5,84,Mist/Fog,0.7,Libraries,4.7,18,5,Exercise,Meditation,20.0,0.0,62
+93,47.2,86.0,42,32.7,82,Cloudy,4.1,Libraries,4.4,17,7,Exercise,Fitness,15.0,3.2,71
+144,89.6,150.8,37,23.0,69,Thunderstorm,6.2,Libraries,4.2,21,5,Quiet Time,Cafes,10.0,0.0,74
+96,39.5,82.3,47,22.2,59,Rainy,5.0,Cafes,4.0,21,6,Relax,Meditation,5.0,0.0,66
+28,12.2,23.3,44,27.1,41,Mist/Fog,5.9,Parks,4.7,20,2,Quiet Time,Cafes,10.0,0.0,87
+53,29.9,49.4,34,18.5,81,Mist/Fog,1.7,Meditation,4.6,13,6,Meditate,Parks,15.0,4.0,99
+67,35.8,72.9,47,24.0,46,Mist/Fog,3.3,Fitness,3.6,16,4,Relax,Meditation,20.0,0.0,65
+123,75.5,157.4,50,23.2,40,Clear,1.8,Fitness,4.9,9,5,Quiet Time,Fitness,20.0,4.7,81
+50,20.8,40.0,41,23.8,53,Rainy,4.3,Libraries,4.3,13,1,Fresh Air,Meditation,8.0,4.1,88
+138,60.3,106.7,55,18.6,51,Mist/Fog,2.7,Cafes,3.9,21,6,Meditate,Cafes,5.0,0.0,34
+175,72.6,151.5,30,21.8,71,Mist/Fog,6.1,Libraries,4.9,11,7,Study,Meditation,5.0,0.0,58
+121,58.6,117.6,67,25.0,61,Rainy,1.5,Fitness,4.6,18,1,Meditate,All,8.0,4.5,22
+89,50.2,97.7,35,23.2,42,Rainy,1.2,Meditation,4.6,6,3,Relax,Fitness,8.0,0.0,82
+27,11.2,20.3,42,20.1,60,Clear,1.7,Lakes,5.0,18,2,Exercise,Cafes,15.0,3.5,99
+127,56.3,115.3,40,29.9,73,Mist/Fog,7.3,Libraries,3.9,20,3,Study,Meditation,15.0,3.2,65
+64,33.3,67.1,29,21.3,59,Thunderstorm,3.9,Meditation,3.9,10,1,Meditate,All,15.0,4.4,99
+52,28.0,53.8,40,19.2,76,Rainy,3.0,Meditation,4.6,12,6,Meditate,Cafes,5.0,0.0,93
+34,13.9,27.0,45,28.1,77,Clear,0.4,Lakes,4.3,17,5,Relax,Libraries,5.0,5.0,99
+89,56.7,108.4,63,27.6,41,Mist/Fog,2.7,Fitness,4.3,17,5,Relax,Parks,10.0,0.0,43
+33,20.1,43.7,44,28.7,48,Partly Cloudy,4.9,Parks,3.6,14,3,Meditate,All,15.0,4.8,77
+172,97.9,211.9,30,19.3,71,Partly Cloudy,19.1,Libraries,4.6,22,5,Exercise,All,8.0,4.6,36
+82,38.3,73.5,38,19.2,67,Rainy,1.9,Libraries,4.7,10,7,Relax,Libraries,10.0,0.0,95
+99,63.6,116.2,43,21.2,71,Clear,1.6,Cafes,3.6,17,6,Relax,All,15.0,0.0,69
+53,23.6,49.2,46,27.9,79,Thunderstorm,2.1,Parks,3.7,6,6,Relax,Parks,20.0,0.0,74
+45,21.0,45.2,45,30.7,47,Cloudy,3.6,Lakes,3.8,17,7,Quiet Time,Parks,15.0,0.0,86
+48,20.2,36.0,40,29.4,38,Clear,1.3,Meditation,3.7,7,1,Quiet Time,Fitness,5.0,0.0,82
+175,88.5,168.6,39,27.0,69,Rainy,4.3,Meditation,4.5,18,1,Exercise,Fitness,20.0,0.0,59
+119,57.9,127.2,60,30.3,37,Thunderstorm,2.4,Fitness,4.5,22,2,Exercise,Meditation,8.0,3.7,47
+104,51.5,93.9,36,22.5,61,Mist/Fog,5.4,Lakes,3.9,21,3,Fresh Air,Lakes,5.0,3.0,89
+157,64.2,120.6,53,19.0,35,Rainy,2.5,Cafes,4.0,6,3,Quiet Time,Libraries,10.0,0.0,49
+39,17.5,33.6,50,20.2,59,Rainy,0.9,Lakes,3.8,18,3,Exercise,Lakes,10.0,3.9,81
+71,34.7,64.6,40,21.6,44,Mist/Fog,0.4,Parks,4.1,16,1,Exercise,Meditation,15.0,3.4,99
+65,33.9,64.3,38,23.8,73,Partly Cloudy,7.8,Libraries,4.6,18,2,Quiet Time,Lakes,20.0,3.2,95
+22,13.4,24.9,37,25.8,49,Clear,2.6,Meditation,3.9,10,6,Relax,Fitness,15.0,0.0,89
+31,17.8,35.6,41,30.7,75,Rainy,4.5,Lakes,4.4,12,7,Study,Fitness,20.0,0.0,57
+28,12.2,19.6,37,24.8,61,Clear,4.5,Lakes,3.8,19,4,Exercise,All,8.0,3.9,99
+32,15.6,28.9,39,21.3,35,Clear,4.1,Parks,3.8,21,3,Study,All,10.0,0.0,91
+89,37.8,60.8,36,24.0,72,Partly Cloudy,1.9,Libraries,4.3,17,2,Study,Lakes,20.0,0.0,94
+24,13.4,26.3,34,32.7,44,Mist/Fog,2.4,Lakes,3.6,16,3,Fresh Air,Cafes,5.0,0.0,99
+66,33.3,67.5,65,35.6,79,Thunderstorm,2.4,Fitness,4.9,8,4,Meditate,All,5.0,0.0,16
+51,22.0,35.8,37,21.4,75,Mist/Fog,2.7,Meditation,4.8,8,2,Relax,Parks,20.0,0.0,84
+85,37.9,64.3,31,18.2,81,Mist/Fog,2.8,Libraries,4.6,22,3,Exercise,Libraries,20.0,3.4,95
+65,29.6,56.8,51,20.7,79,Mist/Fog,9.5,Fitness,4.8,7,6,Study,Libraries,10.0,0.0,64
+47,23.1,38.1,46,22.8,41,Thunderstorm,8.3,Parks,4.0,7,6,Relax,Meditation,10.0,0.0,66
+175,77.7,169.6,51,19.9,72,Thunderstorm,2.0,Cafes,4.8,12,7,Meditate,Meditation,10.0,0.0,30
+107,62.3,115.9,48,19.7,44,Rainy,1.0,Fitness,3.8,21,6,Exercise,Parks,8.0,3.6,60
+156,89.2,152.8,44,22.4,80,Rainy,12.6,Cafes,4.6,10,6,Meditate,Parks,5.0,0.0,24
+157,92.8,184.4,28,31.9,48,Partly Cloudy,10.1,Libraries,3.5,6,7,Relax,All,20.0,4.5,53
+76,39.5,76.5,49,23.5,58,Partly Cloudy,1.3,Cafes,4.5,9,1,Quiet Time,All,20.0,0.0,96
+30,13.7,25.1,33,22.1,78,Cloudy,2.0,Meditation,4.2,9,2,Exercise,Parks,5.0,4.9,99
+93,45.6,98.3,43,28.9,43,Clear,2.9,Cafes,3.8,19,2,Relax,Libraries,20.0,0.0,59
+85,44.6,81.2,46,32.4,74,Mist/Fog,7.2,Cafes,4.7,10,3,Study,All,8.0,3.9,80
+125,80.0,141.4,29,21.3,54,Partly Cloudy,1.6,Libraries,4.2,19,5,Relax,All,15.0,0.0,72
+104,54.5,104.7,57,24.9,64,Partly Cloudy,2.2,Fitness,4.7,13,6,Meditate,Cafes,20.0,3.7,49
+63,39.7,64.9,40,23.3,42,Partly Cloudy,7.0,Lakes,3.9,13,1,Relax,Lakes,15.0,0.0,99
+63,31.1,62.8,45,26.6,64,Clear,0.9,Lakes,4.0,8,2,Exercise,Meditation,8.0,4.1,96
+73,42.8,87.7,39,26.5,71,Cloudy,2.4,Libraries,3.9,10,1,Meditate,Fitness,5.0,0.0,87
+39,24.8,46.4,39,34.5,60,Cloudy,4.6,Meditation,4.9,14,1,Meditate,All,15.0,0.0,95
+22,11.0,23.0,51,33.2,75,Thunderstorm,2.5,Lakes,4.5,18,7,Quiet Time,Parks,10.0,3.1,63
+60,33.0,69.6,42,20.9,40,Cloudy,1.1,Cafes,4.6,15,2,Relax,All,5.0,0.0,89
+84,54.1,104.9,57,18.8,50,Rainy,10.4,Fitness,5.0,15,4,Relax,Parks,5.0,0.0,18
+137,66.1,141.3,51,32.5,42,Thunderstorm,3.4,Cafes,4.2,7,3,Meditate,Meditation,15.0,4.4,42
+80,36.3,72.9,36,20.9,83,Mist/Fog,2.8,Parks,4.5,16,4,Quiet Time,All,20.0,0.0,83
+150,74.5,128.5,37,35.2,63,Clear,18.5,Libraries,4.7,10,7,Relax,Meditation,5.0,0.0,12
+34,21.5,36.5,32,24.4,38,Cloudy,4.6,Meditation,3.9,21,3,Relax,Cafes,15.0,0.0,84
+58,29.0,61.3,50,25.9,60,Partly Cloudy,3.7,Parks,4.1,19,5,Fresh Air,Cafes,10.0,0.0,91
+177,73.3,152.1,61,18.1,77,Thunderstorm,1.5,Fitness,4.4,8,2,Relax,Libraries,8.0,3.9,5
+110,46.4,94.6,66,31.8,44,Rainy,1.7,Fitness,4.0,21,2,Fresh Air,Fitness,10.0,0.0,30
+109,58.5,126.9,30,23.8,36,Partly Cloudy,3.5,Libraries,3.6,17,7,Relax,Lakes,15.0,0.0,65
+48,20.2,33.2,41,33.7,57,Cloudy,2.2,Parks,4.5,14,2,Quiet Time,Cafes,8.0,0.0,73
+88,39.6,85.7,42,30.4,43,Thunderstorm,4.5,Parks,4.9,18,7,Exercise,Lakes,10.0,4.6,77
+68,38.5,80.6,61,31.2,35,Mist/Fog,8.2,Fitness,4.2,16,1,Fresh Air,Libraries,8.0,0.0,49
+117,46.9,87.7,64,29.4,66,Partly Cloudy,3.3,Fitness,3.8,12,4,Exercise,Lakes,5.0,0.0,58
+176,95.8,154.1,48,23.4,50,Clear,6.3,Lakes,4.5,20,4,Study,Parks,5.0,0.0,29
+118,69.8,116.4,45,24.7,62,Rainy,0.9,Cafes,4.1,19,6,Fresh Air,Cafes,15.0,4.2,87
+47,23.6,44.8,47,19.8,57,Thunderstorm,3.3,Parks,4.5,19,2,Relax,All,5.0,3.9,69
+161,102.7,185.9,40,25.4,76,Rainy,4.6,Libraries,3.5,17,7,Relax,Parks,15.0,3.6,46
+50,31.4,50.9,28,33.1,60,Cloudy,5.0,Libraries,4.0,19,2,Quiet Time,Parks,10.0,0.0,88
+133,80.7,167.9,37,34.9,54,Partly Cloudy,4.9,Libraries,4.9,22,2,Meditate,Libraries,15.0,0.0,79
+37,21.9,47.1,41,35.1,45,Partly Cloudy,0.6,Meditation,3.5,10,1,Relax,Meditation,15.0,0.0,84
+53,22.9,42.9,38,21.4,67,Cloudy,1.2,Meditation,4.3,13,6,Relax,Libraries,8.0,0.0,86
+60,26.2,42.3,67,20.0,81,Clear,0.8,Fitness,3.9,11,1,Relax,Lakes,8.0,4.7,56
+20,8.4,18.3,35,25.6,79,Mist/Fog,3.8,Lakes,4.7,11,3,Exercise,All,15.0,3.4,99
+112,62.0,119.5,36,22.6,41,Mist/Fog,3.6,Parks,3.5,22,7,Relax,Lakes,20.0,4.7,82
+29,16.9,36.6,38,21.6,39,Rainy,4.6,Parks,4.2,21,4,Meditate,All,10.0,0.0,62
+143,91.6,152.2,48,23.6,74,Thunderstorm,11.1,Lakes,4.2,20,4,Meditate,Meditation,15.0,0.0,13
+63,31.2,53.7,48,32.7,57,Mist/Fog,8.0,Cafes,3.9,19,3,Study,Libraries,20.0,0.0,78
+28,13.5,28.0,33,21.9,53,Clear,0.8,Meditation,3.7,16,6,Study,Cafes,10.0,3.7,88
+91,41.7,68.4,32,27.5,40,Partly Cloudy,1.4,Libraries,4.9,8,5,Fresh Air,Fitness,20.0,0.0,79
+75,45.1,85.7,59,20.1,57,Rainy,3.5,Cafes,4.1,6,3,Study,Parks,20.0,4.6,80
+57,28.5,60.9,42,24.1,35,Clear,2.5,Meditation,4.6,14,3,Relax,Cafes,15.0,0.0,79
+56,26.6,58.3,50,35.4,41,Mist/Fog,1.9,Cafes,3.7,13,1,Exercise,Libraries,20.0,0.0,70
+144,65.7,108.6,47,32.7,61,Cloudy,0.3,Lakes,3.9,7,1,Relax,Lakes,5.0,3.6,71
+72,31.3,58.7,30,31.6,79,Partly Cloudy,12.1,Libraries,4.5,9,5,Study,Meditation,15.0,0.0,93
+32,19.0,35.9,29,30.8,52,Cloudy,6.6,Meditation,4.5,12,6,Exercise,Meditation,8.0,4.9,99
+41,19.9,41.6,47,33.5,73,Thunderstorm,1.6,Lakes,4.5,22,1,Exercise,Fitness,15.0,0.0,60
+162,85.6,177.0,37,25.6,69,Cloudy,10.9,Lakes,4.5,10,4,Study,Cafes,20.0,0.0,46
+53,30.0,56.1,32,19.5,56,Thunderstorm,0.9,Libraries,4.1,16,1,Meditate,Lakes,20.0,0.0,99
+134,78.1,144.8,47,21.2,48,Rainy,3.6,Cafes,4.2,7,6,Relax,All,20.0,3.2,59
+24,11.0,21.7,39,25.1,45,Rainy,6.4,Meditation,4.2,11,7,Study,Parks,10.0,4.3,96
+145,61.4,116.8,61,31.3,77,Rainy,4.4,Fitness,4.0,8,2,Fresh Air,Lakes,8.0,4.8,13
+52,33.5,71.3,30,28.7,83,Clear,3.4,Libraries,4.8,21,1,Exercise,Lakes,15.0,3.0,91
+79,41.5,85.2,62,23.5,71,Clear,2.4,Fitness,5.0,14,6,Study,Fitness,10.0,0.0,64
+93,49.2,98.3,57,26.7,48,Thunderstorm,2.9,Cafes,3.7,19,7,Study,Meditation,5.0,5.0,73
+81,47.4,103.5,48,19.6,81,Mist/Fog,2.0,Cafes,4.9,20,5,Exercise,All,5.0,4.8,91
+21,11.1,20.0,37,32.3,63,Rainy,5.8,Meditation,3.9,6,4,Exercise,Lakes,10.0,0.0,96
+63,35.0,70.0,39,19.2,49,Cloudy,2.4,Lakes,3.9,9,1,Exercise,Meditation,8.0,0.0,80
+59,35.2,66.9,51,20.8,39,Thunderstorm,1.4,Parks,4.1,8,3,Relax,Lakes,8.0,3.9,67
+138,68.5,126.0,58,34.6,64,Cloudy,1.0,Cafes,4.5,16,7,Meditate,Fitness,15.0,0.0,22
+33,15.7,33.9,42,24.8,78,Partly Cloudy,2.3,Lakes,4.3,16,5,Exercise,Libraries,8.0,0.0,92
+96,49.6,108.0,55,18.5,73,Thunderstorm,0.6,Fitness,4.4,15,7,Study,Cafes,8.0,4.0,33
+101,50.6,81.1,40,26.3,37,Thunderstorm,0.5,Meditation,4.0,9,7,Study,All,5.0,4.0,80
+146,83.0,169.6,42,27.3,63,Partly Cloudy,12.3,Cafes,3.8,10,3,Relax,All,8.0,0.0,32
+76,31.7,53.6,42,19.7,45,Thunderstorm,2.5,Libraries,4.2,7,1,Fresh Air,Meditation,20.0,4.0,73
+83,45.9,85.5,45,25.8,66,Clear,1.0,Lakes,3.8,12,4,Meditate,Fitness,8.0,0.0,66
+37,21.3,35.5,34,20.7,49,Rainy,0.7,Meditation,3.5,15,1,Exercise,Lakes,15.0,0.0,99
+55,34.5,75.1,55,26.3,35,Mist/Fog,0.9,Fitness,4.8,22,2,Fresh Air,Cafes,20.0,4.4,82
+135,73.0,136.9,64,23.0,73,Partly Cloudy,1.6,Fitness,3.6,21,4,Meditate,Lakes,15.0,0.0,22
+61,36.2,69.3,30,28.6,64,Cloudy,3.4,Meditation,3.6,6,7,Quiet Time,Parks,15.0,0.0,76
+92,42.1,86.9,42,19.9,79,Partly Cloudy,4.9,Libraries,4.6,19,1,Quiet Time,Cafes,15.0,3.5,85
+36,20.1,32.5,37,30.6,53,Clear,16.0,Parks,4.3,12,3,Quiet Time,All,20.0,0.0,91
+155,93.3,160.0,58,35.3,39,Mist/Fog,0.4,Fitness,4.8,17,7,Meditate,Cafes,8.0,0.0,17
+52,32.6,64.7,35,28.3,58,Partly Cloudy,1.8,Meditation,4.8,10,7,Relax,Lakes,20.0,3.9,88
+24,12.6,20.5,43,22.0,82,Clear,9.2,Parks,4.1,17,1,Meditate,Fitness,10.0,0.0,81
+30,15.9,31.3,39,19.0,69,Thunderstorm,0.7,Lakes,4.9,14,6,Study,All,15.0,3.7,73
+53,33.4,66.7,49,26.9,75,Partly Cloudy,3.2,Parks,4.6,7,3,Meditate,Parks,20.0,0.0,80
+129,54.2,104.7,43,31.0,40,Cloudy,2.7,Libraries,4.5,19,4,Fresh Air,Meditation,8.0,4.7,62
+75,41.4,75.7,46,27.9,37,Clear,5.4,Parks,4.1,19,5,Relax,Fitness,8.0,3.9,85
+39,16.2,28.2,37,25.4,72,Partly Cloudy,6.1,Meditation,4.4,6,7,Study,Lakes,20.0,0.0,85
+34,18.7,39.9,51,28.9,58,Partly Cloudy,0.8,Lakes,3.6,12,4,Exercise,Parks,5.0,0.0,81
+142,90.2,186.5,47,22.4,79,Mist/Fog,1.6,Cafes,4.3,7,3,Meditate,Cafes,20.0,0.0,54
+168,102.5,196.0,47,21.8,53,Thunderstorm,6.2,Cafes,3.6,13,6,Relax,Parks,8.0,0.0,32
+114,46.6,82.3,34,19.1,77,Clear,2.0,Libraries,4.8,18,4,Relax,All,5.0,3.4,74
+54,34.3,73.6,47,34.6,80,Cloudy,6.1,Parks,3.8,6,3,Quiet Time,Lakes,20.0,0.0,63
+52,30.4,49.7,29,35.1,81,Rainy,1.5,Meditation,4.2,22,3,Exercise,Fitness,20.0,3.8,92
+173,72.9,127.6,43,28.3,36,Cloudy,1.4,Lakes,4.5,6,1,Relax,Lakes,10.0,4.3,70
+110,56.1,105.5,59,29.5,62,Rainy,2.1,Cafes,4.9,14,5,Meditate,Cafes,20.0,0.0,55
+162,70.0,138.5,44,29.8,46,Thunderstorm,4.0,Cafes,4.5,20,5,Study,Lakes,8.0,4.1,60
+176,71.1,149.8,49,30.9,65,Thunderstorm,1.8,Lakes,4.3,9,5,Relax,Meditation,5.0,3.4,23
+133,82.3,138.7,52,24.0,55,Cloudy,4.0,Fitness,4.9,15,5,Exercise,All,15.0,3.7,82
+53,29.3,61.1,51,27.1,64,Mist/Fog,1.8,Cafes,4.1,7,6,Meditate,Libraries,8.0,0.0,54
+64,35.7,72.8,43,33.3,61,Clear,0.5,Parks,4.5,22,4,Relax,Parks,15.0,3.4,99
+55,35.4,61.5,33,30.5,57,Clear,11.4,Meditation,4.0,17,5,Study,Parks,15.0,0.0,73
+79,47.9,105.0,42,32.0,55,Partly Cloudy,3.4,Meditation,4.4,15,3,Meditate,Cafes,8.0,3.2,75
+124,69.2,142.8,42,18.3,41,Rainy,1.4,Libraries,4.6,21,6,Fresh Air,Parks,20.0,4.7,74
+43,21.4,39.7,36,28.0,70,Mist/Fog,0.7,Lakes,4.4,9,6,Relax,Parks,10.0,4.5,99
+132,77.2,143.7,55,20.4,44,Mist/Fog,5.4,Cafes,3.6,6,5,Exercise,Cafes,20.0,0.0,62
+116,63.5,137.6,43,26.9,37,Cloudy,2.9,Cafes,4.4,19,3,Exercise,Parks,20.0,3.6,69
+145,93.9,162.1,43,33.8,50,Thunderstorm,1.8,Lakes,3.7,14,4,Meditate,All,8.0,0.0,13
+63,28.8,50.9,43,33.1,72,Thunderstorm,0.4,Cafes,4.9,12,1,Fresh Air,Fitness,5.0,0.0,78
+62,31.4,58.6,36,23.3,40,Rainy,4.6,Parks,4.2,19,4,Study,Parks,5.0,4.7,74
+55,32.0,57.5,43,26.2,71,Cloudy,4.2,Parks,4.6,16,1,Study,Fitness,5.0,0.0,73
+74,39.9,83.9,59,29.3,47,Mist/Fog,3.4,Fitness,4.5,14,4,Fresh Air,Lakes,8.0,4.6,62
+161,94.6,151.5,35,29.0,70,Thunderstorm,0.4,Lakes,4.4,13,6,Quiet Time,All,10.0,4.1,50
+33,17.2,35.7,41,27.8,49,Cloudy,1.2,Lakes,4.1,20,3,Study,Fitness,10.0,3.8,84
+140,80.7,166.6,56,28.8,69,Rainy,0.4,Fitness,4.3,19,1,Relax,Lakes,10.0,0.0,20
+91,45.3,84.5,49,22.8,71,Clear,1.8,Cafes,4.0,19,2,Study,Meditation,5.0,0.0,78
+129,55.8,107.4,66,32.4,39,Clear,4.6,Fitness,4.7,8,6,Relax,Libraries,10.0,3.4,29
+101,58.5,103.8,30,24.0,45,Cloudy,4.9,Meditation,3.6,6,7,Meditate,Parks,5.0,0.0,80
+86,34.9,69.1,39,22.9,41,Clear,5.7,Libraries,3.7,14,7,Relax,Parks,15.0,3.1,65
+145,58.7,120.1,57,19.7,64,Partly Cloudy,2.0,Fitness,4.8,16,4,Quiet Time,Fitness,20.0,0.0,57
+124,61.3,113.9,38,28.1,59,Rainy,8.6,Lakes,4.3,18,1,Relax,Lakes,20.0,0.0,61
+149,86.2,161.3,58,25.2,46,Clear,1.9,Fitness,3.7,15,3,Exercise,Lakes,20.0,4.3,71
+26,14.4,27.1,47,31.7,37,Thunderstorm,2.7,Lakes,4.0,16,7,Exercise,Libraries,15.0,3.6,66
+84,38.0,73.6,35,23.6,67,Rainy,1.7,Meditation,4.3,8,1,Fresh Air,Cafes,15.0,0.0,87
+71,36.2,79.0,34,26.9,66,Rainy,2.9,Parks,4.6,19,4,Meditate,Libraries,8.0,3.2,53
+85,40.9,87.3,52,20.5,61,Partly Cloudy,1.1,Cafes,4.9,17,5,Quiet Time,Meditation,20.0,0.0,87
+179,113.1,192.1,54,18.2,55,Rainy,0.9,Cafes,5.0,6,3,Quiet Time,Meditation,5.0,0.0,54
+34,14.1,26.5,36,29.5,79,Cloudy,1.8,Lakes,4.9,14,3,Quiet Time,All,5.0,0.0,99
+149,94.4,182.8,53,19.4,42,Partly Cloudy,4.9,Cafes,3.8,9,2,Study,Libraries,10.0,0.0,40
+45,27.6,54.2,43,33.7,68,Mist/Fog,2.5,Meditation,3.5,13,2,Quiet Time,Fitness,8.0,4.6,71
+56,29.6,55.2,45,23.4,73,Cloudy,1.3,Parks,4.1,18,6,Study,All,15.0,0.0,79
+118,73.3,154.3,59,33.0,70,Mist/Fog,6.7,Cafes,4.2,14,6,Fresh Air,Lakes,20.0,4.8,48
+137,79.8,137.9,52,24.9,43,Partly Cloudy,5.1,Cafes,3.8,17,5,Exercise,Fitness,5.0,4.2,52
+169,88.8,142.8,46,22.9,58,Mist/Fog,0.5,Cafes,3.9,7,5,Relax,Lakes,10.0,0.0,43
+41,25.4,52.1,40,24.7,65,Clear,4.7,Meditation,4.8,10,1,Quiet Time,Cafes,8.0,0.0,85
+22,9.3,17.9,51,29.8,71,Partly Cloudy,1.7,Parks,4.8,11,5,Relax,Cafes,10.0,0.0,99
+158,89.7,147.0,63,20.7,48,Thunderstorm,1.0,Fitness,3.9,12,6,Exercise,Cafes,5.0,0.0,35
+172,82.2,159.2,36,28.2,69,Rainy,3.2,Lakes,3.6,8,2,Quiet Time,Meditation,15.0,0.0,30
+48,24.7,52.5,50,33.1,67,Cloudy,8.4,Parks,4.6,10,3,Meditate,Fitness,8.0,4.4,57
+38,23.1,40.7,37,22.7,56,Cloudy,0.6,Lakes,4.4,17,7,Study,Parks,10.0,0.0,87
+27,14.6,32.1,41,32.6,74,Mist/Fog,1.1,Lakes,4.3,14,1,Relax,Fitness,20.0,0.0,99
+21,9.0,18.0,37,26.4,51,Partly Cloudy,3.2,Lakes,4.9,16,6,Study,Parks,20.0,3.7,97
+134,57.0,122.4,32,27.8,72,Rainy,2.3,Libraries,4.2,19,6,Study,Lakes,20.0,4.7,82
+128,66.6,122.6,42,31.7,80,Partly Cloudy,2.8,Cafes,4.1,14,5,Quiet Time,Lakes,15.0,0.0,69
+172,77.3,168.8,55,29.9,74,Partly Cloudy,0.5,Cafes,4.0,10,7,Fresh Air,Meditation,5.0,3.8,32
+69,42.8,76.2,29,33.4,56,Partly Cloudy,4.8,Libraries,4.5,17,1,Relax,Meditation,8.0,0.0,69
+77,39.9,72.8,55,31.7,39,Partly Cloudy,0.8,Fitness,4.1,16,3,Exercise,Meditation,8.0,0.0,89
+101,42.2,79.9,62,18.5,79,Thunderstorm,1.0,Fitness,4.1,16,5,Exercise,Libraries,8.0,0.0,50
+28,12.7,23.6,40,21.2,42,Mist/Fog,1.6,Parks,3.6,19,2,Quiet Time,Parks,15.0,4.4,99
+50,21.3,45.1,48,20.9,41,Clear,2.8,Parks,3.5,18,4,Exercise,Fitness,15.0,0.0,99
+154,96.6,183.7,62,24.0,61,Mist/Fog,1.9,Fitness,5.0,18,7,Relax,Libraries,8.0,0.0,38
+141,65.5,125.0,45,25.8,58,Rainy,0.4,Lakes,4.2,7,5,Relax,Lakes,15.0,0.0,60
+84,39.8,73.6,50,29.4,64,Cloudy,1.8,Cafes,4.3,18,2,Relax,Libraries,5.0,4.1,68
+39,18.3,40.0,46,34.5,80,Partly Cloudy,9.7,Lakes,4.4,7,1,Quiet Time,Parks,20.0,3.1,80
+60,37.9,77.7,41,21.3,72,Clear,4.8,Parks,4.8,19,1,Exercise,Libraries,5.0,0.0,99
+44,26.3,53.0,28,26.5,73,Thunderstorm,2.3,Meditation,3.9,7,5,Study,Lakes,8.0,3.4,87
+25,11.7,22.9,51,19.7,46,Cloudy,4.6,Lakes,3.6,15,6,Relax,Fitness,8.0,0.0,83
+132,63.6,116.6,42,24.2,50,Clear,6.4,Libraries,4.2,21,2,Fresh Air,Cafes,8.0,0.0,55
+160,102.7,203.2,36,19.5,72,Cloudy,2.9,Libraries,3.9,16,4,Relax,Meditation,10.0,0.0,43
+48,26.0,48.1,47,28.0,59,Cloudy,1.2,Parks,3.7,9,1,Meditate,Libraries,20.0,3.4,62
+35,15.9,34.0,39,29.3,68,Cloudy,4.4,Lakes,4.3,18,2,Quiet Time,Cafes,10.0,0.0,98
+157,80.4,173.2,30,18.1,76,Cloudy,5.3,Libraries,4.5,9,4,Exercise,Lakes,8.0,0.0,55
+26,14.4,31.7,44,25.4,36,Mist/Fog,3.6,Lakes,4.4,21,6,Quiet Time,All,8.0,3.7,99
+135,72.6,153.8,64,26.2,71,Partly Cloudy,1.3,Fitness,4.9,12,3,Fresh Air,Fitness,15.0,3.1,57
+128,82.9,172.3,43,29.5,75,Thunderstorm,6.7,Libraries,3.9,8,1,Meditate,Meditation,8.0,0.0,60
+162,105.1,222.5,46,35.2,79,Rainy,3.0,Fitness,4.5,6,4,Quiet Time,Cafes,20.0,0.0,13
+55,27.5,59.3,38,25.7,41,Rainy,0.9,Libraries,4.6,9,6,Quiet Time,Fitness,10.0,3.8,99
+153,69.2,114.8,53,26.2,70,Clear,5.2,Cafes,4.0,20,3,Meditate,Parks,10.0,0.0,24
+43,17.5,37.2,37,23.2,82,Mist/Fog,0.9,Meditation,4.2,20,6,Relax,Fitness,10.0,4.5,92
+128,78.7,138.1,50,28.5,42,Partly Cloudy,0.3,Fitness,4.6,22,4,Meditate,Parks,10.0,0.0,46
+160,76.6,139.8,64,29.7,78,Rainy,2.6,Fitness,4.8,6,6,Meditate,Libraries,15.0,0.0,5
+76,33.3,65.4,55,29.7,52,Clear,2.5,Cafes,4.8,22,2,Meditate,Lakes,5.0,0.0,48
+115,53.8,117.1,64,33.7,83,Thunderstorm,0.5,Fitness,4.3,13,3,Relax,Lakes,20.0,0.0,9
+79,45.8,78.2,51,27.9,39,Cloudy,1.0,Lakes,4.9,10,5,Quiet Time,Meditation,5.0,3.4,85
+119,70.8,126.8,38,26.6,57,Partly Cloudy,2.6,Libraries,4.3,12,5,Exercise,All,5.0,0.0,77
+60,34.8,64.9,38,32.5,65,Thunderstorm,2.4,Meditation,3.9,19,5,Relax,Libraries,5.0,4.3,78
+84,44.8,80.8,54,23.6,57,Thunderstorm,13.5,Cafes,4.2,16,5,Quiet Time,Lakes,8.0,0.0,66
+137,58.0,122.8,40,27.7,44,Mist/Fog,5.6,Lakes,3.8,22,3,Meditate,All,8.0,4.1,46
+34,15.2,27.9,30,29.0,42,Partly Cloudy,11.3,Meditation,4.5,19,7,Meditate,Libraries,15.0,0.0,99
+158,77.8,138.8,47,23.7,50,Mist/Fog,3.2,Lakes,3.5,18,1,Study,Cafes,15.0,0.0,29
+156,70.3,140.4,32,18.4,56,Cloudy,2.0,Libraries,4.3,12,7,Study,All,20.0,4.0,78
+81,39.0,73.6,54,35.1,82,Rainy,5.6,Cafes,4.5,21,2,Relax,All,15.0,4.2,60
+119,60.6,107.3,55,19.3,83,Mist/Fog,4.9,Fitness,4.8,15,5,Study,Lakes,8.0,3.2,38
+49,26.4,55.2,46,31.9,38,Partly Cloudy,5.7,Lakes,4.9,17,7,Study,Libraries,10.0,0.0,71
+97,43.6,95.2,32,31.5,36,Thunderstorm,0.7,Libraries,4.1,21,7,Meditate,Cafes,15.0,4.1,92
+64,41.0,87.1,33,26.9,63,Thunderstorm,3.8,Meditation,4.3,9,5,Study,All,5.0,4.0,89
+179,105.2,216.7,34,26.4,79,Cloudy,18.4,Libraries,4.5,8,2,Fresh Air,Meditation,8.0,0.0,19
+151,88.3,191.5,58,28.3,35,Rainy,6.5,Cafes,3.5,16,4,Exercise,Libraries,5.0,4.7,38
+54,29.4,53.3,42,20.7,73,Thunderstorm,1.1,Meditation,3.7,7,7,Exercise,Meditation,8.0,3.7,99
+30,13.6,24.2,41,22.2,80,Cloudy,5.5,Parks,3.7,20,1,Study,Fitness,5.0,0.0,73
+99,50.7,93.3,49,28.6,41,Rainy,12.5,Fitness,4.9,22,1,Quiet Time,Parks,20.0,3.4,42
+96,62.3,115.2,31,32.4,52,Clear,1.3,Libraries,4.9,6,1,Quiet Time,Libraries,5.0,3.8,99
+58,36.9,73.5,46,19.5,67,Mist/Fog,2.0,Cafes,3.5,14,6,Study,Fitness,15.0,0.0,80
+160,71.1,114.2,51,30.5,73,Partly Cloudy,0.5,Cafes,4.8,15,3,Relax,Parks,8.0,0.0,41
+155,69.0,146.8,35,18.5,45,Partly Cloudy,2.1,Lakes,4.9,14,5,Fresh Air,Parks,10.0,4.6,77
+54,33.4,71.7,42,31.7,71,Rainy,1.0,Cafes,3.5,13,1,Relax,Cafes,5.0,0.0,92
+166,84.7,179.1,40,23.6,58,Clear,8.5,Libraries,4.0,17,5,Exercise,Fitness,8.0,0.0,48
+160,71.9,124.5,36,22.1,39,Partly Cloudy,0.6,Parks,3.9,9,2,Exercise,Cafes,15.0,3.4,73
+117,63.7,135.7,40,23.9,53,Partly Cloudy,0.8,Libraries,4.6,18,6,Quiet Time,Libraries,5.0,3.4,95
+57,26.2,48.2,34,26.7,52,Rainy,3.8,Lakes,4.1,12,4,Relax,Parks,20.0,0.0,74
+116,56.2,123.5,45,32.5,59,Cloudy,3.1,Cafes,4.5,16,7,Quiet Time,Fitness,5.0,0.0,70
+63,27.2,47.2,42,20.2,70,Clear,0.8,Parks,4.0,19,5,Study,Cafes,10.0,0.0,84
+165,87.1,146.8,38,21.6,72,Clear,2.9,Meditation,4.3,22,5,Meditate,Cafes,8.0,4.1,65
+119,58.7,97.4,30,33.5,46,Mist/Fog,9.6,Meditation,4.3,19,7,Meditate,Meditation,8.0,3.1,74
+166,85.8,144.3,43,19.3,70,Clear,4.2,Libraries,4.9,8,1,Fresh Air,Cafes,8.0,0.0,44
+149,89.7,194.7,38,29.6,54,Partly Cloudy,1.1,Lakes,3.6,14,2,Meditate,Cafes,10.0,0.0,42
+107,60.8,125.0,45,27.4,61,Clear,5.5,Fitness,4.2,20,3,Meditate,Parks,20.0,0.0,49
+23,14.8,31.8,33,35.1,37,Cloudy,6.7,Meditation,3.7,20,4,Quiet Time,Libraries,10.0,0.0,80
+117,49.4,100.7,43,22.3,77,Cloudy,2.7,Libraries,4.1,9,7,Study,Parks,15.0,0.0,71
+167,93.5,168.0,60,35.7,39,Cloudy,0.7,Fitness,3.9,21,2,Quiet Time,Lakes,15.0,0.0,18
+128,69.3,136.1,65,24.9,65,Mist/Fog,3.4,Fitness,4.4,9,7,Exercise,Libraries,5.0,4.2,66
+155,89.8,145.8,59,33.3,63,Rainy,2.9,Fitness,4.7,19,6,Fresh Air,Cafes,15.0,0.0,5
+87,43.8,70.8,55,24.5,69,Cloudy,1.8,Fitness,3.9,7,3,Study,All,8.0,0.0,59
+153,69.2,142.7,57,31.3,72,Cloudy,5.6,Fitness,4.8,8,3,Study,Fitness,8.0,4.1,42
+168,71.0,130.9,53,21.4,54,Mist/Fog,1.4,Cafes,4.0,20,3,Study,All,15.0,0.0,47
+46,28.9,58.4,44,27.7,54,Thunderstorm,4.5,Lakes,3.6,18,7,Study,All,8.0,4.4,49
+174,105.0,223.9,32,35.5,51,Thunderstorm,1.2,Libraries,3.9,10,6,Relax,Fitness,5.0,0.0,40
+177,81.7,141.8,45,20.6,49,Partly Cloudy,12.0,Parks,4.2,20,4,Exercise,Parks,20.0,0.0,73
+45,28.2,51.7,38,32.5,48,Cloudy,1.9,Lakes,4.0,17,1,Fresh Air,Libraries,8.0,0.0,99
+141,84.4,164.4,35,30.8,61,Thunderstorm,0.7,Lakes,3.8,17,6,Study,Fitness,20.0,0.0,31
+22,12.2,23.2,41,18.4,57,Partly Cloudy,4.0,Lakes,4.2,10,1,Exercise,Lakes,10.0,0.0,99
+62,36.1,73.2,42,31.8,41,Mist/Fog,2.1,Parks,4.0,15,3,Quiet Time,Lakes,15.0,4.6,77
+20,11.0,22.3,33,31.9,38,Clear,0.5,Meditation,4.6,12,2,Quiet Time,Libraries,15.0,0.0,99
+42,18.1,29.9,51,30.6,69,Thunderstorm,6.0,Lakes,4.5,10,7,Meditate,All,15.0,3.2,39
+73,36.5,63.4,59,19.5,57,Mist/Fog,0.6,Cafes,3.5,7,5,Exercise,All,10.0,3.7,72
+34,16.2,33.7,44,33.5,82,Cloudy,1.0,Lakes,4.2,12,3,Relax,Libraries,20.0,4.4,98
+150,79.0,165.0,42,18.7,61,Thunderstorm,11.4,Lakes,4.7,15,3,Exercise,Meditation,5.0,4.4,23
+114,62.8,138.1,42,34.7,62,Rainy,2.0,Meditation,4.9,8,3,Fresh Air,Parks,15.0,3.3,66
+57,36.8,69.5,41,30.7,76,Mist/Fog,0.7,Libraries,3.6,16,5,Relax,Lakes,20.0,0.0,71
+101,54.2,93.3,52,31.7,49,Rainy,3.7,Fitness,4.2,8,4,Fresh Air,Libraries,15.0,3.2,29
+150,88.9,179.5,51,21.4,39,Clear,8.1,Cafes,4.3,16,6,Exercise,Fitness,20.0,3.1,48
+95,50.8,106.4,54,31.3,61,Rainy,1.0,Cafes,4.5,7,2,Exercise,Parks,10.0,4.9,85
+45,24.9,40.5,40,20.1,49,Mist/Fog,8.5,Parks,5.0,18,7,Quiet Time,Parks,10.0,4.8,99
+68,31.4,62.8,42,30.2,70,Rainy,8.4,Libraries,3.8,14,4,Relax,Parks,10.0,0.0,65
+151,70.0,112.4,54,30.5,57,Clear,4.1,Cafes,3.6,9,1,Meditate,Fitness,8.0,4.6,24
+62,28.8,57.8,50,23.1,49,Rainy,7.1,Parks,3.7,9,4,Meditate,Libraries,10.0,0.0,34
+64,33.1,55.1,31,21.3,73,Rainy,6.0,Meditation,4.2,17,4,Exercise,Parks,8.0,0.0,89
+55,34.8,71.7,31,31.0,37,Partly Cloudy,0.4,Libraries,4.0,14,2,Fresh Air,Fitness,8.0,3.4,82
+28,12.6,25.1,41,19.2,47,Rainy,2.9,Lakes,3.7,16,1,Study,Libraries,20.0,3.1,50
+27,17.1,31.2,30,30.3,35,Clear,0.3,Meditation,4.7,9,7,Fresh Air,All,5.0,4.3,99
+133,62.6,123.3,55,22.3,59,Mist/Fog,1.3,Fitness,4.2,10,4,Exercise,Libraries,15.0,0.0,75
+87,50.7,110.4,48,33.9,53,Cloudy,0.4,Cafes,3.7,20,4,Meditate,Parks,10.0,0.0,42
+131,59.2,109.1,42,31.2,57,Rainy,2.0,Libraries,4.0,18,2,Meditate,Fitness,10.0,0.0,68
+123,78.4,159.7,48,34.2,62,Cloudy,5.4,Lakes,4.1,15,2,Meditate,Parks,15.0,3.9,31
+35,21.8,43.5,42,21.2,57,Rainy,4.4,Meditation,4.4,11,3,Exercise,All,15.0,0.0,99
+70,35.0,72.4,49,23.7,47,Rainy,5.0,Fitness,4.0,22,6,Fresh Air,Fitness,15.0,0.0,60
+58,24.0,50.7,39,21.7,42,Cloudy,1.1,Parks,4.0,16,5,Relax,All,5.0,0.0,99
+141,66.6,110.6,36,20.9,40,Partly Cloudy,8.7,Libraries,3.7,21,6,Exercise,Lakes,15.0,0.0,57
+62,25.4,54.1,42,21.1,35,Rainy,4.4,Parks,4.9,11,4,Quiet Time,Parks,10.0,0.0,69
+94,45.6,75.3,33,20.4,50,Partly Cloudy,2.1,Libraries,3.7,12,6,Quiet Time,Libraries,8.0,4.4,99
+46,29.8,54.2,32,23.0,61,Thunderstorm,9.0,Meditation,4.0,11,1,Exercise,All,15.0,0.0,99
+108,54.9,89.2,62,26.2,39,Mist/Fog,3.1,Fitness,4.8,6,6,Study,Lakes,8.0,0.0,42
+54,30.7,62.0,33,33.4,74,Thunderstorm,2.1,Libraries,3.7,17,6,Exercise,Cafes,10.0,3.4,80
+168,105.8,174.7,53,33.5,79,Cloudy,0.4,Cafes,4.7,9,2,Study,All,8.0,3.7,48
+145,70.4,151.0,35,29.3,78,Thunderstorm,2.5,Parks,4.7,9,5,Relax,All,10.0,4.4,60
+52,22.0,40.9,46,18.9,38,Partly Cloudy,1.7,Lakes,3.8,12,6,Quiet Time,All,20.0,0.0,91
+126,77.5,144.6,51,21.2,44,Clear,0.8,Cafes,4.4,12,6,Quiet Time,Meditation,20.0,4.5,78
+64,28.2,55.9,44,25.4,67,Thunderstorm,1.2,Lakes,4.7,13,5,Meditate,Fitness,10.0,4.8,59
+35,20.4,40.2,48,30.1,79,Clear,2.4,Lakes,4.0,17,6,Relax,All,5.0,0.0,95
+84,51.2,95.8,62,24.7,50,Rainy,2.7,Fitness,5.0,12,2,Relax,Libraries,20.0,0.0,36
+170,104.0,227.1,35,26.1,42,Rainy,5.2,Libraries,4.9,10,7,Exercise,Lakes,15.0,5.0,73
+97,49.3,103.1,65,28.7,44,Partly Cloudy,0.6,Fitness,4.2,14,3,Meditate,Cafes,15.0,4.0,38
+47,24.7,46.0,41,35.4,37,Rainy,11.7,Meditation,4.9,21,5,Study,Parks,5.0,3.5,59
+113,72.2,142.9,33,30.3,56,Cloudy,0.8,Libraries,4.3,16,6,Meditate,Cafes,8.0,4.4,88
+108,54.5,94.0,33,34.4,80,Partly Cloudy,3.8,Libraries,4.7,16,5,Relax,All,15.0,0.0,66
+175,104.2,202.5,65,28.7,46,Mist/Fog,6.3,Fitness,4.3,6,3,Meditate,Parks,15.0,0.0,5
+40,25.0,54.2,39,26.1,73,Clear,5.8,Meditation,4.6,17,7,Study,All,10.0,0.0,89
+132,63.6,133.2,35,32.1,82,Partly Cloudy,2.6,Libraries,4.4,12,7,Meditate,Parks,10.0,0.0,71
+145,65.1,135.4,32,25.6,75,Rainy,0.3,Meditation,3.8,15,1,Relax,Lakes,10.0,4.3,70
+110,69.0,116.5,38,20.8,57,Thunderstorm,1.6,Libraries,4.2,12,6,Relax,Lakes,10.0,0.0,73
+56,27.0,50.9,44,24.8,36,Mist/Fog,2.3,Cafes,4.1,16,5,Relax,All,10.0,0.0,81
+54,22.1,42.1,47,20.4,38,Mist/Fog,0.5,Parks,3.7,11,6,Quiet Time,Lakes,8.0,4.5,85
+59,29.5,48.3,34,30.5,62,Rainy,0.6,Libraries,4.2,9,7,Study,Fitness,8.0,0.0,99
+57,32.5,52.5,53,22.1,37,Mist/Fog,1.2,Cafes,4.9,10,5,Meditate,Parks,8.0,3.8,67
+52,26.2,43.0,31,21.8,64,Clear,0.3,Meditation,4.4,17,5,Study,Cafes,5.0,0.0,87
+20,11.1,21.9,38,27.2,42,Cloudy,1.1,Lakes,3.9,12,3,Exercise,Parks,20.0,0.0,95
+128,72.0,137.3,34,20.0,54,Partly Cloudy,0.7,Libraries,3.8,15,7,Relax,Cafes,8.0,0.0,64
+40,22.5,39.1,50,21.9,36,Cloudy,0.3,Lakes,4.8,12,4,Fresh Air,Fitness,8.0,0.0,99
+71,37.1,71.8,32,33.4,47,Mist/Fog,3.7,Libraries,4.8,7,7,Fresh Air,Fitness,5.0,3.5,73
+45,19.8,32.3,37,35.5,72,Partly Cloudy,1.9,Parks,4.1,6,3,Study,Cafes,10.0,0.0,74
+168,72.3,143.3,59,33.8,81,Clear,1.0,Cafes,3.6,13,4,Exercise,Fitness,5.0,0.0,26
+21,11.4,18.7,39,19.2,68,Partly Cloudy,0.4,Meditation,4.1,20,4,Quiet Time,Libraries,15.0,3.0,90
+143,64.4,113.4,54,22.2,57,Partly Cloudy,0.3,Cafes,4.8,19,5,Quiet Time,Lakes,5.0,0.0,65
+160,65.9,119.8,37,32.8,62,Rainy,1.9,Libraries,4.6,10,3,Meditate,Meditation,10.0,0.0,68
+177,104.8,177.0,38,30.2,55,Rainy,11.7,Libraries,4.4,10,3,Study,Cafes,5.0,0.0,40
+147,90.5,153.7,45,34.5,84,Thunderstorm,0.8,Fitness,4.3,11,7,Exercise,Cafes,10.0,0.0,45
+38,16.3,31.0,34,28.4,47,Clear,3.1,Lakes,4.6,16,4,Quiet Time,Cafes,8.0,4.5,99
+118,71.4,123.6,48,30.4,84,Rainy,1.2,Cafes,3.7,12,6,Fresh Air,Cafes,15.0,4.6,76
+81,40.6,85.1,43,35.1,44,Clear,0.4,Lakes,3.7,11,7,Relax,Meditation,10.0,0.0,80
+25,15.9,31.8,34,23.4,54,Thunderstorm,1.1,Parks,4.4,21,6,Relax,Lakes,15.0,0.0,94
+31,16.1,33.5,47,25.6,64,Clear,7.7,Parks,5.0,18,1,Exercise,Lakes,15.0,0.0,99
+23,13.4,27.2,50,24.8,51,Rainy,3.5,Parks,3.6,15,5,Exercise,Lakes,15.0,0.0,82
+138,75.7,151.8,28,26.0,60,Thunderstorm,2.5,Libraries,4.1,7,3,Relax,All,20.0,0.0,68
+72,36.9,77.9,45,24.0,40,Thunderstorm,0.9,Fitness,3.8,21,2,Fresh Air,Cafes,5.0,4.6,61
+73,35.4,71.1,41,30.8,75,Partly Cloudy,10.7,Libraries,3.7,10,2,Relax,Lakes,5.0,0.0,44
+36,20.7,33.4,36,24.6,62,Mist/Fog,2.2,Meditation,3.9,19,1,Fresh Air,All,5.0,3.5,92
+167,103.4,172.9,30,21.4,44,Thunderstorm,4.1,Libraries,4.1,14,4,Fresh Air,Parks,20.0,4.6,62
+21,9.5,16.9,47,18.2,37,Rainy,5.7,Lakes,4.3,14,5,Fresh Air,Cafes,5.0,0.0,74
+112,50.8,101.5,50,19.8,54,Partly Cloudy,3.8,Cafes,4.8,8,2,Meditate,Fitness,20.0,0.0,48
+112,72.5,119.2,30,31.6,76,Mist/Fog,1.9,Meditation,4.7,19,1,Meditate,Fitness,8.0,0.0,88
+137,86.7,159.0,37,31.5,41,Partly Cloudy,3.6,Libraries,4.8,11,2,Relax,Parks,20.0,0.0,57
+59,32.4,60.0,52,34.0,42,Mist/Fog,3.9,Cafes,3.9,14,4,Exercise,Fitness,10.0,0.0,65
+161,83.3,157.7,40,28.6,63,Mist/Fog,4.3,Meditation,4.5,10,4,Fresh Air,Lakes,20.0,4.4,51
+130,54.0,106.8,58,28.7,46,Cloudy,9.5,Cafes,4.9,12,3,Fresh Air,Libraries,10.0,0.0,41
+84,42.5,84.8,62,32.4,69,Partly Cloudy,1.0,Fitness,4.6,16,2,Exercise,Lakes,10.0,0.0,84
+52,24.6,43.0,37,32.9,44,Mist/Fog,3.9,Meditation,4.1,18,4,Fresh Air,Parks,15.0,0.0,79
+128,59.3,129.3,56,18.1,44,Rainy,9.8,Cafes,4.2,14,5,Meditate,Lakes,15.0,0.0,29
+131,68.4,113.9,41,20.2,44,Cloudy,1.9,Lakes,3.6,8,3,Study,All,5.0,4.1,61
+76,47.3,91.8,45,35.6,70,Cloudy,1.5,Fitness,3.8,14,5,Quiet Time,Cafes,8.0,3.5,62
+29,17.4,36.5,37,18.3,43,Thunderstorm,3.3,Parks,5.0,14,7,Fresh Air,Libraries,20.0,0.0,92
+60,37.8,66.8,34,23.6,63,Mist/Fog,3.5,Lakes,4.2,13,1,Meditate,Cafes,15.0,0.0,78
+107,62.6,114.6,37,18.4,73,Rainy,1.1,Libraries,4.2,22,3,Quiet Time,Cafes,15.0,4.0,87
+23,14.0,28.1,30,21.7,50,Rainy,2.1,Meditation,4.6,13,4,Meditate,Lakes,8.0,0.0,99
+171,78.8,159.1,35,25.0,52,Clear,2.0,Libraries,4.2,20,4,Relax,Meditation,15.0,3.5,50
+71,43.6,86.6,52,33.2,83,Partly Cloudy,1.9,Cafes,3.6,11,1,Exercise,Parks,8.0,0.0,65
+61,31.3,55.6,41,33.7,44,Cloudy,2.1,Meditation,4.3,13,7,Relax,Lakes,8.0,3.1,61
+121,76.9,164.3,50,28.8,38,Partly Cloudy,5.5,Fitness,4.7,11,5,Meditate,Lakes,10.0,3.9,39
+69,43.7,76.4,42,31.8,60,Partly Cloudy,0.4,Cafes,4.8,18,2,Quiet Time,Parks,20.0,3.9,97
+110,56.5,114.5,39,29.5,72,Partly Cloudy,0.5,Meditation,3.7,15,4,Study,Libraries,15.0,0.0,56
+101,54.1,99.7,36,35.0,52,Mist/Fog,3.6,Libraries,4.6,22,4,Quiet Time,Fitness,15.0,4.7,84
+65,40.7,74.5,39,23.7,44,Clear,0.4,Parks,4.7,10,4,Fresh Air,Lakes,15.0,0.0,99
+153,76.4,128.8,65,22.6,54,Rainy,4.7,Fitness,4.8,20,2,Meditate,Meditation,10.0,0.0,5
+98,47.8,102.6,65,19.4,49,Rainy,6.3,Fitness,4.2,21,1,Relax,Lakes,20.0,3.4,16
+68,39.3,69.2,28,29.4,53,Partly Cloudy,2.4,Meditation,4.7,20,3,Meditate,All,10.0,0.0,99
+148,75.2,143.5,38,31.1,63,Thunderstorm,0.5,Meditation,4.9,18,3,Fresh Air,All,8.0,0.0,67
+132,57.6,118.5,31,24.9,54,Thunderstorm,0.4,Libraries,3.5,10,2,Quiet Time,Meditation,10.0,0.0,82
+64,29.0,63.6,36,22.8,59,Clear,0.5,Lakes,4.9,11,6,Exercise,Libraries,15.0,0.0,99
+94,54.7,99.7,42,28.4,62,Cloudy,8.4,Parks,4.4,16,5,Quiet Time,Cafes,10.0,4.4,69
+166,75.8,122.3,50,34.9,50,Cloudy,12.9,Cafes,3.6,15,7,Fresh Air,Fitness,15.0,0.0,18
+55,34.1,59.6,50,30.6,60,Clear,2.2,Parks,4.1,16,3,Meditate,Libraries,15.0,3.3,56
+56,24.6,46.3,34,20.1,46,Cloudy,7.7,Parks,4.9,18,5,Study,All,15.0,3.9,91
+27,11.9,21.4,40,19.8,39,Clear,5.0,Lakes,4.3,21,1,Study,Parks,8.0,0.0,86
+21,9.9,20.9,46,24.4,63,Mist/Fog,0.4,Lakes,4.0,7,5,Relax,All,10.0,3.1,99
+37,24.0,39.9,44,33.1,38,Thunderstorm,3.6,Parks,3.6,14,2,Meditate,Fitness,8.0,0.0,33
+37,17.9,30.4,35,24.5,60,Rainy,1.5,Meditation,4.1,13,7,Meditate,Meditation,15.0,0.0,99
+77,39.7,80.3,42,28.6,40,Clear,0.7,Cafes,3.7,8,3,Quiet Time,Lakes,15.0,0.0,83
+103,65.1,130.3,60,28.6,81,Mist/Fog,1.1,Fitness,4.5,17,2,Exercise,Cafes,15.0,3.7,78
+82,36.6,69.5,45,32.1,78,Rainy,2.4,Parks,4.6,19,6,Relax,Fitness,10.0,4.8,66
+41,26.5,44.8,49,27.2,59,Partly Cloudy,1.4,Parks,4.6,19,1,Meditate,Lakes,8.0,0.0,68
+94,52.0,93.7,47,21.6,42,Thunderstorm,4.3,Fitness,3.9,18,5,Study,Meditation,20.0,0.0,33
+55,35.3,69.0,32,18.8,51,Rainy,2.1,Libraries,4.2,19,4,Quiet Time,Fitness,5.0,0.0,96
+158,72.0,126.6,42,32.7,68,Clear,3.3,Meditation,3.9,22,2,Fresh Air,Parks,15.0,4.9,48
+154,72.1,150.6,36,18.3,78,Rainy,4.9,Libraries,4.7,7,4,Relax,All,10.0,0.0,57
+55,33.8,72.9,41,23.9,62,Mist/Fog,1.1,Lakes,3.6,13,4,Fresh Air,Meditation,15.0,3.3,97
+83,36.6,67.9,61,19.8,81,Cloudy,1.6,Fitness,4.5,8,1,Study,Meditation,20.0,0.0,46
+54,31.8,56.0,37,24.1,60,Rainy,6.6,Parks,4.2,9,4,Relax,Parks,20.0,0.0,86
+28,17.8,36.2,50,32.5,74,Thunderstorm,0.6,Parks,3.7,16,2,Study,Parks,5.0,0.0,60
+112,70.7,139.9,45,32.3,56,Rainy,6.1,Fitness,3.8,12,5,Fresh Air,Parks,15.0,0.0,32
+171,101.8,196.9,42,29.6,44,Cloudy,0.5,Parks,3.8,17,1,Quiet Time,Parks,15.0,0.0,49
+104,63.4,138.3,57,20.4,39,Clear,2.9,Cafes,4.4,21,4,Quiet Time,Lakes,5.0,0.0,65
+57,27.3,48.8,48,18.7,40,Cloudy,10.1,Parks,4.5,18,2,Fresh Air,Fitness,8.0,4.7,89
+33,15.7,25.3,51,21.3,39,Cloudy,0.8,Parks,4.4,9,3,Fresh Air,Lakes,20.0,4.9,99
+56,25.6,45.2,49,31.6,80,Thunderstorm,0.6,Parks,4.9,15,5,Meditate,Libraries,20.0,0.0,43
+90,55.8,92.4,39,18.9,38,Mist/Fog,10.7,Parks,3.5,21,1,Exercise,Fitness,20.0,0.0,81
+172,107.3,187.6,48,29.7,63,Partly Cloudy,7.4,Cafes,4.2,10,2,Meditate,Libraries,5.0,0.0,14
+178,71.4,136.6,51,32.0,44,Mist/Fog,3.1,Fitness,4.1,18,2,Fresh Air,Parks,5.0,0.0,26
+31,19.0,31.8,34,28.9,35,Mist/Fog,0.7,Meditation,3.8,14,6,Exercise,Libraries,20.0,3.4,95
+175,80.9,164.0,50,31.4,71,Partly Cloudy,4.3,Fitness,4.9,14,1,Fresh Air,All,8.0,0.0,38
+63,28.4,47.9,61,33.6,51,Clear,2.2,Fitness,4.5,20,6,Relax,Cafes,20.0,4.3,49
+49,31.2,54.5,42,25.9,47,Cloudy,2.3,Lakes,3.6,7,6,Exercise,Lakes,8.0,0.0,94
+86,43.6,70.1,56,19.2,57,Thunderstorm,1.6,Cafes,4.2,14,7,Meditate,Lakes,8.0,0.0,51
+112,57.1,95.9,40,26.7,45,Mist/Fog,10.7,Libraries,4.5,10,1,Study,Parks,20.0,3.7,81
+90,45.1,73.9,67,22.3,49,Clear,6.1,Fitness,4.8,22,2,Fresh Air,Fitness,20.0,0.0,64
+92,52.7,101.8,37,26.7,44,Clear,4.9,Meditation,3.9,14,5,Relax,Parks,15.0,3.8,71
+48,29.9,53.7,41,26.5,47,Cloudy,1.7,Meditation,4.1,6,6,Study,All,8.0,4.1,86
+76,38.2,83.9,35,35.8,62,Mist/Fog,4.7,Lakes,4.6,12,3,Meditate,Cafes,8.0,3.5,63
+165,102.8,170.2,58,20.1,75,Thunderstorm,5.8,Cafes,4.6,13,1,Quiet Time,Libraries,20.0,0.0,51
+135,77.5,124.3,57,32.3,79,Partly Cloudy,0.7,Cafes,4.4,14,1,Fresh Air,Parks,20.0,0.0,43
+71,41.5,90.8,37,23.0,43,Mist/Fog,0.9,Libraries,4.6,12,7,Fresh Air,Meditation,5.0,3.3,86
+108,59.9,97.0,39,21.7,66,Mist/Fog,7.7,Libraries,4.8,19,2,Relax,Meditation,10.0,0.0,68
+98,52.3,105.2,42,19.5,42,Clear,0.6,Libraries,3.7,13,6,Relax,Parks,15.0,0.0,61
+142,88.2,169.2,58,34.2,80,Thunderstorm,14.9,Cafes,3.7,12,4,Quiet Time,Libraries,15.0,0.0,35
+128,80.8,168.0,57,25.3,53,Partly Cloudy,3.0,Cafes,4.8,9,7,Study,Lakes,5.0,0.0,55
+173,74.1,139.9,50,30.8,75,Thunderstorm,0.5,Parks,4.3,13,7,Meditate,Meditation,8.0,4.8,7
+35,18.7,32.8,39,32.9,37,Partly Cloudy,2.7,Parks,3.7,13,6,Meditate,Libraries,8.0,0.0,70
+38,21.2,34.9,40,21.0,48,Rainy,6.9,Meditation,3.5,6,7,Meditate,Libraries,5.0,4.3,95
+53,29.6,48.8,46,35.2,39,Rainy,5.7,Parks,4.5,7,7,Relax,Lakes,20.0,0.0,59
+35,17.3,28.9,42,23.2,49,Mist/Fog,0.9,Meditation,4.7,21,3,Relax,Meditation,20.0,0.0,99
+21,10.4,16.9,41,18.8,37,Clear,4.1,Lakes,4.1,16,1,Study,Libraries,8.0,4.0,88
+25,12.6,26.2,36,24.7,37,Cloudy,1.6,Meditation,4.7,18,6,Meditate,Cafes,8.0,4.4,99
+47,24.2,43.9,51,32.0,82,Thunderstorm,7.1,Lakes,3.8,8,1,Meditate,Cafes,20.0,3.1,28
+66,35.6,68.3,34,31.2,83,Mist/Fog,3.9,Parks,4.9,21,2,Exercise,Lakes,20.0,0.0,99
+30,17.0,28.6,34,23.3,43,Mist/Fog,3.3,Meditation,4.1,11,1,Quiet Time,All,10.0,3.8,99
+143,87.4,162.4,47,19.5,78,Cloudy,6.3,Fitness,4.9,18,2,Meditate,Lakes,10.0,4.5,43
+143,70.4,135.6,37,35.3,80,Partly Cloudy,0.4,Parks,4.2,15,4,Meditate,Cafes,5.0,0.0,37
+174,92.7,199.3,42,31.2,53,Partly Cloudy,3.1,Cafes,4.3,14,3,Fresh Air,Libraries,20.0,0.0,40
+139,56.9,114.5,46,22.3,80,Cloudy,1.1,Fitness,3.8,22,3,Relax,Meditation,10.0,0.0,52
+144,86.6,180.4,47,28.8,61,Mist/Fog,4.8,Fitness,4.3,12,2,Relax,Cafes,5.0,0.0,38
+64,26.2,48.3,34,35.2,80,Clear,3.6,Lakes,4.2,16,4,Meditate,Cafes,20.0,4.9,77
+162,100.9,162.1,30,36.0,36,Clear,0.7,Libraries,3.7,10,7,Fresh Air,Meditation,15.0,0.0,43
+132,69.2,141.0,41,20.2,71,Thunderstorm,2.2,Libraries,4.8,12,4,Study,Cafes,5.0,4.6,84
+23,9.9,19.0,47,20.0,49,Cloudy,1.2,Lakes,4.2,6,5,Relax,All,20.0,5.0,99
+26,12.0,21.2,40,19.7,81,Clear,4.5,Lakes,3.7,19,6,Meditate,Libraries,10.0,3.7,82
+37,18.8,39.0,34,19.7,72,Mist/Fog,2.2,Parks,4.9,12,7,Study,Parks,5.0,0.0,96
+61,37.7,60.9,30,19.3,82,Rainy,1.1,Libraries,4.7,14,3,Exercise,Libraries,8.0,4.6,99
+24,13.4,25.3,40,34.2,66,Mist/Fog,14.8,Meditation,3.9,7,1,Fresh Air,Parks,10.0,4.8,73
+88,45.7,91.4,36,20.5,37,Thunderstorm,1.2,Libraries,4.4,9,1,Meditate,Lakes,10.0,3.7,98
+128,52.7,96.0,57,19.2,49,Mist/Fog,3.3,Fitness,4.6,20,3,Quiet Time,All,5.0,0.0,47
+172,86.9,171.6,63,23.3,62,Mist/Fog,3.5,Fitness,4.6,20,1,Fresh Air,Libraries,20.0,0.0,29
+151,82.3,163.1,52,23.9,40,Partly Cloudy,0.4,Cafes,4.8,12,2,Meditate,Libraries,20.0,0.0,41
+63,31.6,61.2,50,29.2,36,Rainy,3.2,Lakes,4.1,9,4,Study,Fitness,8.0,0.0,37
+29,15.7,34.5,38,22.0,68,Thunderstorm,3.5,Parks,4.5,22,2,Quiet Time,Cafes,10.0,0.0,70
+174,108.2,180.8,44,28.2,56,Mist/Fog,0.4,Cafes,4.1,17,5,Relax,Lakes,8.0,0.0,37
+62,33.3,64.7,33,19.3,76,Mist/Fog,0.4,Libraries,4.7,9,6,Quiet Time,Lakes,15.0,0.0,99
+61,26.2,55.2,40,27.7,47,Rainy,5.9,Meditation,4.8,14,6,Study,Libraries,10.0,0.0,75
+50,28.3,54.0,44,19.1,37,Rainy,6.6,Parks,4.3,8,1,Meditate,Cafes,15.0,0.0,42
+22,12.4,20.4,45,33.4,51,Clear,2.4,Parks,4.8,22,2,Relax,All,8.0,0.0,99
+131,54.0,98.3,38,18.3,59,Cloudy,2.3,Libraries,4.1,7,6,Quiet Time,Cafes,10.0,0.0,70
+127,61.7,119.3,29,31.0,76,Rainy,9.3,Libraries,5.0,8,7,Quiet Time,Parks,5.0,0.0,71
+31,19.9,34.2,42,34.9,82,Clear,1.6,Parks,3.8,18,1,Exercise,Libraries,8.0,0.0,99
+47,18.8,31.4,47,32.9,83,Partly Cloudy,1.6,Lakes,4.2,17,4,Meditate,Meditation,15.0,3.4,64
+31,12.8,27.9,49,18.9,78,Cloudy,1.5,Parks,5.0,9,4,Quiet Time,Libraries,5.0,5.0,98
+111,47.4,79.9,50,30.0,43,Rainy,1.0,Cafes,4.8,8,4,Relax,Cafes,5.0,0.0,76
+48,22.3,48.1,34,27.8,71,Thunderstorm,2.7,Meditation,4.2,19,7,Fresh Air,Fitness,20.0,0.0,88
+64,32.1,57.9,44,35.3,36,Rainy,5.7,Parks,4.3,19,4,Fresh Air,Parks,20.0,0.0,71
+102,64.7,112.7,41,33.5,35,Partly Cloudy,5.4,Parks,4.3,8,6,Exercise,Cafes,15.0,0.0,80
+61,30.4,64.6,48,27.7,57,Cloudy,0.7,Cafes,4.1,10,6,Quiet Time,Parks,10.0,4.3,94
+45,28.9,59.3,51,28.6,73,Thunderstorm,1.4,Lakes,4.4,15,7,Relax,Libraries,15.0,0.0,67
+47,27.4,54.7,43,28.8,69,Mist/Fog,2.8,Parks,4.5,15,5,Study,Fitness,10.0,4.5,78
+23,11.2,22.1,36,30.5,57,Clear,1.8,Meditation,3.9,18,4,Fresh Air,Meditation,8.0,3.4,99
+55,35.2,57.7,45,26.9,61,Rainy,2.0,Parks,4.8,19,5,Fresh Air,Cafes,8.0,0.0,80
+28,18.2,29.5,45,30.3,35,Cloudy,3.9,Lakes,4.1,14,1,Meditate,Lakes,8.0,0.0,82
+130,74.3,144.3,28,21.0,79,Clear,1.0,Libraries,4.8,14,3,Exercise,Meditation,10.0,4.0,82
+75,36.6,76.5,32,22.4,82,Mist/Fog,4.3,Libraries,4.8,18,7,Fresh Air,Cafes,20.0,0.0,86
+31,17.7,38.0,30,31.0,81,Cloudy,1.0,Meditation,4.1,11,4,Relax,Lakes,10.0,0.0,90
+47,26.9,44.7,49,19.9,70,Thunderstorm,1.9,Lakes,4.9,21,5,Quiet Time,Parks,5.0,3.8,77
+50,30.3,52.6,31,29.2,78,Mist/Fog,8.2,Meditation,3.6,9,4,Study,Fitness,20.0,0.0,71
+51,27.8,49.0,34,21.8,50,Cloudy,1.7,Lakes,3.7,16,2,Relax,Parks,15.0,4.5,99
+159,84.4,147.1,34,18.8,82,Cloudy,1.4,Libraries,4.5,9,3,Exercise,Meditation,8.0,0.0,63
+40,22.2,48.1,36,27.4,63,Thunderstorm,3.6,Parks,4.6,6,3,Relax,Fitness,8.0,3.5,75
+165,104.6,202.3,58,25.5,82,Rainy,7.3,Cafes,4.3,20,5,Exercise,Parks,20.0,0.0,46
+114,55.2,99.5,55,23.0,66,Mist/Fog,4.9,Cafes,4.9,16,7,Meditate,Parks,15.0,0.0,43
+175,105.5,195.9,39,34.8,35,Partly Cloudy,0.4,Lakes,4.7,17,6,Study,Libraries,8.0,4.3,40
+59,36.6,76.7,48,19.2,35,Cloudy,1.8,Lakes,4.3,19,5,Relax,Parks,5.0,0.0,86
+130,64.5,127.2,54,27.0,77,Partly Cloudy,16.6,Cafes,4.1,20,6,Fresh Air,Libraries,8.0,0.0,23
+147,63.6,134.0,67,21.0,53,Mist/Fog,1.1,Fitness,4.3,11,6,Exercise,Parks,5.0,0.0,61
+26,15.9,25.5,39,19.1,71,Clear,7.9,Lakes,3.9,14,4,Relax,Parks,20.0,4.4,99
+119,70.4,129.7,39,26.2,74,Mist/Fog,8.4,Libraries,4.2,14,6,Study,All,15.0,0.0,78
+172,82.8,163.2,43,31.4,54,Mist/Fog,4.1,Lakes,4.6,18,1,Exercise,Parks,8.0,0.0,45
+133,59.0,110.6,37,32.2,71,Rainy,9.4,Lakes,4.9,6,3,Quiet Time,Cafes,20.0,3.3,54
+174,101.5,211.1,45,19.4,50,Thunderstorm,3.1,Lakes,3.9,11,3,Quiet Time,Cafes,8.0,0.0,24
+125,78.0,134.3,57,22.8,41,Cloudy,4.8,Fitness,4.6,21,2,Meditate,Fitness,15.0,3.8,50
+83,50.0,103.2,53,20.1,79,Mist/Fog,3.5,Cafes,4.2,11,5,Study,Fitness,20.0,3.1,71
+46,27.1,58.2,46,26.8,79,Partly Cloudy,1.7,Parks,4.9,22,2,Study,Parks,20.0,3.1,89
+144,59.6,102.1,34,22.8,62,Clear,3.6,Lakes,4.3,22,7,Study,Cafes,15.0,0.0,56
+140,81.3,172.9,54,21.3,66,Cloudy,2.1,Cafes,4.7,7,2,Quiet Time,Parks,5.0,5.0,71
+91,46.9,84.8,49,33.7,63,Partly Cloudy,9.5,Parks,3.5,10,6,Fresh Air,Fitness,5.0,0.0,55
+95,38.6,68.8,55,33.6,60,Mist/Fog,0.5,Fitness,4.9,19,4,Fresh Air,Meditation,8.0,4.4,59
+26,11.4,19.7,36,34.6,83,Mist/Fog,2.1,Parks,3.6,8,1,Meditate,Cafes,8.0,3.8,71
+52,26.6,54.1,45,31.7,81,Thunderstorm,1.1,Lakes,4.6,12,1,Meditate,All,20.0,3.4,50
+59,35.6,73.5,35,21.2,39,Cloudy,0.4,Parks,4.5,22,2,Quiet Time,Parks,20.0,0.0,99
+26,14.3,26.1,34,21.5,77,Thunderstorm,18.6,Parks,4.6,8,7,Fresh Air,Meditation,10.0,0.0,69
+35,20.8,40.6,48,22.1,57,Clear,0.8,Lakes,4.1,17,5,Quiet Time,Meditation,8.0,3.7,99
+160,74.4,122.4,55,18.5,84,Partly Cloudy,9.6,Cafes,3.7,11,4,Meditate,Parks,15.0,4.0,17
+61,30.9,60.4,41,20.3,49,Partly Cloudy,4.0,Parks,4.0,14,7,Exercise,Meditation,5.0,4.8,99
+78,45.1,79.9,50,18.3,53,Clear,8.5,Fitness,4.3,20,3,Quiet Time,All,15.0,0.0,67
+138,89.6,163.4,49,35.0,47,Partly Cloudy,6.7,Cafes,4.8,14,4,Exercise,Libraries,8.0,0.0,44
+25,14.9,24.9,37,32.3,62,Mist/Fog,0.7,Parks,3.9,8,4,Relax,Libraries,15.0,4.0,99
+108,47.2,76.4,61,30.7,58,Cloudy,1.1,Fitness,4.1,9,2,Quiet Time,Lakes,5.0,4.4,51
+155,73.1,159.5,59,23.4,75,Rainy,1.0,Cafes,3.5,19,2,Relax,All,8.0,4.7,42
+82,33.4,55.9,45,36.0,75,Partly Cloudy,5.6,Fitness,4.1,20,3,Exercise,Libraries,20.0,0.0,78
+69,33.7,55.2,31,30.6,58,Partly Cloudy,0.4,Libraries,4.1,19,1,Exercise,Fitness,10.0,3.7,86
+49,21.1,37.0,34,22.7,46,Mist/Fog,5.4,Parks,3.6,14,5,Relax,Cafes,20.0,3.5,93
+151,62.0,121.9,56,23.4,76,Thunderstorm,6.3,Fitness,4.7,22,4,Relax,Lakes,15.0,0.0,14
+38,20.9,42.8,29,35.2,42,Rainy,2.6,Meditation,4.2,14,2,Exercise,Meditation,5.0,3.3,99
+77,44.1,84.2,52,28.5,80,Cloudy,19.3,Cafes,4.7,8,6,Exercise,Parks,15.0,0.0,60
+77,31.8,59.7,65,19.9,55,Partly Cloudy,6.7,Fitness,4.4,14,1,Meditate,All,5.0,0.0,36
+51,28.2,53.8,36,26.1,42,Thunderstorm,0.7,Meditation,4.9,22,6,Relax,Parks,15.0,0.0,95
+166,79.0,133.0,47,35.0,79,Rainy,2.9,Parks,4.4,20,5,Relax,Libraries,8.0,4.9,32
+83,34.2,64.5,35,32.9,43,Clear,1.0,Meditation,3.6,18,1,Meditate,All,20.0,0.0,85
+85,37.5,75.1,36,20.7,71,Thunderstorm,2.0,Meditation,4.5,7,3,Exercise,Meditation,15.0,3.7,99
+167,70.5,137.4,47,18.8,79,Rainy,3.9,Fitness,4.2,13,3,Relax,Lakes,8.0,0.0,8
+161,90.9,180.4,30,18.8,65,Mist/Fog,2.2,Libraries,4.8,18,4,Fresh Air,Fitness,10.0,0.0,57
+105,49.0,93.4,48,18.2,63,Rainy,0.7,Fitness,3.7,17,5,Study,Libraries,8.0,0.0,28
+63,40.3,83.3,32,27.6,60,Rainy,3.6,Meditation,3.7,14,4,Fresh Air,Parks,15.0,0.0,77
+39,21.7,35.5,32,36.0,40,Partly Cloudy,8.2,Meditation,4.0,11,7,Exercise,Libraries,8.0,0.0,79
+20,8.9,15.6,50,28.0,39,Cloudy,1.7,Lakes,4.9,17,3,Exercise,Meditation,5.0,0.0,97
+66,28.0,50.1,28,30.5,48,Partly Cloudy,5.7,Libraries,4.1,8,4,Meditate,Lakes,15.0,0.0,87
+117,67.3,131.7,58,29.3,62,Thunderstorm,11.3,Fitness,4.8,20,7,Relax,Fitness,5.0,0.0,16
+38,23.3,38.7,38,29.2,80,Cloudy,3.7,Parks,4.3,13,6,Study,All,10.0,0.0,80
+99,47.3,101.0,29,28.6,83,Cloudy,6.0,Libraries,3.7,10,6,Study,Libraries,5.0,0.0,88
+41,20.1,40.6,40,18.8,40,Mist/Fog,2.6,Lakes,4.5,7,2,Relax,Fitness,15.0,0.0,94
+90,45.2,91.6,30,28.4,51,Thunderstorm,3.5,Libraries,4.2,7,1,Meditate,Cafes,15.0,0.0,88
+154,73.1,159.6,50,23.3,53,Clear,1.9,Fitness,4.7,19,4,Fresh Air,Lakes,10.0,0.0,55
+156,98.7,176.6,57,31.6,51,Rainy,8.1,Cafes,4.2,15,7,Meditate,All,20.0,3.4,25
+30,17.9,31.4,34,32.1,77,Rainy,1.0,Meditation,4.0,15,1,Fresh Air,All,15.0,4.3,99
+105,64.5,107.8,36,35.3,74,Partly Cloudy,2.3,Parks,4.5,21,3,Relax,Meditation,15.0,0.0,74
+100,42.6,72.7,54,19.7,80,Clear,7.0,Cafes,4.3,22,6,Fresh Air,All,10.0,3.1,54
+64,33.3,63.2,44,33.7,43,Partly Cloudy,3.5,Parks,4.2,6,7,Relax,Cafes,10.0,3.3,71
+84,37.0,77.2,46,20.0,43,Mist/Fog,1.1,Fitness,3.8,21,3,Exercise,Fitness,10.0,3.7,99
+63,35.2,64.1,32,21.1,41,Thunderstorm,4.2,Meditation,4.3,14,3,Relax,Cafes,8.0,0.0,84
+137,69.5,123.9,48,26.4,71,Mist/Fog,7.4,Cafes,3.7,12,2,Relax,All,5.0,0.0,40
+177,101.0,199.2,41,26.1,80,Clear,2.1,Meditation,3.9,15,6,Fresh Air,Fitness,8.0,0.0,39
+72,32.2,67.6,57,21.1,38,Mist/Fog,2.6,Fitness,4.5,7,7,Meditate,Cafes,5.0,0.0,48
+48,19.6,38.5,48,23.8,62,Partly Cloudy,6.5,Lakes,4.4,13,3,Relax,Lakes,10.0,0.0,99
+161,99.1,205.4,55,19.2,78,Thunderstorm,2.3,Cafes,3.9,8,7,Relax,All,20.0,0.0,34
+84,42.6,89.3,45,33.8,69,Thunderstorm,2.6,Cafes,3.8,9,1,Quiet Time,Lakes,20.0,0.0,74
+91,51.0,85.4,57,27.2,47,Thunderstorm,3.0,Fitness,4.7,19,5,Quiet Time,Meditation,15.0,0.0,35
+89,57.5,108.6,61,19.9,76,Rainy,4.3,Fitness,4.1,7,7,Fresh Air,All,10.0,4.5,31
+142,63.0,105.8,31,29.7,64,Thunderstorm,0.9,Meditation,3.9,9,2,Fresh Air,Meditation,8.0,0.0,76
+169,74.2,158.0,31,27.3,60,Partly Cloudy,0.5,Libraries,4.3,12,2,Relax,Cafes,20.0,3.1,46
+60,24.2,48.8,40,24.8,37,Rainy,0.4,Parks,4.5,21,6,Relax,Parks,20.0,3.0,88
+62,25.8,52.5,58,34.7,67,Cloudy,3.9,Cafes,4.4,7,7,Exercise,Fitness,5.0,0.0,62
+67,32.1,59.2,43,33.0,74,Cloudy,0.4,Libraries,4.6,6,4,Fresh Air,Meditation,8.0,0.0,78
+173,94.6,176.2,43,34.3,37,Clear,2.3,Cafes,4.1,8,1,Study,Lakes,15.0,4.3,47
+61,25.8,54.3,59,35.8,35,Partly Cloudy,2.4,Cafes,3.7,14,7,Study,Fitness,10.0,0.0,58
+75,37.9,65.2,51,27.6,63,Rainy,3.7,Cafes,4.1,20,7,Fresh Air,Fitness,8.0,3.5,66
+117,65.4,109.3,36,29.9,59,Mist/Fog,3.6,Libraries,3.5,19,2,Fresh Air,Libraries,10.0,4.7,71
+21,8.9,16.5,46,26.2,83,Cloudy,2.9,Parks,4.7,11,4,Quiet Time,Libraries,20.0,5.0,99
+166,81.7,137.5,29,24.5,60,Rainy,12.8,Meditation,4.2,20,3,Relax,Fitness,5.0,0.0,33
+74,31.0,59.7,56,27.9,49,Mist/Fog,3.6,Cafes,4.1,10,4,Exercise,Libraries,20.0,3.3,65
+23,9.5,19.2,43,31.0,53,Cloudy,9.0,Meditation,4.7,17,6,Exercise,Lakes,5.0,4.0,86
+68,41.6,75.7,41,28.3,81,Mist/Fog,0.5,Meditation,3.8,16,4,Meditate,All,15.0,3.1,83
+58,30.0,51.2,36,29.0,79,Thunderstorm,7.9,Lakes,3.5,8,4,Meditate,Fitness,10.0,0.0,43
+40,16.9,37.1,35,34.6,74,Thunderstorm,1.9,Lakes,3.6,17,5,Meditate,Meditation,15.0,0.0,46
+63,34.8,73.3,49,35.7,67,Clear,1.6,Parks,3.6,7,6,Relax,All,15.0,4.9,92
+40,24.1,47.1,38,35.2,47,Clear,4.5,Meditation,4.8,15,5,Meditate,Parks,5.0,0.0,86
+155,67.5,131.0,55,28.0,45,Thunderstorm,7.1,Fitness,3.7,14,3,Study,Parks,10.0,0.0,5
+153,80.9,136.3,55,32.6,39,Cloudy,8.4,Fitness,3.6,16,1,Relax,Libraries,5.0,4.5,17
+78,34.8,65.5,51,24.5,47,Mist/Fog,5.4,Fitness,4.0,10,4,Fresh Air,Cafes,8.0,0.0,62
+108,59.1,102.3,39,34.0,81,Cloudy,2.7,Meditation,4.0,11,3,Exercise,All,20.0,0.0,65
+88,55.3,106.4,33,26.0,57,Clear,1.4,Libraries,4.1,20,5,Quiet Time,Fitness,5.0,3.2,94
+127,68.0,122.4,40,18.8,66,Clear,1.6,Meditation,4.5,9,2,Meditate,Meditation,5.0,3.2,82
+37,20.4,41.0,36,30.7,57,Cloudy,2.0,Parks,3.8,6,4,Exercise,Fitness,8.0,0.0,99
+138,89.6,191.4,54,25.9,50,Partly Cloudy,5.8,Cafes,4.0,7,1,Quiet Time,All,20.0,3.8,64
+91,44.1,93.4,66,35.4,67,Cloudy,4.4,Fitness,4.2,16,1,Relax,All,10.0,0.0,37
+25,13.7,22.3,40,28.6,53,Mist/Fog,0.4,Parks,4.5,8,1,Exercise,Meditation,8.0,3.8,99
+176,104.4,167.8,60,20.1,48,Thunderstorm,0.8,Fitness,4.8,19,1,Fresh Air,Parks,5.0,0.0,11
+47,19.9,34.5,45,29.1,43,Thunderstorm,3.1,Parks,4.6,13,3,Relax,Libraries,10.0,0.0,66
+96,40.1,65.6,59,34.9,35,Thunderstorm,0.4,Cafes,4.1,7,1,Meditate,All,20.0,0.0,40
+115,66.0,110.6,50,29.9,63,Partly Cloudy,1.5,Parks,4.5,17,7,Quiet Time,Parks,20.0,3.0,66
+148,90.5,162.9,28,29.4,76,Partly Cloudy,0.6,Libraries,5.0,16,3,Exercise,Cafes,8.0,3.8,73
+57,25.5,55.3,54,21.9,46,Partly Cloudy,1.7,Cafes,3.6,7,5,Meditate,Libraries,5.0,4.8,65
+96,38.5,79.3,36,27.2,47,Rainy,0.9,Libraries,3.6,18,4,Quiet Time,All,5.0,3.3,90
+93,57.6,111.6,63,26.1,77,Thunderstorm,7.2,Fitness,3.8,19,3,Study,Cafes,5.0,3.1,5
+73,29.4,59.3,42,27.4,38,Cloudy,2.5,Lakes,4.8,10,1,Exercise,Meditation,15.0,0.0,84
+50,22.4,45.3,37,32.3,71,Mist/Fog,1.0,Lakes,4.9,22,7,Meditate,Meditation,10.0,4.1,87
+139,75.3,140.1,40,25.9,61,Thunderstorm,1.7,Libraries,3.6,16,5,Quiet Time,All,20.0,0.0,77
+99,52.4,106.1,62,34.5,58,Cloudy,5.4,Fitness,4.8,8,5,Quiet Time,All,20.0,0.0,45
+112,49.6,94.5,33,33.6,67,Cloudy,19.2,Meditation,3.8,21,2,Meditate,Libraries,8.0,3.4,38
+67,42.6,69.7,35,26.8,48,Cloudy,1.1,Lakes,4.9,22,6,Quiet Time,Fitness,8.0,3.8,99
+142,81.7,163.7,55,18.2,36,Mist/Fog,1.1,Cafes,3.9,10,2,Fresh Air,Libraries,5.0,0.0,41
+163,75.1,152.5,42,27.1,55,Partly Cloudy,7.9,Cafes,3.9,12,1,Meditate,Meditation,15.0,0.0,29
+80,48.6,91.1,40,19.7,61,Thunderstorm,0.8,Parks,4.5,11,5,Study,Meditation,5.0,4.4,57
+47,28.9,49.0,47,21.9,82,Thunderstorm,0.4,Parks,4.8,14,1,Exercise,Lakes,8.0,0.0,83
+123,73.8,127.1,29,18.3,37,Rainy,2.1,Libraries,5.0,19,7,Meditate,Parks,10.0,0.0,82
+170,71.6,136.6,41,19.1,64,Cloudy,5.6,Parks,4.0,7,4,Exercise,Parks,10.0,0.0,73
+89,52.7,107.0,37,18.2,67,Cloudy,2.0,Libraries,3.8,11,4,Meditate,Meditation,15.0,4.8,90
+136,85.7,175.1,50,30.5,48,Thunderstorm,0.9,Lakes,4.8,7,5,Study,Parks,20.0,0.0,24
+48,24.1,47.8,39,19.5,65,Mist/Fog,4.3,Meditation,3.8,16,7,Quiet Time,Libraries,10.0,3.3,78
+136,66.8,116.3,31,35.1,36,Partly Cloudy,4.4,Libraries,3.6,17,7,Meditate,Lakes,5.0,0.0,53
+98,56.8,103.5,35,25.0,69,Mist/Fog,4.2,Libraries,4.0,20,4,Exercise,All,15.0,0.0,84
+172,108.2,194.9,45,25.9,63,Partly Cloudy,16.8,Cafes,4.1,22,4,Quiet Time,Fitness,10.0,0.0,34
+66,29.3,51.9,34,34.3,63,Mist/Fog,9.4,Parks,4.9,15,5,Exercise,Parks,20.0,3.7,99
+99,47.1,88.0,44,18.2,78,Partly Cloudy,1.4,Cafes,4.1,9,3,Study,Libraries,8.0,3.2,73
+173,97.3,189.7,46,34.9,75,Partly Cloudy,1.6,Cafes,4.8,12,6,Relax,Meditation,10.0,0.0,32
+63,39.5,84.6,45,30.4,41,Mist/Fog,10.2,Fitness,4.9,10,1,Exercise,Parks,10.0,4.5,99
+86,37.8,68.7,43,31.3,43,Cloudy,8.0,Libraries,4.7,14,3,Relax,Libraries,20.0,0.0,78
+63,38.9,84.0,46,27.5,74,Mist/Fog,7.6,Parks,3.8,20,4,Relax,Cafes,8.0,0.0,74
+38,17.1,27.4,32,29.6,37,Clear,5.3,Meditation,4.7,20,5,Exercise,Cafes,10.0,4.9,99
+53,23.2,49.0,49,19.2,44,Partly Cloudy,2.5,Fitness,3.7,6,5,Relax,All,8.0,4.9,76
+169,99.8,191.4,59,26.9,43,Clear,0.4,Fitness,3.8,17,3,Relax,Fitness,5.0,0.0,35
+133,72.3,143.1,56,24.2,70,Partly Cloudy,12.2,Fitness,4.7,12,2,Relax,Libraries,10.0,3.3,34
+140,62.7,120.0,58,23.2,77,Clear,4.4,Fitness,4.7,13,2,Exercise,Parks,8.0,3.9,67
+167,89.8,168.4,36,28.9,74,Rainy,0.8,Libraries,4.7,12,4,Exercise,All,20.0,3.0,63
+49,31.3,68.5,38,30.2,66,Thunderstorm,1.0,Parks,4.9,21,6,Meditate,Cafes,5.0,0.0,56
+83,41.6,71.6,49,20.4,45,Cloudy,12.6,Cafes,5.0,10,2,Fresh Air,Fitness,8.0,0.0,58
+132,77.7,137.9,67,28.1,68,Cloudy,5.0,Fitness,4.6,11,2,Fresh Air,All,8.0,0.0,33
+49,30.6,53.4,50,26.6,74,Mist/Fog,0.5,Lakes,4.3,14,4,Fresh Air,Lakes,5.0,0.0,99
+157,63.0,126.1,31,35.1,73,Thunderstorm,4.0,Libraries,3.7,8,2,Study,All,10.0,0.0,61
+45,26.1,52.0,34,31.1,74,Cloudy,0.5,Meditation,3.9,8,7,Study,Meditation,10.0,4.3,99
+52,21.7,42.1,50,23.9,48,Cloudy,3.3,Parks,4.4,18,5,Study,All,5.0,0.0,68
+74,38.4,61.5,30,21.0,83,Cloudy,4.1,Libraries,4.4,21,1,Study,Fitness,5.0,4.3,98
+124,72.9,135.4,51,26.3,63,Rainy,2.4,Lakes,4.3,22,4,Study,All,5.0,3.3,23
+39,19.4,39.9,42,30.5,83,Cloudy,3.0,Parks,4.5,19,3,Fresh Air,Fitness,15.0,4.3,99
+61,35.0,60.3,44,31.9,51,Mist/Fog,1.0,Lakes,4.5,16,2,Quiet Time,Meditation,20.0,3.3,93
+95,57.2,100.9,47,26.2,81,Mist/Fog,2.6,Cafes,3.5,19,5,Relax,Fitness,5.0,0.0,58
+136,69.2,127.4,52,26.1,50,Thunderstorm,10.2,Cafes,4.7,18,3,Study,Libraries,15.0,0.0,64
+102,49.8,100.6,50,28.6,54,Clear,1.4,Cafes,4.4,20,4,Relax,All,15.0,4.8,70
+51,23.2,40.0,39,26.4,35,Thunderstorm,1.9,Meditation,3.7,11,4,Quiet Time,Lakes,5.0,0.0,87
+43,26.3,55.3,47,25.1,81,Thunderstorm,2.2,Parks,3.9,16,7,Study,Libraries,15.0,4.8,57
+89,41.3,67.9,58,20.2,63,Thunderstorm,3.5,Cafes,4.6,13,7,Quiet Time,Parks,8.0,0.0,78
+124,58.0,107.1,28,33.1,69,Mist/Fog,1.0,Libraries,3.6,16,5,Study,Parks,8.0,0.0,68
+78,42.4,88.6,38,28.5,81,Thunderstorm,0.7,Meditation,3.7,6,7,Quiet Time,Cafes,8.0,0.0,78
+34,21.2,40.5,37,30.8,55,Mist/Fog,1.7,Parks,3.7,10,1,Exercise,Fitness,20.0,3.1,99
+160,79.3,129.9,55,28.2,76,Partly Cloudy,0.8,Cafes,3.7,9,2,Fresh Air,Cafes,10.0,0.0,40
+127,56.8,110.7,53,35.3,62,Rainy,2.3,Cafes,4.9,12,1,Fresh Air,Meditation,5.0,3.7,49
+140,69.9,121.1,43,27.9,37,Thunderstorm,1.1,Cafes,3.8,19,2,Meditate,Lakes,8.0,0.0,43
+28,14.0,27.9,34,29.9,70,Partly Cloudy,2.2,Lakes,4.7,6,1,Meditate,Lakes,15.0,0.0,97
+142,61.8,130.8,53,35.3,42,Thunderstorm,6.0,Fitness,4.5,21,4,Study,Meditation,5.0,0.0,5
+57,26.1,54.2,49,20.9,75,Clear,3.6,Parks,4.1,16,2,Study,Parks,10.0,0.0,83
+148,87.3,150.1,44,29.2,46,Partly Cloudy,0.8,Cafes,4.0,9,2,Quiet Time,Fitness,8.0,3.0,60
+58,33.2,66.5,34,24.6,75,Rainy,2.3,Libraries,3.7,21,5,Exercise,Cafes,15.0,0.0,90
+57,26.8,48.8,43,34.4,71,Partly Cloudy,3.1,Cafes,4.7,11,2,Meditate,Meditation,10.0,3.5,62
+23,14.8,28.8,47,19.6,70,Clear,11.4,Parks,3.9,17,1,Meditate,Libraries,8.0,0.0,60
+83,51.5,96.7,62,33.0,58,Clear,3.8,Fitness,4.0,14,4,Exercise,Fitness,15.0,4.6,90
+96,51.4,98.8,58,32.2,58,Partly Cloudy,0.9,Cafes,4.8,8,2,Relax,Cafes,20.0,4.2,69
+54,25.4,44.5,36,20.7,47,Mist/Fog,1.3,Meditation,4.2,8,7,Quiet Time,Lakes,8.0,3.3,87
+51,32.9,63.6,40,29.1,68,Mist/Fog,8.1,Meditation,4.2,7,7,Exercise,Libraries,5.0,0.0,73
+153,96.9,189.8,48,35.5,65,Thunderstorm,4.4,Cafes,4.4,9,4,Quiet Time,All,8.0,3.4,59
+78,40.1,68.1,53,20.7,40,Cloudy,1.0,Fitness,4.5,14,5,Study,Parks,10.0,0.0,60
+146,58.5,112.5,31,23.3,57,Cloudy,8.5,Libraries,4.0,22,4,Meditate,Parks,5.0,0.0,56
+154,62.0,113.1,54,30.3,38,Thunderstorm,5.4,Cafes,3.8,20,4,Exercise,All,10.0,4.4,51
+29,18.5,36.2,39,22.8,57,Partly Cloudy,2.7,Lakes,4.7,11,3,Exercise,Cafes,10.0,0.0,99
+60,36.1,60.7,38,31.1,42,Thunderstorm,3.4,Libraries,3.6,19,2,Study,Libraries,5.0,4.2,99
+125,57.3,100.1,54,29.6,43,Partly Cloudy,3.7,Cafes,4.5,11,1,Quiet Time,Meditation,10.0,0.0,63
+44,18.7,32.2,29,27.7,77,Mist/Fog,0.5,Meditation,4.3,13,6,Fresh Air,All,20.0,0.0,96
+26,16.6,28.3,35,23.3,68,Mist/Fog,7.8,Parks,4.3,19,5,Quiet Time,All,10.0,0.0,94
+43,20.0,38.4,41,31.5,76,Cloudy,4.2,Parks,4.7,11,5,Relax,Fitness,5.0,0.0,94
+118,54.4,97.3,33,35.3,66,Mist/Fog,1.5,Libraries,4.6,9,5,Exercise,Meditation,15.0,0.0,70
+61,36.7,62.7,37,23.5,38,Clear,1.5,Lakes,3.9,12,7,Relax,Libraries,20.0,0.0,99
+171,107.6,208.9,57,19.6,78,Clear,2.4,Cafes,4.4,14,5,Quiet Time,Cafes,15.0,0.0,54
+145,58.7,101.6,54,18.4,69,Rainy,0.9,Fitness,3.6,17,2,Meditate,All,5.0,0.0,6
+28,11.9,21.3,28,22.9,79,Partly Cloudy,8.3,Meditation,4.6,17,5,Study,Parks,20.0,0.0,98
+149,61.9,115.8,36,21.0,57,Rainy,2.3,Meditation,4.8,11,7,Meditate,Meditation,8.0,0.0,86
+137,85.0,146.4,48,34.2,39,Rainy,1.7,Lakes,4.8,18,2,Fresh Air,Libraries,5.0,3.2,42
+49,29.3,50.4,38,20.7,68,Thunderstorm,6.9,Parks,4.0,11,4,Relax,All,8.0,0.0,75
+111,64.1,132.0,66,25.3,79,Clear,2.7,Fitness,4.5,19,7,Relax,Libraries,5.0,0.0,36
+58,35.0,61.2,35,26.4,57,Partly Cloudy,2.1,Parks,4.9,9,3,Quiet Time,Libraries,15.0,0.0,91
+119,54.9,110.7,33,21.2,68,Rainy,16.7,Libraries,4.6,18,3,Fresh Air,Fitness,8.0,0.0,52
+57,24.8,46.3,39,28.7,79,Thunderstorm,0.9,Lakes,3.8,14,6,Fresh Air,Fitness,10.0,0.0,71
+107,50.8,85.4,64,26.0,66,Clear,0.8,Fitness,4.1,15,1,Relax,Fitness,20.0,0.0,54
+46,21.9,44.0,38,30.3,77,Cloudy,1.5,Parks,3.6,22,2,Fresh Air,All,10.0,0.0,99
+30,18.3,35.0,38,25.2,64,Partly Cloudy,6.1,Meditation,5.0,15,7,Study,All,5.0,0.0,91
+43,21.4,34.4,51,33.0,84,Clear,0.9,Parks,4.9,7,4,Fresh Air,Parks,8.0,0.0,99
+44,20.6,43.3,33,31.9,35,Clear,7.6,Meditation,4.3,7,3,Fresh Air,All,20.0,0.0,86
+84,51.5,113.1,43,35.7,46,Rainy,0.9,Lakes,4.7,6,1,Fresh Air,Libraries,15.0,3.1,60
+148,74.1,144.9,57,24.4,45,Thunderstorm,8.8,Cafes,4.1,9,5,Quiet Time,Cafes,10.0,4.1,70
+108,44.6,91.7,66,29.8,61,Clear,0.9,Fitness,3.5,12,4,Study,Cafes,5.0,4.4,28
+89,57.2,96.0,44,25.1,48,Clear,1.8,Parks,4.3,18,7,Meditate,Lakes,15.0,0.0,72
+151,64.8,139.1,37,33.7,41,Rainy,9.7,Libraries,3.8,11,1,Meditate,Fitness,8.0,0.0,50
+171,96.1,170.8,56,27.0,59,Cloudy,2.0,Cafes,3.9,16,3,Meditate,Parks,20.0,0.0,19
+20,12.2,26.6,39,24.3,40,Mist/Fog,4.5,Parks,3.6,13,4,Meditate,Libraries,20.0,3.4,78
+80,47.6,80.2,51,20.8,73,Rainy,3.0,Parks,4.6,17,5,Relax,Meditation,20.0,4.4,64
+57,24.8,52.5,29,35.6,51,Clear,1.9,Meditation,4.2,7,3,Quiet Time,Lakes,5.0,0.0,79
+46,21.4,40.1,32,31.8,66,Partly Cloudy,1.8,Meditation,3.9,22,6,Quiet Time,All,8.0,0.0,89
+125,71.9,157.3,35,23.2,80,Cloudy,1.1,Libraries,3.8,22,5,Relax,Lakes,10.0,3.4,61
+55,31.5,54.9,38,35.6,56,Thunderstorm,0.4,Meditation,4.3,11,7,Meditate,Cafes,15.0,0.0,93
+75,35.3,68.2,30,19.1,44,Mist/Fog,2.4,Libraries,4.1,12,3,Fresh Air,Cafes,10.0,0.0,77
+63,34.1,56.8,34,21.4,48,Rainy,2.0,Libraries,4.6,20,6,Fresh Air,All,5.0,3.3,98
+37,20.2,39.3,49,32.3,48,Mist/Fog,8.6,Parks,4.4,6,6,Study,Parks,5.0,3.1,64
+45,24.0,41.8,42,24.1,39,Mist/Fog,0.6,Meditation,4.1,22,3,Fresh Air,Lakes,20.0,0.0,87
+150,71.2,146.0,58,29.1,57,Mist/Fog,1.9,Cafes,4.3,17,7,Quiet Time,Libraries,8.0,0.0,52
+142,69.2,132.3,43,20.0,64,Mist/Fog,1.0,Libraries,4.2,20,6,Study,Meditation,5.0,0.0,68
+67,35.7,61.1,58,34.2,58,Rainy,9.4,Fitness,4.3,14,3,Relax,Fitness,20.0,0.0,33
+114,70.5,134.9,49,19.9,44,Thunderstorm,1.2,Cafes,3.8,22,3,Meditate,Cafes,5.0,0.0,58
+64,38.9,64.1,51,28.4,79,Cloudy,0.4,Parks,4.5,11,7,Fresh Air,Parks,20.0,3.9,99
+58,36.6,71.4,37,19.6,76,Cloudy,1.6,Parks,4.3,6,7,Study,Lakes,20.0,0.0,77
+66,32.9,67.4,47,22.3,64,Thunderstorm,0.3,Fitness,3.7,21,3,Study,Parks,20.0,4.7,51
+144,59.1,96.7,51,32.4,77,Thunderstorm,4.7,Cafes,3.9,7,2,Relax,Parks,5.0,4.4,40
+152,79.7,145.6,49,19.4,69,Rainy,2.8,Cafes,4.1,13,2,Quiet Time,Fitness,20.0,4.6,66
+44,28.3,61.9,49,19.6,66,Rainy,1.5,Parks,3.6,16,7,Quiet Time,All,8.0,3.8,55
+164,69.8,123.8,49,29.0,68,Mist/Fog,6.7,Cafes,4.2,11,4,Study,Fitness,8.0,3.3,40
+38,18.5,32.4,30,24.8,47,Clear,0.5,Meditation,3.6,9,5,Exercise,Fitness,15.0,0.0,94
+119,71.9,154.7,54,18.8,53,Cloudy,0.8,Fitness,4.5,6,2,Meditate,Lakes,8.0,0.0,41
+38,19.2,41.5,43,22.7,47,Clear,1.4,Lakes,4.3,13,5,Relax,Lakes,5.0,3.4,99
+51,31.4,62.7,44,34.6,63,Mist/Fog,1.0,Parks,4.6,14,5,Exercise,Cafes,20.0,0.0,97
+174,74.5,150.8,56,27.7,79,Cloudy,0.8,Cafes,3.7,14,2,Study,Fitness,15.0,4.9,45
+57,26.7,54.3,48,23.5,45,Partly Cloudy,2.8,Parks,4.9,22,4,Relax,Fitness,20.0,3.9,91
+175,79.7,138.7,54,26.1,76,Rainy,0.6,Fitness,4.4,9,3,Quiet Time,Lakes,5.0,4.7,26
+35,20.9,45.6,50,29.8,43,Clear,7.4,Lakes,4.4,17,4,Fresh Air,Parks,5.0,0.0,89
+20,11.5,21.8,44,22.9,63,Mist/Fog,0.9,Parks,5.0,13,7,Study,Fitness,10.0,0.0,96
+62,34.6,58.4,62,35.1,36,Thunderstorm,4.9,Fitness,4.2,18,3,Fresh Air,Lakes,20.0,0.0,26
+36,23.3,49.1,40,23.2,48,Partly Cloudy,8.0,Meditation,3.8,9,1,Exercise,Parks,8.0,0.0,86
+106,60.6,104.8,50,27.8,57,Partly Cloudy,4.0,Cafes,4.9,10,7,Exercise,Libraries,5.0,4.2,69
+26,14.1,24.2,51,18.6,51,Thunderstorm,2.6,Lakes,3.5,9,4,Exercise,Fitness,10.0,3.7,60
+24,14.1,22.9,42,19.7,45,Partly Cloudy,6.2,Parks,3.6,22,4,Exercise,Parks,20.0,0.0,99
+68,29.2,60.8,50,31.9,72,Mist/Fog,5.8,Fitness,3.7,11,5,Exercise,Cafes,15.0,0.0,86
+38,24.5,41.3,38,23.3,74,Cloudy,8.4,Parks,4.0,8,6,Exercise,Lakes,8.0,3.3,99
+23,14.7,31.6,45,28.5,50,Clear,6.4,Lakes,4.8,18,5,Meditate,Libraries,15.0,4.3,84
+169,87.5,144.1,50,31.0,36,Cloudy,12.7,Cafes,3.9,17,7,Relax,Parks,8.0,0.0,14
+21,9.0,17.5,29,28.5,77,Thunderstorm,1.0,Meditation,4.3,18,7,Fresh Air,Lakes,15.0,0.0,99
+122,72.9,156.4,36,20.3,58,Rainy,25.0,Libraries,4.3,14,3,Study,Cafes,5.0,0.0,31
+56,30.2,49.9,44,18.6,49,Thunderstorm,6.9,Parks,3.6,15,1,Fresh Air,Meditation,8.0,4.1,65
+131,79.7,165.1,51,27.7,60,Cloudy,1.4,Lakes,4.3,9,2,Exercise,Libraries,5.0,0.0,56
+28,16.2,26.0,29,21.6,71,Partly Cloudy,4.4,Meditation,4.8,17,3,Exercise,Lakes,8.0,3.4,99
+55,32.2,70.7,42,20.0,35,Thunderstorm,2.8,Parks,4.7,8,1,Fresh Air,Libraries,20.0,3.8,83
+160,79.4,162.9,45,20.5,59,Partly Cloudy,9.8,Parks,4.5,20,6,Relax,Libraries,20.0,0.0,60
+120,73.3,120.9,64,25.7,84,Thunderstorm,2.0,Fitness,3.6,22,3,Study,Lakes,5.0,0.0,9
+143,65.9,123.1,50,33.9,50,Thunderstorm,4.1,Lakes,4.5,14,3,Exercise,All,20.0,0.0,27
+74,34.4,72.5,42,21.7,73,Cloudy,1.4,Cafes,3.5,16,4,Meditate,All,15.0,0.0,63
+60,28.1,51.8,35,19.0,37,Mist/Fog,0.8,Meditation,4.7,8,6,Fresh Air,Lakes,5.0,0.0,88
+87,34.8,75.7,34,27.6,60,Clear,0.6,Meditation,4.5,10,4,Exercise,Libraries,10.0,4.8,91
+90,57.4,99.5,67,18.2,39,Clear,3.7,Fitness,4.9,16,1,Meditate,Cafes,20.0,0.0,33
+132,63.6,123.3,51,20.1,36,Rainy,2.5,Fitness,3.8,14,4,Meditate,Fitness,8.0,0.0,20
+43,22.1,35.8,47,34.3,45,Mist/Fog,8.5,Parks,4.6,19,1,Relax,Parks,20.0,3.3,93
+53,27.0,48.5,43,34.4,72,Mist/Fog,1.6,Meditation,5.0,15,6,Quiet Time,Lakes,5.0,3.3,76
+160,76.0,159.2,28,19.6,46,Thunderstorm,1.9,Libraries,4.9,15,4,Exercise,Parks,8.0,0.0,71
+179,95.5,162.2,33,31.5,41,Clear,2.4,Libraries,4.1,6,5,Relax,Cafes,8.0,3.8,41
+151,96.4,203.7,32,35.2,66,Clear,2.3,Libraries,4.8,20,5,Study,Meditation,15.0,0.0,63
+60,26.4,43.2,31,18.7,83,Clear,0.7,Libraries,4.0,21,3,Exercise,Fitness,20.0,0.0,91
+155,73.9,131.9,41,31.6,62,Mist/Fog,10.6,Lakes,3.6,19,7,Meditate,Lakes,8.0,4.5,38
+135,63.3,112.0,41,19.8,70,Clear,2.7,Meditation,4.3,8,5,Meditate,All,8.0,3.5,67
+89,43.1,84.1,51,32.5,71,Thunderstorm,2.9,Fitness,4.4,19,5,Exercise,Parks,10.0,3.8,64
+63,25.9,42.9,56,23.6,67,Cloudy,1.4,Cafes,3.9,6,1,Relax,Fitness,8.0,0.0,66
+118,47.3,102.5,42,30.8,67,Clear,2.8,Parks,5.0,12,2,Study,Libraries,5.0,4.4,69
+56,23.7,41.8,43,23.4,81,Partly Cloudy,6.2,Meditation,3.7,21,6,Fresh Air,Libraries,8.0,4.6,80
+55,32.3,68.8,62,31.7,81,Partly Cloudy,4.3,Fitness,5.0,7,6,Fresh Air,Cafes,20.0,0.0,64
+118,72.8,156.7,59,21.7,56,Clear,1.2,Fitness,3.7,9,1,Exercise,Fitness,20.0,0.0,87
+57,30.2,48.4,36,28.8,37,Rainy,1.2,Lakes,4.9,9,4,Fresh Air,Libraries,5.0,4.4,91
+59,32.3,70.8,38,31.9,61,Rainy,2.6,Lakes,3.6,19,5,Meditate,Parks,8.0,0.0,42
+20,11.6,22.4,48,33.6,60,Rainy,0.4,Parks,4.5,15,2,Meditate,Fitness,10.0,0.0,50
+46,27.5,50.3,46,27.9,77,Rainy,1.4,Lakes,3.5,20,6,Meditate,Fitness,15.0,0.0,42
+31,19.0,40.8,40,34.9,82,Mist/Fog,0.6,Parks,4.6,19,3,Exercise,Libraries,5.0,0.0,99
+64,40.9,81.4,47,23.1,45,Partly Cloudy,5.1,Parks,4.4,13,5,Meditate,Parks,5.0,4.1,75
+78,31.4,67.4,55,32.6,38,Thunderstorm,0.4,Cafes,3.6,9,3,Fresh Air,All,8.0,0.0,63
+140,70.1,145.6,50,33.5,46,Thunderstorm,3.1,Fitness,3.5,6,7,Fresh Air,Cafes,5.0,4.5,15
+149,65.4,124.5,40,33.4,41,Rainy,2.5,Libraries,4.0,9,2,Exercise,Lakes,20.0,0.0,51
+62,28.4,51.8,37,19.8,53,Thunderstorm,0.9,Libraries,4.6,20,2,Study,Fitness,5.0,3.8,99
+54,33.0,60.1,39,26.4,36,Rainy,0.5,Lakes,3.5,12,1,Study,Fitness,5.0,0.0,52
+119,66.7,115.9,53,21.9,59,Clear,1.6,Cafes,4.3,11,4,Quiet Time,Cafes,8.0,3.1,82
+92,47.4,81.0,42,21.1,47,Thunderstorm,5.2,Cafes,4.1,10,4,Fresh Air,Fitness,20.0,4.0,76
+67,34.3,73.2,38,26.6,38,Partly Cloudy,6.6,Libraries,4.9,12,6,Exercise,Lakes,8.0,0.0,88
+139,68.0,113.9,42,31.0,76,Rainy,3.6,Libraries,4.8,6,7,Exercise,Cafes,15.0,4.8,71
+57,27.6,50.3,50,24.2,36,Clear,2.9,Fitness,4.7,21,2,Meditate,Parks,20.0,0.0,64
+127,65.1,141.3,62,21.5,67,Cloudy,1.7,Fitness,3.6,21,5,Relax,Lakes,15.0,0.0,32
+106,44.4,89.8,42,22.7,77,Thunderstorm,2.6,Cafes,4.6,10,4,Study,Parks,15.0,0.0,87
+62,27.1,45.0,47,32.9,67,Rainy,2.7,Lakes,3.7,21,1,Relax,Meditation,20.0,0.0,58
+32,17.2,33.5,31,21.2,40,Cloudy,2.2,Meditation,3.5,11,2,Fresh Air,Lakes,20.0,3.4,89
+121,51.3,112.2,32,25.2,59,Mist/Fog,0.6,Libraries,4.3,8,4,Fresh Air,Fitness,15.0,0.0,72
+107,63.6,135.7,46,23.2,44,Clear,1.0,Lakes,3.8,14,4,Relax,Cafes,15.0,0.0,83
+55,28.0,48.9,43,22.0,63,Thunderstorm,5.0,Parks,3.9,11,3,Exercise,Parks,10.0,0.0,83
+128,74.8,129.8,50,35.8,59,Partly Cloudy,3.0,Cafes,3.7,9,7,Relax,Meditation,5.0,3.7,28
+39,16.8,31.2,41,29.6,76,Rainy,2.4,Parks,4.3,15,3,Study,Fitness,8.0,0.0,52
+98,50.3,80.5,64,23.4,35,Rainy,5.1,Fitness,4.6,6,2,Quiet Time,Libraries,10.0,3.0,24
+174,106.3,208.0,48,34.3,73,Clear,10.4,Fitness,4.4,14,3,Relax,Libraries,8.0,0.0,17
+82,36.4,79.1,38,18.7,75,Clear,8.6,Lakes,4.0,7,1,Meditate,Lakes,10.0,0.0,74
+86,51.5,103.5,45,28.5,75,Rainy,6.1,Fitness,4.5,12,5,Meditate,Lakes,10.0,4.6,39
+25,15.1,24.4,44,27.7,67,Mist/Fog,0.8,Lakes,4.6,8,2,Exercise,Parks,10.0,0.0,98
+46,22.0,46.7,44,35.1,40,Partly Cloudy,1.3,Parks,4.1,8,4,Exercise,Fitness,15.0,0.0,93
+54,25.2,41.7,37,24.2,84,Rainy,0.7,Parks,3.8,20,1,Relax,Cafes,8.0,0.0,75
+38,24.2,51.1,38,20.7,77,Cloudy,3.8,Parks,3.9,9,2,Exercise,Lakes,15.0,0.0,99
+50,27.4,54.7,42,23.7,41,Cloudy,0.5,Libraries,4.6,8,3,Meditate,All,8.0,0.0,99
+91,42.6,86.6,44,29.5,49,Thunderstorm,4.1,Cafes,4.3,20,4,Study,All,5.0,0.0,81
+98,57.4,121.5,30,27.0,46,Clear,6.3,Libraries,4.6,9,5,Fresh Air,Parks,10.0,4.9,86
+42,21.3,42.2,48,35.3,79,Partly Cloudy,5.3,Parks,4.4,19,3,Study,Fitness,20.0,4.7,69
+136,87.0,153.6,42,29.5,74,Cloudy,1.9,Libraries,4.3,11,7,Quiet Time,Libraries,20.0,3.9,84
+152,61.5,117.1,34,29.9,73,Partly Cloudy,1.9,Libraries,4.8,16,6,Meditate,Cafes,8.0,4.6,76
+53,28.3,51.3,48,25.3,72,Mist/Fog,16.0,Lakes,3.8,19,2,Meditate,Fitness,15.0,0.0,56
+51,31.3,53.3,44,19.6,63,Cloudy,1.0,Cafes,4.7,19,4,Meditate,Meditation,5.0,4.4,79
+157,64.9,126.5,41,19.2,76,Partly Cloudy,3.9,Parks,4.6,8,1,Study,Fitness,5.0,0.0,40
+54,28.9,49.3,36,19.7,82,Rainy,1.2,Parks,4.5,19,1,Fresh Air,Parks,5.0,0.0,94
+24,13.7,25.4,49,35.6,78,Rainy,2.0,Parks,4.6,17,1,Study,Cafes,8.0,3.7,53
+85,35.9,75.2,38,30.1,45,Partly Cloudy,7.4,Libraries,4.7,9,1,Meditate,Parks,8.0,0.0,81
+88,55.9,113.4,53,34.2,49,Cloudy,8.9,Fitness,4.2,20,4,Relax,Cafes,8.0,0.0,39
+111,56.1,120.7,28,21.8,47,Mist/Fog,1.5,Libraries,5.0,14,4,Fresh Air,Lakes,20.0,0.0,80
+64,39.0,74.0,45,21.1,69,Partly Cloudy,0.4,Parks,3.9,13,4,Fresh Air,Libraries,8.0,4.5,99
+35,20.8,43.2,43,28.3,57,Rainy,5.3,Parks,3.7,15,7,Exercise,Parks,5.0,0.0,84
+32,16.5,28.4,41,22.8,67,Mist/Fog,13.9,Lakes,4.4,13,5,Exercise,Libraries,5.0,0.0,70
+146,68.2,112.9,61,23.8,64,Partly Cloudy,0.4,Fitness,4.4,13,4,Study,Cafes,5.0,0.0,31
+134,67.4,111.6,45,35.2,61,Thunderstorm,1.4,Cafes,3.6,18,1,Exercise,Fitness,15.0,0.0,54
+95,47.9,102.4,41,30.2,54,Partly Cloudy,1.2,Libraries,4.9,8,3,Quiet Time,Fitness,20.0,0.0,90
+129,52.7,86.2,50,21.0,77,Mist/Fog,0.3,Cafes,4.0,7,6,Fresh Air,Meditation,20.0,0.0,55
+30,15.1,32.2,28,22.1,47,Clear,1.4,Meditation,4.4,13,2,Exercise,All,15.0,4.0,99
+152,95.2,183.6,30,21.3,55,Mist/Fog,7.1,Libraries,4.5,8,5,Exercise,Meditation,20.0,4.0,69
+29,17.1,34.3,40,25.0,72,Clear,3.3,Meditation,4.0,11,6,Quiet Time,Libraries,8.0,0.0,85
+146,69.9,153.5,33,33.2,66,Clear,3.3,Libraries,4.7,20,1,Exercise,All,8.0,4.7,64
+60,37.0,74.4,35,25.0,44,Rainy,0.5,Libraries,4.1,11,5,Quiet Time,Fitness,5.0,0.0,99
+125,55.5,116.7,41,30.1,63,Clear,3.0,Libraries,4.2,10,4,Meditate,Fitness,8.0,0.0,61
+53,33.4,64.1,48,29.0,43,Cloudy,3.4,Lakes,3.5,13,1,Meditate,Cafes,8.0,0.0,52
+140,60.0,108.9,58,26.1,84,Rainy,3.5,Fitness,4.4,20,2,Quiet Time,Libraries,5.0,3.5,19
+85,45.9,87.6,40,32.2,75,Mist/Fog,4.5,Meditation,4.2,9,4,Fresh Air,Parks,5.0,0.0,65
+85,38.7,64.6,65,28.4,72,Thunderstorm,8.5,Fitness,3.7,14,7,Exercise,Meditation,5.0,0.0,34
+167,94.1,155.8,45,31.9,40,Rainy,0.5,Fitness,5.0,19,6,Quiet Time,Parks,20.0,3.9,30
+117,73.1,159.1,46,25.2,61,Partly Cloudy,3.5,Fitness,4.3,15,7,Fresh Air,All,15.0,4.1,69
+26,13.7,26.7,40,21.3,67,Thunderstorm,3.8,Parks,3.6,6,4,Quiet Time,Fitness,5.0,0.0,60
+153,76.7,128.8,36,20.4,35,Thunderstorm,3.7,Libraries,3.6,11,4,Relax,Parks,15.0,4.8,55
+78,46.9,85.8,53,22.6,84,Mist/Fog,4.3,Cafes,4.8,8,2,Study,Lakes,15.0,4.5,86
+36,18.1,29.2,35,35.2,57,Partly Cloudy,1.3,Lakes,4.3,14,5,Study,Parks,8.0,0.0,74
+129,72.5,135.5,48,22.4,50,Cloudy,6.8,Fitness,3.6,17,2,Relax,Parks,10.0,0.0,41
+152,90.4,159.7,34,33.7,76,Partly Cloudy,1.4,Parks,4.3,9,3,Quiet Time,Libraries,20.0,0.0,49
+36,22.9,42.1,30,35.3,46,Partly Cloudy,0.4,Meditation,4.7,22,4,Exercise,Cafes,15.0,3.1,92
+67,27.6,48.4,37,21.3,83,Rainy,3.2,Libraries,3.5,19,4,Quiet Time,Parks,8.0,3.9,95
+60,29.7,65.1,42,29.8,42,Thunderstorm,8.9,Meditation,4.7,13,2,Fresh Air,Cafes,20.0,4.1,79
+108,48.3,103.8,34,20.2,47,Cloudy,1.0,Meditation,4.9,14,5,Fresh Air,Cafes,20.0,0.0,81
+53,34.1,66.8,36,25.2,36,Partly Cloudy,8.2,Parks,3.9,20,4,Study,Parks,10.0,4.2,90
+135,82.8,175.7,55,19.3,50,Thunderstorm,0.4,Cafes,4.7,21,3,Quiet Time,Meditation,20.0,4.3,70
+47,23.9,42.9,38,20.9,74,Cloudy,10.1,Meditation,3.9,6,3,Exercise,Parks,8.0,0.0,79
+30,16.3,30.8,34,35.0,40,Thunderstorm,10.3,Meditation,4.9,18,2,Meditate,Parks,20.0,0.0,99
+64,31.5,60.5,42,26.5,53,Clear,3.8,Meditation,4.2,19,4,Fresh Air,Fitness,5.0,4.1,74
+54,33.1,53.1,38,26.8,41,Cloudy,0.9,Lakes,4.9,12,4,Quiet Time,Meditation,8.0,0.0,99
+51,26.7,50.7,53,26.9,83,Clear,0.5,Cafes,3.6,11,1,Exercise,All,15.0,3.7,82
+43,19.3,36.2,31,21.3,49,Mist/Fog,19.9,Meditation,4.8,15,5,Quiet Time,All,10.0,0.0,71
+53,31.1,59.7,57,23.7,38,Partly Cloudy,12.4,Cafes,4.5,21,4,Exercise,Cafes,5.0,4.6,76
+122,72.6,131.7,56,35.3,43,Partly Cloudy,3.0,Fitness,3.6,17,4,Relax,Meditation,10.0,3.5,25
+116,56.4,108.7,29,32.5,51,Mist/Fog,6.6,Meditation,3.9,18,6,Relax,Libraries,10.0,4.2,64
+111,45.8,73.6,50,30.9,50,Clear,1.6,Fitness,3.9,6,7,Exercise,Fitness,20.0,4.8,99
+73,43.9,70.9,49,25.1,43,Rainy,10.1,Fitness,3.9,17,7,Fresh Air,Parks,5.0,0.0,28
+52,26.6,51.2,48,20.8,69,Cloudy,0.6,Fitness,3.9,19,6,Quiet Time,Meditation,15.0,0.0,81
+38,17.1,36.9,44,23.4,77,Rainy,2.7,Lakes,4.9,19,4,Quiet Time,Parks,20.0,4.4,86
+50,21.5,43.4,35,32.8,66,Mist/Fog,13.8,Parks,3.6,12,6,Fresh Air,Parks,8.0,0.0,88
+35,16.4,29.6,34,32.4,47,Partly Cloudy,4.1,Lakes,4.4,18,1,Exercise,Cafes,5.0,3.9,91
+60,34.2,64.5,51,30.8,49,Cloudy,4.8,Lakes,4.8,10,6,Relax,Lakes,5.0,0.0,87
+37,15.5,30.5,40,28.4,56,Partly Cloudy,5.8,Parks,5.0,10,7,Exercise,Fitness,15.0,0.0,99
+63,27.4,50.2,39,18.3,53,Cloudy,6.2,Meditation,3.5,18,5,Exercise,All,15.0,0.0,81
+80,39.9,69.6,56,18.8,71,Cloudy,7.9,Cafes,4.5,19,3,Relax,Cafes,5.0,0.0,54
+25,11.0,22.9,38,20.6,41,Clear,3.6,Parks,3.7,12,7,Meditate,Libraries,10.0,0.0,84
+140,68.8,145.5,52,35.4,37,Partly Cloudy,3.7,Cafes,4.1,10,7,Fresh Air,Cafes,20.0,0.0,44
+91,54.9,120.2,37,18.8,49,Partly Cloudy,3.1,Libraries,3.9,15,3,Study,Meditation,20.0,3.2,81
+52,28.5,51.5,33,23.1,76,Partly Cloudy,1.5,Meditation,4.1,18,2,Relax,Meditation,10.0,0.0,97
+22,12.6,23.0,38,19.8,55,Rainy,0.8,Lakes,4.1,20,1,Relax,Cafes,20.0,4.7,89
+28,16.8,27.5,43,19.3,82,Clear,4.3,Lakes,4.2,8,4,Exercise,Cafes,5.0,0.0,94
+124,61.2,104.5,47,22.4,51,Partly Cloudy,2.3,Cafes,3.6,18,3,Fresh Air,Cafes,10.0,0.0,65
+138,66.2,143.2,58,19.0,71,Thunderstorm,0.8,Cafes,4.6,22,6,Meditate,All,5.0,0.0,34
+125,63.4,116.2,44,21.5,51,Partly Cloudy,3.6,Cafes,4.4,20,4,Quiet Time,Cafes,10.0,0.0,88
+54,34.7,76.2,46,32.4,39,Rainy,1.4,Parks,4.7,9,5,Study,Meditation,5.0,3.1,47
+139,76.6,144.6,48,21.8,84,Partly Cloudy,2.1,Lakes,3.6,10,3,Meditate,Fitness,10.0,3.3,34
+130,71.3,122.1,30,34.5,66,Rainy,4.6,Libraries,4.6,16,6,Exercise,Cafes,8.0,3.3,63
+58,32.1,55.8,48,23.0,41,Thunderstorm,11.7,Parks,4.5,22,2,Study,Meditation,15.0,0.0,44
+34,14.3,30.1,46,34.1,37,Partly Cloudy,9.4,Parks,4.2,8,2,Quiet Time,Cafes,10.0,0.0,69
+86,39.7,79.6,49,35.9,71,Rainy,0.9,Fitness,4.2,20,4,Exercise,Fitness,8.0,4.9,81
+140,57.2,105.2,42,26.6,81,Mist/Fog,2.3,Libraries,4.3,7,2,Quiet Time,Libraries,8.0,3.1,78
+23,13.9,27.6,40,31.1,41,Cloudy,2.7,Meditation,4.5,19,4,Study,Parks,5.0,0.0,82
+105,53.0,96.6,58,32.9,35,Rainy,0.4,Cafes,3.8,22,6,Fresh Air,Parks,15.0,0.0,50
+144,67.8,126.7,33,29.6,45,Rainy,2.9,Libraries,5.0,21,6,Study,Cafes,8.0,0.0,74
+127,53.3,104.4,39,18.6,72,Rainy,8.0,Meditation,3.5,15,5,Quiet Time,Lakes,10.0,0.0,51
+78,33.8,58.6,37,19.8,40,Rainy,4.7,Libraries,4.6,8,6,Exercise,Lakes,20.0,0.0,84
+61,27.9,44.9,46,30.3,56,Partly Cloudy,4.5,Parks,3.7,12,7,Study,Libraries,8.0,0.0,54
+157,99.3,168.5,34,31.4,69,Rainy,0.5,Libraries,4.7,22,2,Study,Parks,20.0,0.0,73
+44,22.9,41.2,43,19.2,61,Cloudy,2.0,Lakes,5.0,12,6,Meditate,Cafes,5.0,0.0,76
+177,97.3,212.5,59,18.4,68,Rainy,2.8,Cafes,4.4,18,2,Exercise,Meditation,15.0,0.0,37
+161,82.3,141.6,40,33.1,37,Clear,7.7,Meditation,3.6,18,2,Meditate,All,15.0,3.8,45
+102,47.9,91.0,42,23.8,72,Rainy,1.9,Libraries,4.0,11,3,Quiet Time,Libraries,15.0,0.0,99
+56,29.7,53.5,56,32.6,77,Rainy,1.5,Cafes,4.0,19,4,Relax,All,5.0,3.7,72
+150,82.1,154.6,47,32.4,76,Partly Cloudy,1.1,Cafes,4.9,19,1,Study,All,15.0,0.0,70
+21,8.7,14.0,38,18.8,66,Partly Cloudy,6.1,Lakes,3.7,12,5,Study,Fitness,10.0,0.0,78
+56,31.0,59.5,45,32.0,48,Thunderstorm,0.6,Fitness,4.5,6,5,Study,Meditation,10.0,0.0,50
+128,70.3,149.1,66,33.8,41,Thunderstorm,1.4,Fitness,4.3,9,2,Relax,Fitness,8.0,4.2,17
+54,31.7,60.1,51,28.3,59,Clear,3.9,Parks,4.4,6,3,Exercise,Parks,8.0,0.0,99
+68,43.9,70.3,61,22.9,67,Cloudy,6.1,Fitness,4.7,8,3,Fresh Air,All,5.0,0.0,58
+129,79.7,149.9,57,18.7,39,Partly Cloudy,5.1,Cafes,4.2,19,4,Fresh Air,Lakes,15.0,3.7,39
+60,35.1,77.1,46,20.9,35,Mist/Fog,2.9,Parks,4.8,16,7,Quiet Time,Lakes,8.0,0.0,82
+104,48.0,98.9,45,18.6,67,Rainy,4.8,Cafes,4.6,14,2,Relax,Libraries,15.0,0.0,62
+77,47.1,87.9,39,25.3,77,Rainy,1.1,Libraries,4.1,22,7,Study,Libraries,5.0,0.0,99
+157,95.1,184.3,49,28.7,36,Thunderstorm,2.2,Cafes,3.9,20,6,Meditate,Cafes,8.0,4.3,44
+46,29.7,63.3,38,32.9,37,Mist/Fog,4.6,Parks,4.0,14,7,Exercise,Libraries,15.0,0.0,97
+40,20.5,36.8,38,32.2,56,Mist/Fog,1.6,Parks,4.4,8,7,Quiet Time,Libraries,8.0,0.0,87
+57,33.5,62.9,29,19.2,59,Thunderstorm,0.5,Meditation,4.0,22,5,Fresh Air,Libraries,20.0,0.0,88
+43,21.6,41.4,41,30.3,54,Clear,0.9,Meditation,4.1,9,2,Meditate,Libraries,20.0,4.3,96
+132,63.8,105.5,65,19.8,81,Thunderstorm,3.9,Fitness,4.3,18,7,Fresh Air,All,20.0,0.0,13
+50,25.0,50.7,49,18.7,40,Thunderstorm,2.4,Lakes,3.8,10,5,Relax,Meditation,8.0,0.0,55
+166,75.7,162.2,36,29.9,65,Rainy,2.4,Libraries,3.9,16,1,Fresh Air,Libraries,5.0,0.0,55
+144,65.7,143.5,33,26.0,75,Mist/Fog,2.3,Libraries,4.6,12,1,Fresh Air,Fitness,5.0,3.7,64
+107,67.0,121.6,45,26.6,65,Thunderstorm,7.6,Parks,4.3,14,3,Quiet Time,Fitness,8.0,3.7,39
+41,16.9,36.4,35,34.9,83,Partly Cloudy,5.8,Parks,3.8,20,1,Study,All,5.0,4.5,73
+125,63.7,135.3,37,19.0,79,Thunderstorm,1.2,Meditation,4.7,14,3,Fresh Air,All,10.0,0.0,73
+88,55.3,121.3,41,31.1,56,Rainy,1.5,Libraries,3.6,12,2,Fresh Air,Fitness,5.0,0.0,72
+114,64.5,136.8,33,24.6,70,Rainy,0.9,Libraries,4.5,13,1,Meditate,Fitness,8.0,0.0,94
+57,27.5,50.1,46,29.6,84,Cloudy,1.2,Lakes,4.0,18,7,Quiet Time,All,8.0,0.0,92
+95,55.5,106.7,52,18.4,58,Rainy,1.1,Cafes,4.7,21,6,Relax,Libraries,10.0,3.4,66
+23,12.8,22.5,42,20.1,38,Thunderstorm,0.3,Meditation,4.9,11,1,Study,Libraries,5.0,0.0,99
+49,31.1,66.4,35,33.1,68,Cloudy,2.0,Parks,4.6,14,7,Exercise,Libraries,5.0,0.0,99
+179,98.1,199.3,44,23.2,66,Rainy,1.3,Cafes,4.7,6,7,Relax,Meditation,8.0,4.9,55
+53,30.8,60.1,61,20.1,79,Partly Cloudy,2.2,Fitness,4.2,18,4,Study,Meditation,15.0,0.0,54
+168,78.9,164.6,58,32.3,76,Partly Cloudy,0.8,Cafes,3.9,7,1,Quiet Time,Cafes,8.0,0.0,53
+121,75.4,142.7,45,19.7,78,Clear,3.6,Lakes,3.7,15,3,Quiet Time,Cafes,10.0,0.0,71
+58,24.1,43.0,34,25.8,50,Cloudy,7.4,Meditation,4.7,9,5,Meditate,Parks,15.0,4.0,99
+46,27.0,55.1,45,29.4,52,Thunderstorm,5.3,Lakes,4.2,20,4,Exercise,Parks,8.0,0.0,57
+58,34.7,72.5,33,31.4,51,Partly Cloudy,0.5,Meditation,4.7,14,7,Relax,All,8.0,4.4,95
+44,23.5,45.7,32,35.2,38,Partly Cloudy,9.4,Meditation,4.1,8,3,Exercise,Cafes,10.0,0.0,78
+51,27.9,53.4,42,21.8,41,Cloudy,4.4,Lakes,3.5,16,3,Study,All,10.0,4.0,79
+116,47.9,91.8,33,19.1,71,Clear,3.0,Libraries,3.6,12,5,Exercise,All,8.0,3.2,67
+72,30.7,63.9,35,19.4,57,Thunderstorm,0.5,Libraries,4.4,16,4,Fresh Air,Cafes,15.0,3.7,86
+133,74.9,119.9,41,29.8,47,Thunderstorm,6.1,Libraries,4.1,14,2,Relax,Cafes,5.0,0.0,48
+63,32.0,57.6,45,34.4,35,Cloudy,1.7,Parks,3.8,9,1,Meditate,Parks,8.0,3.3,66
+54,25.9,45.4,39,20.6,39,Thunderstorm,7.2,Libraries,4.8,12,7,Exercise,Cafes,15.0,0.0,96
+34,21.0,41.0,37,18.8,53,Partly Cloudy,4.0,Lakes,4.9,7,7,Study,All,5.0,4.5,93
+77,41.9,71.9,53,21.3,53,Cloudy,12.9,Cafes,3.7,14,3,Fresh Air,Lakes,8.0,0.0,45
+37,21.9,39.0,41,21.1,64,Clear,2.3,Lakes,3.9,7,6,Meditate,Lakes,8.0,0.0,93
+147,82.2,154.9,58,23.0,63,Partly Cloudy,3.8,Cafes,3.8,21,7,Meditate,Cafes,10.0,3.8,34
+34,20.8,36.6,47,35.3,53,Rainy,1.3,Lakes,3.6,19,4,Exercise,Cafes,20.0,3.5,53
+102,55.6,101.3,47,32.0,82,Rainy,9.3,Cafes,4.2,16,6,Meditate,Parks,15.0,3.4,46
+132,78.1,150.8,33,20.8,45,Partly Cloudy,8.8,Libraries,4.2,10,3,Meditate,Fitness,15.0,3.9,74
+140,70.6,121.3,45,23.8,45,Partly Cloudy,4.1,Lakes,4.3,22,6,Quiet Time,Cafes,15.0,0.0,67
+33,17.1,33.9,45,32.2,38,Thunderstorm,0.7,Parks,4.5,22,1,Exercise,Meditation,8.0,4.8,94
+23,10.6,20.1,31,24.8,58,Partly Cloudy,0.9,Meditation,4.9,14,5,Quiet Time,Parks,5.0,0.0,99
+166,82.4,145.4,49,35.6,83,Partly Cloudy,2.1,Fitness,4.4,15,7,Relax,Libraries,8.0,0.0,22
+133,81.1,166.2,43,21.0,77,Mist/Fog,1.5,Libraries,3.8,12,5,Meditate,Lakes,15.0,3.3,68
+37,20.1,38.3,38,20.0,67,Mist/Fog,4.5,Meditation,4.6,20,1,Quiet Time,Lakes,15.0,0.0,89
+103,64.1,111.2,33,20.0,40,Thunderstorm,2.0,Libraries,4.0,6,1,Quiet Time,All,8.0,0.0,97
+54,31.8,54.6,46,21.9,80,Cloudy,2.2,Cafes,4.5,12,6,Quiet Time,Libraries,15.0,4.6,99
+123,73.7,129.7,55,33.6,59,Clear,1.2,Cafes,5.0,8,1,Relax,Fitness,5.0,0.0,46
+135,80.0,130.3,52,34.1,36,Partly Cloudy,2.9,Fitness,4.8,9,4,Fresh Air,Meditation,15.0,0.0,41
+128,59.1,99.7,51,22.6,79,Partly Cloudy,9.8,Parks,4.3,10,1,Quiet Time,All,10.0,3.4,50
+62,34.0,58.6,36,19.4,74,Clear,0.7,Meditation,4.7,9,2,Quiet Time,All,5.0,0.0,90
+138,87.2,182.3,67,34.3,68,Cloudy,0.3,Fitness,4.3,8,3,Relax,Libraries,20.0,3.3,15
+168,106.4,175.0,58,35.5,58,Partly Cloudy,2.8,Cafes,4.1,19,2,Study,Parks,15.0,0.0,26
+54,30.2,53.8,51,35.7,41,Mist/Fog,3.3,Lakes,3.8,10,1,Fresh Air,Fitness,10.0,4.8,84
+56,30.8,57.3,53,19.2,62,Rainy,6.2,Cafes,3.8,16,2,Meditate,Lakes,10.0,0.0,52
+166,66.5,131.7,32,32.6,81,Mist/Fog,2.5,Libraries,4.4,14,5,Quiet Time,Lakes,20.0,0.0,64
+62,28.2,46.1,33,35.8,70,Thunderstorm,1.8,Meditation,4.0,18,2,Study,Libraries,15.0,4.6,79
+178,91.1,185.4,50,25.3,73,Rainy,1.9,Cafes,3.5,18,7,Meditate,Fitness,10.0,3.0,23
+159,63.8,133.4,56,33.5,48,Rainy,5.7,Fitness,4.2,9,1,Study,All,20.0,4.3,5
+127,72.1,158.1,40,26.7,61,Clear,0.3,Libraries,3.8,22,6,Exercise,Libraries,15.0,3.7,81
+27,11.8,19.0,38,33.6,61,Cloudy,1.9,Lakes,4.4,15,1,Meditate,Libraries,20.0,3.2,74
+108,64.9,112.7,65,30.7,81,Clear,1.8,Fitness,4.7,16,2,Fresh Air,Lakes,5.0,4.6,52
+67,40.6,84.2,55,29.5,81,Clear,1.9,Fitness,4.3,7,5,Fresh Air,Libraries,15.0,0.0,66
+44,27.0,43.6,32,23.2,78,Thunderstorm,10.3,Meditation,4.0,16,7,Meditate,All,8.0,0.0,99
+45,27.0,47.9,49,27.9,43,Partly Cloudy,3.9,Parks,4.9,13,1,Quiet Time,Lakes,20.0,4.5,83
+142,57.7,126.8,35,31.9,68,Thunderstorm,0.7,Libraries,4.6,20,3,Fresh Air,Meditation,20.0,0.0,67
+51,30.8,59.5,43,32.1,64,Rainy,1.6,Libraries,4.3,14,2,Fresh Air,Libraries,5.0,0.0,94
+104,66.7,129.4,46,24.5,42,Cloudy,3.6,Fitness,4.1,18,1,Relax,Fitness,20.0,0.0,71
+98,61.1,100.8,39,25.5,81,Rainy,2.2,Lakes,3.6,7,2,Meditate,Cafes,20.0,4.3,42
+37,20.5,40.7,41,22.8,57,Cloudy,6.7,Meditation,4.0,6,5,Study,Parks,8.0,3.4,76
+54,25.3,47.4,36,31.0,52,Clear,10.3,Lakes,4.4,16,5,Meditate,Lakes,15.0,3.9,87
+42,25.3,40.7,32,26.1,46,Cloudy,5.3,Meditation,4.5,16,6,Relax,Cafes,8.0,0.0,85
+56,29.8,51.7,39,28.9,54,Partly Cloudy,8.5,Parks,4.4,20,2,Study,Meditation,20.0,3.6,76
+53,22.4,42.1,50,34.3,52,Partly Cloudy,1.3,Lakes,4.8,18,5,Fresh Air,Parks,8.0,4.7,98
+29,17.7,34.5,43,27.6,81,Cloudy,1.9,Lakes,3.7,19,1,Study,Fitness,8.0,0.0,75
+30,14.8,25.7,44,28.9,35,Clear,3.9,Parks,4.6,16,4,Relax,Libraries,8.0,3.3,99
+141,58.7,120.0,53,23.6,71,Thunderstorm,3.3,Fitness,4.7,10,2,Quiet Time,Lakes,20.0,4.6,33
+177,76.8,133.7,59,29.3,58,Mist/Fog,5.6,Cafes,3.9,18,3,Quiet Time,Fitness,5.0,0.0,27
+62,30.3,60.8,46,34.6,68,Clear,13.1,Parks,5.0,19,3,Quiet Time,All,15.0,3.4,78
+104,44.9,93.0,30,32.8,67,Clear,2.6,Libraries,4.1,8,7,Quiet Time,Fitness,5.0,0.0,82
+48,27.4,51.1,40,29.4,45,Rainy,1.3,Parks,3.8,21,1,Quiet Time,All,8.0,0.0,61
+99,55.3,112.4,38,25.5,80,Cloudy,0.6,Meditation,4.8,15,2,Meditate,All,10.0,3.1,93
+147,79.5,160.4,57,30.6,45,Mist/Fog,1.4,Cafes,4.4,22,7,Meditate,Libraries,10.0,4.2,28
+142,60.5,120.7,37,26.9,52,Mist/Fog,0.6,Lakes,4.8,22,2,Exercise,Fitness,10.0,3.2,69
+141,70.3,120.2,35,33.7,53,Partly Cloudy,6.0,Libraries,3.8,14,3,Study,Parks,15.0,0.0,59
+97,48.3,104.2,40,35.6,48,Rainy,2.3,Lakes,4.4,11,2,Meditate,Cafes,10.0,4.6,35
+26,10.4,19.2,36,25.5,54,Thunderstorm,9.5,Parks,3.7,7,7,Relax,Lakes,5.0,0.0,69
+73,46.4,94.8,46,25.9,73,Thunderstorm,1.3,Lakes,4.8,8,2,Exercise,Cafes,10.0,0.0,65
+74,44.2,78.5,56,35.7,69,Thunderstorm,7.0,Fitness,3.9,17,4,Study,All,5.0,0.0,17
+65,34.4,69.4,28,21.7,67,Clear,2.9,Libraries,3.9,10,7,Meditate,Lakes,5.0,3.9,96
+91,52.7,96.8,41,26.0,54,Mist/Fog,2.1,Parks,4.5,22,4,Fresh Air,Meditation,8.0,3.2,89
+159,99.0,201.2,43,34.5,41,Thunderstorm,6.2,Lakes,3.8,12,4,Meditate,All,20.0,0.0,5
+38,22.1,43.8,39,18.2,51,Rainy,4.3,Meditation,4.9,19,5,Meditate,Meditation,20.0,4.1,99
+123,74.8,124.8,45,29.2,73,Cloudy,0.6,Cafes,4.9,17,1,Exercise,Lakes,20.0,0.0,73
+24,11.7,25.0,46,29.6,62,Mist/Fog,0.5,Parks,4.6,7,3,Relax,Lakes,20.0,3.1,99
+81,39.5,72.3,51,30.4,76,Clear,1.0,Cafes,3.9,12,4,Relax,Lakes,5.0,3.6,58
+38,24.0,43.9,35,33.1,57,Rainy,1.4,Meditation,4.9,7,2,Quiet Time,All,5.0,0.0,95
+166,88.3,170.9,61,30.6,56,Rainy,0.7,Fitness,4.9,19,7,Relax,Cafes,20.0,0.0,5
+107,58.3,118.2,31,20.9,38,Partly Cloudy,7.4,Meditation,4.8,16,5,Exercise,Fitness,10.0,3.4,81
+58,28.2,50.7,54,24.7,53,Thunderstorm,1.3,Cafes,4.4,22,2,Quiet Time,Libraries,8.0,3.8,94
+122,50.8,91.3,63,25.7,59,Rainy,7.4,Fitness,4.7,12,1,Exercise,Lakes,5.0,4.0,43
+41,20.3,39.7,48,22.6,38,Partly Cloudy,1.9,Lakes,3.7,10,7,Meditate,Fitness,5.0,0.0,69
+56,35.6,57.1,50,20.3,71,Rainy,0.3,Lakes,4.6,13,5,Relax,Fitness,15.0,0.0,70
+40,23.5,48.3,36,23.3,50,Thunderstorm,4.4,Lakes,4.5,18,2,Exercise,Fitness,15.0,4.2,82
+143,67.2,115.3,46,21.9,68,Rainy,0.5,Lakes,4.8,20,4,Relax,All,15.0,4.2,59
+138,75.3,141.9,53,29.0,52,Mist/Fog,2.1,Fitness,4.1,7,5,Exercise,All,15.0,0.0,68
+52,28.8,52.4,36,35.0,84,Cloudy,2.0,Lakes,3.8,20,5,Meditate,Lakes,10.0,4.4,81
+31,20.0,40.4,42,30.5,58,Cloudy,1.3,Lakes,4.6,16,4,Relax,Libraries,5.0,0.0,99
+141,57.9,106.4,56,25.5,36,Partly Cloudy,0.4,Cafes,4.0,12,6,Relax,Meditation,15.0,3.9,42
+162,102.0,175.6,47,27.0,45,Thunderstorm,2.7,Cafes,4.4,9,3,Fresh Air,Cafes,5.0,0.0,59
+176,101.7,219.1,59,33.4,68,Rainy,1.3,Cafes,3.5,12,1,Exercise,Parks,8.0,0.0,28
+156,78.3,142.4,40,23.6,61,Partly Cloudy,1.4,Libraries,4.9,21,6,Quiet Time,Parks,20.0,3.0,72
+68,36.5,72.9,46,31.4,74,Mist/Fog,1.6,Fitness,3.5,16,3,Quiet Time,Meditation,20.0,3.3,64
+22,12.3,25.0,51,34.2,77,Cloudy,8.7,Parks,4.4,12,7,Exercise,Meditation,15.0,4.8,99
+30,16.1,30.8,47,33.4,61,Cloudy,0.5,Parks,4.5,13,3,Fresh Air,Fitness,20.0,0.0,98
+120,76.3,156.7,53,29.2,46,Clear,9.3,Cafes,4.5,19,4,Relax,Lakes,8.0,4.5,43
+152,63.9,140.0,60,27.4,52,Rainy,14.8,Fitness,4.0,20,6,Relax,Libraries,20.0,0.0,5
+95,55.0,90.4,41,18.7,52,Clear,3.1,Libraries,4.5,13,1,Relax,Fitness,8.0,0.0,61
+64,27.1,52.9,29,20.5,56,Cloudy,1.2,Meditation,4.6,17,6,Exercise,Libraries,15.0,4.5,99
+112,69.1,131.7,35,29.8,62,Partly Cloudy,11.4,Libraries,4.9,19,5,Exercise,Cafes,15.0,0.0,72
+54,30.2,56.7,41,20.9,56,Thunderstorm,2.3,Parks,4.7,22,1,Quiet Time,Meditation,20.0,0.0,62
+133,56.0,102.9,63,21.4,80,Partly Cloudy,3.5,Fitness,5.0,6,4,Meditate,Cafes,20.0,4.2,35
+41,21.2,39.4,51,24.8,36,Rainy,6.7,Parks,4.1,6,3,Meditate,Lakes,20.0,3.1,36
+150,64.1,139.0,53,27.9,44,Rainy,0.6,Fitness,4.4,17,7,Study,All,8.0,4.6,21
+177,94.1,152.8,65,31.9,35,Cloudy,3.5,Fitness,3.9,11,5,Relax,Fitness,10.0,0.0,18
+64,35.6,70.7,40,21.5,41,Thunderstorm,4.9,Meditation,4.0,6,1,Exercise,Lakes,8.0,0.0,83
+124,79.6,146.5,38,20.7,44,Cloudy,1.2,Libraries,4.1,12,7,Study,Parks,8.0,4.1,84
+51,32.5,64.5,28,32.6,74,Partly Cloudy,8.5,Libraries,3.7,20,3,Meditate,All,15.0,4.9,99
+59,33.8,70.4,47,25.0,68,Cloudy,3.5,Parks,4.5,21,3,Quiet Time,Fitness,15.0,3.8,79
+133,61.6,112.3,32,19.2,54,Mist/Fog,2.3,Libraries,5.0,19,3,Meditate,Lakes,20.0,0.0,74
+152,82.1,173.5,53,29.8,82,Cloudy,3.8,Cafes,4.7,12,4,Fresh Air,Parks,15.0,0.0,40
+81,33.0,65.9,50,27.4,35,Cloudy,2.8,Cafes,3.9,11,7,Fresh Air,Lakes,20.0,0.0,58
+82,37.8,82.6,34,30.4,78,Thunderstorm,0.4,Meditation,4.6,15,3,Meditate,Meditation,5.0,0.0,99
+127,67.7,124.6,44,18.9,44,Clear,1.0,Cafes,4.6,7,6,Quiet Time,All,20.0,0.0,79
+55,26.7,52.8,46,28.1,36,Partly Cloudy,2.2,Lakes,4.3,17,1,Fresh Air,Lakes,10.0,4.4,99
+50,32.4,52.3,49,19.7,45,Thunderstorm,1.2,Fitness,3.7,20,5,Quiet Time,Meditation,5.0,4.4,54
+148,66.2,137.6,47,20.0,46,Clear,1.8,Lakes,3.9,11,4,Exercise,Libraries,5.0,4.8,69
+106,60.3,129.3,56,20.0,37,Cloudy,1.9,Cafes,4.3,17,3,Meditate,Libraries,8.0,4.9,54
+60,27.5,45.5,42,24.2,52,Cloudy,5.2,Parks,4.5,7,7,Fresh Air,Fitness,8.0,0.0,99
+159,80.1,137.8,35,19.7,77,Rainy,6.8,Libraries,4.7,17,4,Meditate,Libraries,10.0,0.0,77
+72,36.4,69.5,36,35.6,67,Thunderstorm,2.0,Libraries,4.4,7,4,Study,All,5.0,0.0,91
+20,12.2,26.3,44,25.8,59,Clear,0.5,Parks,3.5,16,6,Fresh Air,Fitness,10.0,0.0,99
+107,60.9,101.1,37,23.0,46,Partly Cloudy,5.5,Lakes,4.3,7,3,Quiet Time,Meditation,20.0,0.0,83
+22,10.8,22.6,41,18.8,68,Cloudy,3.1,Parks,3.7,14,2,Quiet Time,Lakes,8.0,0.0,82
+129,55.2,99.3,37,23.1,47,Mist/Fog,8.2,Libraries,4.8,12,6,Meditate,Libraries,20.0,3.9,89
+60,24.6,49.0,30,26.7,40,Thunderstorm,3.9,Meditation,3.5,10,6,Study,Parks,10.0,0.0,83
+174,104.8,224.9,31,27.2,77,Partly Cloudy,0.8,Meditation,3.6,7,6,Meditate,Cafes,20.0,0.0,54
+46,21.2,41.1,35,26.0,68,Cloudy,2.3,Lakes,3.7,6,3,Fresh Air,Parks,15.0,4.0,99
+160,93.6,197.0,46,19.0,48,Partly Cloudy,0.5,Fitness,3.5,18,6,Study,Lakes,8.0,0.0,31
+21,9.5,20.6,45,21.1,50,Clear,2.1,Lakes,3.6,7,3,Fresh Air,Cafes,15.0,4.6,99
+138,65.5,107.5,61,22.3,56,Partly Cloudy,2.8,Fitness,3.6,13,7,Quiet Time,Cafes,5.0,0.0,30
+59,28.2,49.2,39,19.8,50,Clear,0.9,Lakes,3.9,11,3,Exercise,Parks,5.0,0.0,91
+145,90.0,180.3,57,32.0,55,Mist/Fog,2.2,Fitness,3.9,8,6,Meditate,Meditation,5.0,0.0,20
+99,39.9,81.8,37,29.7,56,Cloudy,1.0,Libraries,3.5,10,1,Meditate,Meditation,5.0,4.4,83
+32,15.7,32.6,48,27.6,65,Mist/Fog,0.7,Parks,4.2,22,3,Exercise,All,8.0,3.2,99
+48,23.5,50.8,34,20.6,54,Rainy,1.7,Meditation,4.4,20,4,Relax,Libraries,5.0,0.0,94
+148,77.7,143.7,48,22.3,52,Rainy,0.7,Fitness,4.6,18,7,Relax,Meditation,15.0,0.0,31
+29,12.3,23.7,49,31.5,76,Rainy,0.5,Lakes,3.8,15,6,Relax,Lakes,8.0,3.1,78
+105,61.1,97.8,43,19.3,57,Clear,5.6,Libraries,3.8,9,3,Meditate,Cafes,10.0,4.0,69
+145,65.5,141.1,38,33.2,54,Clear,2.0,Parks,4.1,22,4,Fresh Air,Cafes,20.0,0.0,71
+29,16.6,35.7,38,22.1,77,Mist/Fog,5.4,Lakes,5.0,10,7,Relax,All,20.0,0.0,99
+41,17.0,30.6,31,18.8,48,Clear,2.0,Meditation,4.4,8,5,Relax,Meditation,8.0,0.0,99
+75,31.6,52.7,39,29.7,77,Rainy,2.6,Libraries,4.3,22,6,Relax,Libraries,15.0,4.2,91
+108,59.4,106.3,58,19.9,41,Partly Cloudy,1.4,Cafes,4.7,19,3,Fresh Air,Libraries,15.0,0.0,56
+106,55.5,109.8,60,23.6,78,Mist/Fog,0.6,Fitness,3.8,9,2,Relax,All,15.0,0.0,52
+156,91.4,187.6,43,23.5,55,Thunderstorm,2.6,Cafes,4.3,8,5,Study,Cafes,20.0,0.0,78
+125,68.3,125.3,67,30.6,40,Partly Cloudy,1.1,Fitness,4.2,19,4,Fresh Air,Meditation,5.0,4.6,44
+100,60.1,121.1,54,32.4,47,Clear,2.5,Fitness,4.0,7,7,Meditate,All,20.0,0.0,42
+47,27.6,50.3,47,22.0,69,Thunderstorm,8.5,Parks,4.5,9,2,Meditate,Cafes,8.0,0.0,44
+128,56.1,120.4,55,19.9,75,Cloudy,0.6,Cafes,4.6,11,3,Quiet Time,Parks,20.0,0.0,66
+104,46.3,100.1,56,30.7,55,Partly Cloudy,0.4,Cafes,4.1,14,3,Exercise,Fitness,20.0,4.6,68
+91,38.5,70.6,62,22.4,79,Thunderstorm,6.0,Fitness,4.1,16,7,Fresh Air,Lakes,20.0,0.0,31
+97,57.9,111.3,48,34.5,36,Cloudy,15.1,Fitness,4.4,11,6,Quiet Time,Lakes,20.0,4.0,56
+170,85.8,163.4,35,21.9,66,Partly Cloudy,1.0,Lakes,4.2,21,6,Study,Meditation,15.0,4.0,51
+49,27.5,56.1,51,30.4,61,Clear,5.8,Parks,4.7,7,4,Quiet Time,Parks,8.0,0.0,91
+34,21.3,35.3,43,32.2,49,Mist/Fog,0.9,Lakes,4.8,14,2,Meditate,Meditation,20.0,0.0,79
+158,77.7,156.8,47,24.3,79,Rainy,0.6,Cafes,4.1,8,3,Meditate,Fitness,20.0,0.0,39
+154,72.6,129.6,48,27.7,70,Thunderstorm,8.3,Cafes,3.6,15,7,Relax,Libraries,15.0,0.0,34
+42,25.5,46.7,35,18.5,44,Clear,2.0,Parks,3.9,11,1,Quiet Time,Meditation,20.0,0.0,92
+37,20.2,43.7,41,32.0,63,Partly Cloudy,1.2,Lakes,4.1,14,1,Meditate,Cafes,20.0,0.0,73
+47,21.5,44.6,36,29.4,42,Mist/Fog,0.3,Lakes,4.5,22,6,Fresh Air,Meditation,15.0,3.8,99
+47,30.0,52.6,42,34.9,71,Clear,2.0,Lakes,3.9,7,5,Study,Meditation,20.0,0.0,73
+72,45.8,99.2,43,18.4,48,Cloudy,1.8,Lakes,4.4,17,2,Study,Parks,5.0,0.0,66
+178,98.3,209.1,42,33.6,47,Mist/Fog,2.2,Meditation,4.8,19,3,Quiet Time,Libraries,20.0,3.6,38
+83,35.8,69.1,31,31.7,74,Clear,1.8,Libraries,4.3,20,2,Study,All,8.0,0.0,99
+129,64.6,118.0,59,26.1,61,Rainy,3.3,Cafes,3.5,9,4,Quiet Time,Meditation,15.0,0.0,55
+61,28.4,52.9,29,35.3,45,Clear,2.9,Libraries,3.7,18,4,Fresh Air,All,15.0,0.0,74
+92,51.8,85.3,39,35.0,69,Rainy,2.0,Libraries,3.9,11,2,Exercise,Meditation,10.0,3.4,74
+117,47.3,103.4,66,31.7,35,Cloudy,1.7,Fitness,4.1,13,4,Exercise,Libraries,15.0,3.1,62
+167,100.0,186.1,55,27.7,43,Mist/Fog,1.7,Fitness,3.7,7,7,Quiet Time,Lakes,15.0,3.1,29
+113,66.2,135.9,41,27.3,74,Cloudy,3.8,Meditation,4.3,15,5,Study,Fitness,8.0,4.5,57
+34,16.6,26.7,41,31.9,77,Clear,0.8,Meditation,4.4,16,1,Relax,Meditation,20.0,0.0,97
+161,70.3,149.1,54,24.3,53,Rainy,2.6,Cafes,4.1,19,2,Quiet Time,Libraries,8.0,3.4,52
+89,41.9,82.8,32,32.1,53,Thunderstorm,5.0,Libraries,3.8,8,6,Meditate,Lakes,8.0,0.0,83
+111,67.8,145.2,55,33.1,79,Partly Cloudy,1.6,Fitness,4.2,19,2,Exercise,All,10.0,0.0,77
+107,51.2,83.2,45,34.5,65,Thunderstorm,6.2,Lakes,4.7,17,5,Exercise,Parks,10.0,3.6,39
+35,15.7,32.2,40,35.3,74,Clear,2.6,Meditation,4.1,21,3,Quiet Time,Lakes,15.0,4.7,84
+23,12.6,22.8,39,23.7,58,Clear,1.1,Parks,3.6,7,7,Exercise,Cafes,8.0,4.4,99
+52,22.8,46.7,47,22.4,84,Cloudy,5.9,Parks,4.0,16,2,Exercise,Lakes,15.0,0.0,97
+105,42.8,86.0,66,33.5,36,Clear,2.5,Fitness,4.6,8,1,Meditate,Cafes,20.0,0.0,23
+104,43.6,87.8,58,28.6,54,Thunderstorm,1.6,Fitness,3.6,9,6,Study,Fitness,5.0,0.0,26
+152,71.3,132.3,32,26.5,56,Cloudy,0.6,Meditation,4.3,6,3,Meditate,Meditation,15.0,0.0,85
+151,74.9,159.6,61,31.3,70,Clear,1.9,Fitness,5.0,17,1,Quiet Time,Fitness,10.0,0.0,49
+141,80.8,129.5,30,21.3,56,Mist/Fog,1.5,Meditation,4.0,21,6,Relax,Lakes,5.0,4.1,66
+58,35.9,68.9,48,26.7,57,Cloudy,1.3,Cafes,4.4,8,3,Relax,Lakes,20.0,0.0,78
+71,36.5,77.3,64,21.4,65,Clear,1.5,Fitness,4.9,11,6,Fresh Air,Lakes,5.0,4.0,65
+53,26.6,47.5,49,26.6,39,Rainy,0.6,Parks,4.9,8,5,Fresh Air,Meditation,8.0,0.0,79
+28,17.5,38.2,47,32.7,52,Thunderstorm,10.8,Parks,4.7,17,6,Meditate,Lakes,20.0,3.2,45
+117,67.4,135.2,43,35.5,62,Partly Cloudy,1.9,Meditation,4.7,9,4,Fresh Air,All,10.0,0.0,62
+62,26.3,45.6,36,19.7,79,Thunderstorm,5.4,Meditation,5.0,8,7,Meditate,Parks,5.0,3.8,96
+47,23.1,43.4,49,33.1,71,Clear,0.7,Lakes,4.3,10,4,Study,Parks,5.0,0.0,70
+88,44.0,75.6,43,24.4,44,Mist/Fog,0.5,Cafes,4.0,7,2,Relax,All,5.0,3.6,78
+22,14.3,29.2,40,23.5,73,Thunderstorm,1.6,Parks,4.6,19,2,Quiet Time,Meditation,15.0,0.0,78
+65,35.1,76.7,52,20.5,81,Clear,7.1,Cafes,3.9,10,1,Study,Lakes,20.0,0.0,74
+104,44.3,89.3,53,24.8,65,Mist/Fog,0.4,Fitness,4.5,11,6,Relax,All,20.0,4.6,67
+57,36.0,60.9,35,24.4,66,Rainy,1.0,Parks,4.8,18,2,Exercise,Libraries,15.0,3.4,92
+50,24.3,42.2,60,29.4,81,Mist/Fog,3.8,Fitness,3.7,10,5,Relax,Meditation,15.0,0.0,53
+21,13.4,26.8,50,28.1,65,Cloudy,4.9,Parks,4.7,20,1,Quiet Time,Parks,10.0,3.7,96
+137,72.3,155.8,59,34.7,80,Mist/Fog,10.6,Fitness,3.5,18,1,Relax,Lakes,15.0,3.1,14
+36,17.1,32.3,42,30.5,65,Rainy,1.8,Lakes,3.5,8,6,Study,All,20.0,0.0,55
+83,33.9,72.6,33,25.8,41,Cloudy,2.8,Libraries,4.3,22,4,Exercise,Meditation,15.0,0.0,83
+140,87.9,173.0,41,21.7,67,Clear,0.5,Libraries,4.8,10,7,Study,Cafes,8.0,0.0,81
+99,62.4,117.9,58,31.6,80,Mist/Fog,0.6,Fitness,4.4,12,5,Meditate,Libraries,20.0,3.7,39
+161,85.4,177.5,62,22.4,43,Mist/Fog,4.7,Fitness,4.0,9,3,Quiet Time,Lakes,10.0,0.0,25
+107,57.8,112.9,57,25.4,45,Mist/Fog,0.5,Cafes,4.0,13,2,Meditate,Lakes,20.0,0.0,42
+155,71.9,137.1,36,27.5,73,Mist/Fog,6.6,Libraries,4.1,10,5,Exercise,All,10.0,0.0,53
+74,46.0,88.1,48,34.2,73,Thunderstorm,0.7,Fitness,3.7,17,2,Fresh Air,Meditation,8.0,4.8,47
+33,21.0,38.9,42,26.9,35,Mist/Fog,10.7,Meditation,4.0,13,4,Study,Cafes,10.0,0.0,74
+30,16.8,27.7,35,30.3,70,Cloudy,3.5,Meditation,4.9,21,3,Exercise,Lakes,8.0,0.0,95
+175,72.8,144.3,43,30.3,84,Rainy,0.9,Libraries,4.0,9,7,Study,All,15.0,0.0,61
+93,43.4,80.0,40,31.8,73,Clear,2.3,Libraries,4.4,20,5,Exercise,Lakes,5.0,0.0,75
+56,35.8,64.8,43,19.1,40,Partly Cloudy,5.7,Lakes,3.6,16,5,Quiet Time,All,5.0,0.0,81
+118,69.6,144.4,45,28.8,58,Mist/Fog,2.1,Cafes,4.4,22,7,Meditate,Parks,5.0,4.3,48
+42,17.2,27.6,37,28.0,38,Cloudy,7.0,Parks,4.2,13,3,Relax,Fitness,8.0,0.0,90
+170,81.9,144.4,65,22.4,42,Cloudy,2.0,Fitness,4.8,21,7,Exercise,All,20.0,4.5,67
+67,29.1,57.5,39,34.7,77,Rainy,1.5,Libraries,3.6,10,6,Quiet Time,Meditation,20.0,0.0,86
+69,36.2,73.9,48,33.8,82,Clear,12.6,Fitness,4.3,6,6,Quiet Time,Meditation,8.0,0.0,47
+68,42.7,78.2,49,35.0,53,Partly Cloudy,2.6,Cafes,3.9,18,1,Study,Libraries,20.0,0.0,65
+136,84.8,171.1,43,27.1,57,Thunderstorm,1.9,Libraries,3.7,14,3,Study,All,5.0,3.6,69
+39,18.3,35.2,43,31.7,60,Mist/Fog,3.9,Lakes,4.2,20,4,Study,Parks,20.0,0.0,72
+33,18.3,36.4,46,33.0,46,Mist/Fog,5.4,Parks,4.2,21,1,Exercise,All,20.0,3.8,99
+157,73.2,144.0,42,25.3,82,Rainy,1.3,Meditation,4.0,17,5,Meditate,Parks,5.0,0.0,64
+133,68.6,145.1,47,35.3,47,Thunderstorm,0.6,Parks,4.5,21,2,Relax,All,10.0,4.9,51
+102,43.4,78.4,38,29.4,50,Mist/Fog,2.1,Libraries,4.8,17,4,Fresh Air,Lakes,10.0,4.3,77
+20,11.9,24.4,40,26.7,64,Cloudy,6.6,Meditation,4.9,9,6,Study,Lakes,10.0,0.0,94
+119,74.6,147.5,36,25.4,46,Partly Cloudy,5.0,Parks,4.2,15,1,Meditate,Fitness,10.0,0.0,57
+62,36.1,68.4,37,32.6,76,Mist/Fog,1.3,Libraries,3.7,17,6,Quiet Time,Meditation,10.0,3.7,95
+62,30.6,63.0,34,18.5,65,Rainy,2.0,Parks,3.6,17,5,Fresh Air,Meditation,5.0,0.0,73
+37,20.1,40.0,44,27.8,70,Rainy,1.0,Parks,4.0,9,4,Exercise,Meditation,20.0,0.0,82
+125,74.4,148.7,47,25.6,55,Thunderstorm,1.3,Lakes,4.7,21,2,Relax,Meditation,8.0,4.3,58
+57,24.6,47.2,31,35.4,46,Clear,1.8,Libraries,4.6,6,1,Relax,Cafes,5.0,3.1,78
+114,54.4,107.1,34,34.6,50,Mist/Fog,4.7,Libraries,4.1,8,6,Study,Parks,20.0,4.9,78
+56,28.8,58.5,63,25.9,53,Mist/Fog,6.2,Fitness,4.7,22,2,Relax,Meditation,15.0,0.0,61
+103,64.3,121.0,52,30.7,74,Cloudy,0.8,Cafes,4.8,22,4,Meditate,Meditation,20.0,0.0,50
+153,67.6,118.9,45,33.6,75,Cloudy,0.6,Lakes,4.4,10,7,Quiet Time,Parks,5.0,4.2,60
+148,75.9,133.5,53,34.5,70,Rainy,1.0,Cafes,3.9,8,1,Exercise,Fitness,10.0,0.0,46
+61,30.2,56.5,56,30.4,42,Clear,1.1,Fitness,3.7,12,4,Quiet Time,Lakes,20.0,0.0,58
+89,37.8,78.1,51,34.9,48,Rainy,4.2,Fitness,3.5,8,3,Exercise,Libraries,8.0,0.0,47
+64,32.7,62.9,58,21.5,60,Clear,7.7,Cafes,4.9,20,4,Relax,All,15.0,4.1,72
+112,47.8,92.1,40,20.6,65,Rainy,0.3,Libraries,4.5,8,6,Quiet Time,Meditation,15.0,0.0,92
+43,23.2,46.3,35,32.7,46,Rainy,1.2,Parks,4.1,15,6,Study,Libraries,8.0,3.8,61
+46,19.4,31.5,39,31.5,65,Mist/Fog,0.4,Meditation,4.7,7,5,Exercise,Cafes,10.0,0.0,93
+49,21.0,45.7,42,20.2,38,Clear,7.3,Lakes,4.4,12,4,Study,Parks,20.0,0.0,80
+20,9.4,15.7,39,19.2,47,Partly Cloudy,8.4,Lakes,4.7,16,2,Fresh Air,Cafes,8.0,0.0,99
+170,69.1,139.9,35,27.3,42,Cloudy,6.8,Libraries,3.8,17,5,Fresh Air,Meditation,20.0,4.0,43
+159,89.0,142.6,48,33.9,51,Partly Cloudy,0.6,Cafes,4.0,14,4,Meditate,Meditation,10.0,0.0,22
+89,55.8,114.9,36,22.4,39,Thunderstorm,1.7,Parks,4.9,21,5,Relax,Parks,20.0,0.0,85
+128,54.4,117.4,35,30.6,44,Rainy,1.8,Lakes,4.2,7,5,Study,Fitness,20.0,3.3,36
+82,49.4,101.6,45,23.8,46,Thunderstorm,2.0,Parks,3.7,20,7,Study,All,10.0,0.0,45
+136,83.6,134.2,32,23.8,82,Cloudy,6.8,Libraries,4.7,20,6,Exercise,Fitness,20.0,0.0,73
+80,36.6,62.4,58,31.5,71,Rainy,2.4,Fitness,4.8,14,7,Exercise,Fitness,15.0,4.6,80
+166,102.0,199.1,54,31.1,45,Rainy,0.7,Cafes,5.0,18,1,Fresh Air,Lakes,5.0,0.0,45
+125,79.4,166.0,46,32.4,55,Cloudy,0.7,Parks,3.6,21,4,Exercise,Libraries,5.0,3.9,75
+95,46.1,77.9,52,20.7,54,Rainy,3.3,Cafes,4.3,14,6,Quiet Time,Meditation,10.0,3.4,82
+161,94.3,151.5,54,28.6,64,Mist/Fog,9.2,Fitness,3.6,22,2,Exercise,Libraries,15.0,0.0,50
+58,36.0,76.8,35,26.4,72,Cloudy,1.1,Meditation,4.8,19,2,Exercise,All,20.0,4.0,99
+152,62.9,117.2,31,20.2,62,Cloudy,2.2,Libraries,4.5,7,4,Relax,Meditation,8.0,0.0,55
+76,34.8,70.0,62,32.2,45,Clear,3.4,Fitness,3.9,18,1,Meditate,Lakes,8.0,0.0,35
+142,80.9,129.6,37,20.3,52,Mist/Fog,3.0,Libraries,4.0,10,5,Fresh Air,Lakes,15.0,3.3,51
+143,58.9,122.0,57,22.6,79,Cloudy,3.1,Cafes,4.3,16,2,Meditate,Cafes,10.0,4.9,46
+35,16.7,28.2,40,22.5,57,Cloudy,5.3,Meditation,5.0,17,3,Relax,Lakes,10.0,0.0,88
+176,89.1,170.9,43,25.1,68,Thunderstorm,0.5,Libraries,4.9,11,1,Fresh Air,Fitness,20.0,3.2,49
+122,78.2,168.4,51,29.9,61,Thunderstorm,2.5,Parks,4.7,11,5,Fresh Air,Meditation,20.0,0.0,50
+154,92.6,179.7,63,28.4,40,Partly Cloudy,9.0,Fitness,4.1,15,1,Relax,Lakes,20.0,0.0,19
+20,9.6,19.4,30,23.6,69,Rainy,0.9,Meditation,3.7,11,6,Fresh Air,Libraries,5.0,0.0,99
+96,47.2,83.2,41,27.0,41,Thunderstorm,7.3,Parks,3.6,14,4,Relax,Meditation,5.0,0.0,49
+62,27.5,55.2,58,23.0,76,Cloudy,1.2,Fitness,3.6,16,3,Relax,Fitness,15.0,0.0,69
+36,23.0,38.8,38,21.9,61,Thunderstorm,3.9,Lakes,3.6,8,7,Meditate,All,15.0,3.9,59
+84,47.5,85.8,39,29.4,35,Thunderstorm,1.9,Libraries,4.3,21,5,Exercise,All,5.0,0.0,88
+53,22.9,37.7,30,33.3,42,Clear,4.8,Libraries,3.7,13,6,Quiet Time,Parks,10.0,4.1,90
+41,19.9,33.8,42,27.6,81,Cloudy,8.7,Meditation,4.7,8,4,Quiet Time,Fitness,10.0,0.0,77
+47,30.2,64.7,35,23.4,77,Rainy,18.8,Meditation,4.9,15,5,Quiet Time,Cafes,10.0,0.0,74
+23,14.5,25.3,35,29.8,82,Cloudy,12.3,Lakes,4.6,13,7,Exercise,Parks,15.0,0.0,94
+109,48.3,99.1,32,23.5,66,Mist/Fog,1.8,Libraries,4.4,20,5,Quiet Time,Fitness,10.0,0.0,88
+93,46.6,94.4,47,33.6,67,Thunderstorm,6.6,Cafes,4.9,7,7,Exercise,All,20.0,0.0,72
+52,24.7,43.9,52,35.3,66,Rainy,4.8,Cafes,3.9,8,4,Fresh Air,Meditation,20.0,0.0,60
+51,32.8,68.9,36,28.7,81,Cloudy,1.2,Lakes,3.8,8,6,Study,Parks,20.0,0.0,76
+138,60.3,105.2,66,31.5,44,Clear,1.0,Fitness,4.9,14,4,Relax,All,10.0,0.0,35
+31,19.5,40.5,37,29.0,84,Cloudy,1.4,Parks,3.7,13,7,Relax,Meditation,10.0,0.0,99
+104,52.4,105.6,63,35.7,47,Clear,3.5,Fitness,3.7,11,6,Study,Libraries,8.0,4.5,27
+45,24.5,49.5,45,23.4,57,Rainy,0.5,Parks,4.0,20,5,Quiet Time,Parks,10.0,0.0,75
+91,51.4,83.9,66,29.5,41,Partly Cloudy,3.7,Fitness,3.7,7,6,Quiet Time,Lakes,20.0,0.0,42
+130,61.9,107.6,52,18.3,50,Thunderstorm,1.1,Cafes,4.8,17,2,Fresh Air,Parks,20.0,0.0,57
+28,17.0,35.6,29,22.4,81,Partly Cloudy,1.2,Meditation,3.9,12,1,Quiet Time,Parks,10.0,3.5,97
+31,17.3,33.3,37,20.8,47,Rainy,1.8,Lakes,4.9,18,1,Study,Fitness,10.0,4.6,83
+53,30.6,55.7,48,33.5,37,Thunderstorm,3.4,Cafes,4.5,7,3,Relax,Fitness,10.0,4.8,75
+59,32.4,54.9,56,20.4,46,Clear,5.9,Cafes,4.9,22,1,Exercise,Lakes,5.0,0.0,74
+95,55.6,113.3,39,34.8,83,Cloudy,3.7,Lakes,3.7,21,7,Quiet Time,Lakes,15.0,0.0,79
+79,50.5,99.9,30,25.4,35,Cloudy,5.7,Libraries,4.6,10,7,Exercise,Fitness,5.0,0.0,88
+119,58.4,126.7,54,20.4,78,Cloudy,0.3,Fitness,4.9,16,1,Quiet Time,Fitness,15.0,3.1,69
+46,23.7,39.0,31,30.5,56,Partly Cloudy,8.8,Meditation,3.6,7,1,Study,Meditation,20.0,4.8,92
+160,93.3,182.9,35,27.4,62,Thunderstorm,3.0,Libraries,3.6,18,6,Quiet Time,All,8.0,4.9,71
+35,18.6,37.4,42,18.8,52,Thunderstorm,0.4,Meditation,4.1,18,7,Exercise,Meditation,20.0,0.0,99
+21,10.9,18.5,42,31.0,84,Clear,0.7,Lakes,4.2,12,4,Exercise,Cafes,10.0,3.8,99
+151,96.6,167.4,62,26.0,79,Thunderstorm,5.3,Fitness,4.4,17,1,Quiet Time,Meditation,20.0,0.0,11
+121,60.9,130.0,46,22.7,36,Rainy,2.3,Cafes,4.3,19,4,Study,Libraries,20.0,4.7,80
+39,19.0,37.3,40,21.7,50,Rainy,9.4,Parks,4.3,20,2,Relax,Cafes,5.0,0.0,67
+35,21.3,38.5,39,22.3,58,Partly Cloudy,2.6,Lakes,3.5,12,1,Relax,Meditation,8.0,4.4,99
+44,25.0,40.2,35,30.0,41,Cloudy,1.9,Lakes,4.0,6,6,Exercise,All,10.0,3.7,96
+143,81.0,158.1,36,28.2,59,Partly Cloudy,3.8,Meditation,4.3,21,2,Relax,Libraries,8.0,3.2,48
+78,44.3,71.6,52,22.0,42,Cloudy,1.6,Cafes,5.0,21,6,Meditate,Libraries,8.0,0.0,65
+178,96.4,191.5,47,25.4,54,Cloudy,2.8,Cafes,4.5,17,1,Relax,Cafes,15.0,0.0,49
+151,84.3,137.7,44,18.7,46,Partly Cloudy,11.1,Cafes,4.1,20,4,Meditate,Cafes,5.0,0.0,26
+36,19.5,31.7,38,33.3,43,Thunderstorm,7.2,Parks,4.0,19,4,Meditate,Lakes,5.0,0.0,35
+43,20.4,36.0,45,28.5,54,Clear,1.1,Lakes,4.0,21,4,Meditate,Libraries,5.0,0.0,70
+20,8.8,19.2,39,22.5,62,Partly Cloudy,2.0,Meditation,3.9,20,2,Study,Lakes,5.0,0.0,90
+26,14.8,29.3,48,32.2,65,Cloudy,1.3,Parks,4.1,18,1,Relax,Libraries,20.0,3.9,99
+66,28.1,54.7,48,31.2,77,Partly Cloudy,2.0,Parks,3.7,15,6,Fresh Air,Libraries,20.0,0.0,84
+78,32.7,54.1,47,19.9,82,Thunderstorm,25.0,Lakes,4.5,15,1,Study,All,20.0,0.0,26
+141,61.9,122.7,50,30.0,50,Thunderstorm,2.4,Cafes,4.0,6,5,Relax,Meditation,20.0,0.0,43
+88,53.2,99.8,31,21.6,48,Clear,6.1,Libraries,3.9,21,2,Exercise,All,15.0,0.0,82
+41,19.2,31.3,47,22.0,77,Clear,10.0,Lakes,3.9,22,4,Exercise,Lakes,10.0,4.9,99
+129,54.5,113.9,41,19.3,76,Cloudy,0.4,Lakes,4.1,20,3,Exercise,Meditation,8.0,3.1,62
+95,60.0,110.3,47,19.5,84,Clear,3.5,Fitness,3.9,9,2,Fresh Air,All,10.0,3.8,63
+43,22.2,39.5,44,29.5,75,Mist/Fog,3.4,Parks,3.9,8,4,Study,Cafes,20.0,4.3,74
+178,112.2,210.2,35,26.0,82,Clear,5.4,Libraries,4.5,16,5,Relax,All,8.0,0.0,45
+61,25.5,42.4,46,33.0,84,Rainy,1.4,Parks,3.8,8,3,Exercise,Libraries,5.0,3.2,68
+126,64.5,112.0,46,27.3,68,Mist/Fog,4.9,Cafes,4.1,11,2,Study,Fitness,10.0,0.0,63
+30,12.0,25.9,34,30.5,64,Thunderstorm,1.0,Parks,5.0,12,6,Meditate,Meditation,15.0,3.2,69
+134,68.9,114.5,55,33.6,73,Thunderstorm,4.4,Fitness,3.9,21,6,Fresh Air,Cafes,8.0,0.0,8
+95,50.5,106.8,67,33.0,42,Partly Cloudy,2.6,Fitness,4.3,8,3,Fresh Air,Fitness,15.0,0.0,53
+25,14.8,31.8,41,25.7,53,Clear,3.2,Lakes,4.2,13,7,Study,Libraries,5.0,4.2,95
+53,30.4,59.4,37,31.5,54,Cloudy,2.1,Libraries,4.3,20,1,Meditate,Lakes,20.0,3.6,94
+96,38.5,81.8,58,22.5,41,Partly Cloudy,4.5,Fitness,4.6,18,4,Quiet Time,Lakes,5.0,0.0,54
+158,88.8,159.6,53,25.0,37,Partly Cloudy,0.5,Cafes,4.7,9,6,Meditate,Libraries,5.0,0.0,34
+23,9.6,18.7,37,32.2,83,Cloudy,5.1,Parks,3.6,8,7,Relax,Fitness,20.0,3.1,95
+160,90.6,165.4,58,31.8,69,Clear,8.0,Fitness,4.8,21,2,Meditate,Libraries,20.0,4.9,25
+43,22.5,48.0,51,22.4,84,Mist/Fog,7.1,Parks,5.0,19,1,Relax,Lakes,10.0,0.0,93
+52,23.6,38.9,39,32.8,41,Rainy,2.0,Meditation,4.7,10,2,Fresh Air,Parks,8.0,0.0,90
+30,15.8,28.3,45,19.2,77,Thunderstorm,2.3,Parks,4.8,10,2,Quiet Time,Meditation,5.0,0.0,61
+73,35.5,73.6,57,32.5,75,Mist/Fog,8.8,Fitness,4.1,13,4,Meditate,Meditation,8.0,0.0,35
+58,36.8,65.8,42,31.7,47,Rainy,4.3,Meditation,4.6,13,7,Fresh Air,Libraries,10.0,0.0,78
+115,71.1,151.5,46,22.0,56,Partly Cloudy,0.4,Fitness,3.5,21,4,Fresh Air,Cafes,20.0,3.7,58
+137,81.6,133.3,59,30.6,43,Rainy,2.6,Fitness,4.9,7,2,Study,Libraries,15.0,0.0,8
+37,17.0,28.9,41,35.4,54,Mist/Fog,0.4,Parks,3.8,22,3,Quiet Time,Meditation,8.0,4.6,80
+47,25.5,48.3,47,26.2,80,Mist/Fog,3.3,Lakes,4.7,21,7,Fresh Air,Lakes,20.0,0.0,99
+143,66.8,110.3,46,21.9,54,Mist/Fog,9.2,Fitness,3.8,22,4,Meditate,Lakes,5.0,3.7,23
+106,45.1,82.0,57,33.3,45,Mist/Fog,0.4,Fitness,4.3,17,4,Exercise,Fitness,5.0,0.0,89
+175,97.5,214.2,57,26.4,83,Thunderstorm,6.7,Fitness,4.7,7,4,Meditate,Libraries,8.0,0.0,5
+48,22.0,40.8,33,27.8,42,Cloudy,0.3,Meditation,3.5,20,7,Fresh Air,Parks,8.0,3.6,80
+138,60.7,119.4,54,29.3,51,Partly Cloudy,0.9,Fitness,4.0,8,6,Relax,Cafes,10.0,0.0,38
+25,11.9,22.9,38,20.3,78,Partly Cloudy,1.1,Parks,3.5,19,1,Study,All,5.0,0.0,91
+30,17.3,29.7,38,33.8,66,Partly Cloudy,1.1,Parks,4.0,12,5,Meditate,Meditation,15.0,3.9,76
+53,29.2,62.0,39,20.2,77,Partly Cloudy,5.7,Meditation,4.1,21,6,Meditate,Fitness,20.0,0.0,93
+31,19.7,36.1,41,28.4,35,Cloudy,4.4,Parks,3.9,16,5,Study,Lakes,10.0,3.7,76
+102,44.4,96.2,64,27.3,64,Partly Cloudy,1.5,Fitness,4.0,16,7,Relax,Cafes,5.0,4.2,45
+145,86.0,143.9,64,24.0,42,Mist/Fog,1.3,Fitness,3.7,7,3,Exercise,All,8.0,0.0,60
+48,22.0,47.4,39,33.3,50,Mist/Fog,18.9,Meditation,4.9,12,5,Meditate,Cafes,8.0,4.5,69
+39,17.4,32.5,43,21.2,37,Thunderstorm,0.6,Lakes,3.9,6,2,Study,Lakes,15.0,4.8,80
+115,66.3,129.7,44,25.8,74,Thunderstorm,6.9,Cafes,4.7,10,2,Fresh Air,Fitness,10.0,0.0,69
+149,84.2,153.1,65,23.9,74,Clear,3.2,Fitness,4.0,21,5,Study,Meditation,15.0,0.0,18
+40,21.9,42.2,34,31.7,58,Cloudy,12.8,Parks,4.8,16,7,Relax,Meditation,15.0,0.0,99
+160,102.7,199.5,50,32.4,40,Clear,1.8,Parks,3.8,12,2,Fresh Air,Libraries,8.0,4.0,68
+169,75.9,142.3,38,20.3,60,Clear,3.3,Libraries,4.4,13,1,Relax,All,20.0,0.0,52
+144,78.2,160.5,42,20.3,40,Thunderstorm,8.6,Parks,4.5,7,7,Quiet Time,All,10.0,0.0,34
+53,32.9,66.0,49,27.2,71,Partly Cloudy,11.9,Lakes,4.8,22,4,Meditate,Libraries,20.0,0.0,63
+110,63.2,103.1,58,18.2,35,Thunderstorm,1.2,Cafes,3.9,15,7,Meditate,Libraries,20.0,3.9,42
+163,77.8,129.6,67,25.3,80,Rainy,1.0,Fitness,3.7,16,3,Quiet Time,Lakes,15.0,0.0,5
+139,56.7,117.9,46,28.4,80,Cloudy,1.1,Cafes,4.3,7,4,Fresh Air,All,20.0,0.0,58
+97,59.5,111.3,62,26.9,55,Mist/Fog,15.3,Fitness,3.6,21,5,Fresh Air,Cafes,20.0,4.6,52
+57,29.1,58.3,40,26.4,54,Rainy,7.7,Libraries,4.0,6,6,Quiet Time,Parks,8.0,0.0,93
+78,42.6,72.0,31,27.0,49,Mist/Fog,1.2,Libraries,4.1,16,2,Fresh Air,Libraries,8.0,0.0,94
+61,39.6,66.6,63,23.7,42,Rainy,1.3,Fitness,4.7,15,5,Meditate,Parks,10.0,0.0,34
+56,24.4,40.9,46,19.3,56,Rainy,3.6,Cafes,4.4,17,3,Fresh Air,Meditation,5.0,4.4,81
+41,17.2,31.8,39,28.1,74,Cloudy,5.9,Lakes,4.6,9,5,Relax,All,5.0,0.0,96
+174,76.0,152.5,62,33.2,51,Clear,2.3,Fitness,3.7,10,2,Fresh Air,All,15.0,0.0,14
+36,17.1,31.7,46,30.1,81,Partly Cloudy,1.9,Lakes,4.7,16,5,Quiet Time,Meditation,10.0,3.3,98
+93,37.4,71.0,40,32.4,50,Thunderstorm,5.8,Libraries,4.5,21,4,Meditate,Meditation,8.0,0.0,81
+54,28.6,57.7,48,28.2,71,Rainy,14.6,Parks,4.9,19,5,Study,Meditation,8.0,4.9,39
+36,17.4,28.1,35,18.7,67,Thunderstorm,9.0,Lakes,4.9,8,3,Meditate,All,5.0,0.0,53
+21,10.7,20.2,30,24.9,71,Clear,3.1,Meditation,4.5,13,5,Meditate,Lakes,8.0,0.0,99
+61,36.3,71.4,36,22.0,59,Cloudy,0.9,Parks,3.6,7,5,Quiet Time,Libraries,15.0,3.3,80
+109,45.1,79.9,57,31.2,61,Rainy,2.4,Fitness,4.8,10,1,Study,Parks,8.0,0.0,23
+57,33.4,54.0,35,25.6,63,Partly Cloudy,0.5,Lakes,3.9,19,3,Meditate,Meditation,10.0,0.0,77
+51,27.6,57.7,56,25.7,76,Mist/Fog,1.4,Cafes,4.5,14,7,Exercise,Cafes,8.0,0.0,99
+44,25.2,47.4,43,22.7,57,Thunderstorm,6.1,Lakes,3.9,16,4,Study,Cafes,20.0,0.0,52
+167,88.3,173.4,43,27.8,42,Partly Cloudy,2.9,Libraries,3.7,10,4,Relax,Parks,20.0,0.0,33
+83,42.3,67.7,37,19.3,60,Rainy,2.2,Parks,4.1,18,5,Quiet Time,Meditation,10.0,0.0,48
+89,46.1,97.8,64,19.2,58,Mist/Fog,2.9,Fitness,4.8,14,2,Exercise,Cafes,5.0,0.0,74
+137,64.0,134.6,56,28.4,39,Clear,3.7,Cafes,4.3,22,4,Meditate,Lakes,10.0,4.4,28
+113,70.6,128.5,45,29.7,71,Rainy,0.5,Fitness,3.6,13,2,Quiet Time,Cafes,10.0,0.0,35
+127,65.2,110.3,42,19.5,37,Rainy,13.1,Meditation,3.6,6,1,Fresh Air,Lakes,5.0,0.0,32
+27,13.3,22.5,38,26.5,69,Thunderstorm,9.6,Meditation,4.6,11,1,Quiet Time,Lakes,8.0,5.0,99
+48,26.4,46.5,42,29.8,78,Mist/Fog,1.7,Lakes,4.8,19,3,Fresh Air,Cafes,8.0,0.0,99
+148,72.0,131.8,54,31.7,47,Thunderstorm,4.0,Cafes,3.9,18,3,Study,Fitness,5.0,4.6,49
+55,31.3,57.0,50,22.3,81,Partly Cloudy,14.6,Lakes,4.8,19,7,Exercise,Lakes,8.0,0.0,79
+99,42.5,85.2,53,33.1,51,Clear,2.7,Fitness,4.7,20,3,Fresh Air,Cafes,5.0,0.0,47
+52,27.5,45.3,38,18.6,37,Thunderstorm,11.2,Parks,4.3,11,3,Study,Libraries,10.0,0.0,45
+123,67.0,124.8,45,31.8,50,Cloudy,13.1,Cafes,3.7,9,1,Study,All,20.0,0.0,61
+51,21.3,40.9,41,34.1,65,Rainy,4.2,Parks,4.4,11,1,Quiet Time,Libraries,10.0,4.7,53
+52,23.4,41.3,50,18.1,72,Thunderstorm,7.9,Lakes,4.5,19,3,Relax,Fitness,8.0,4.2,63
+51,31.3,55.6,41,27.3,79,Thunderstorm,2.6,Libraries,4.8,10,1,Quiet Time,Parks,20.0,0.0,99
+144,67.7,120.7,45,28.5,81,Partly Cloudy,11.4,Fitness,4.6,14,6,Study,Libraries,15.0,0.0,38
+40,21.0,40.3,48,32.4,66,Cloudy,8.3,Lakes,4.2,19,5,Relax,Lakes,15.0,0.0,95
+41,19.4,34.9,32,31.7,83,Rainy,1.2,Meditation,3.7,10,6,Fresh Air,Libraries,5.0,0.0,89
+179,112.6,226.9,67,21.3,57,Rainy,4.1,Fitness,5.0,12,3,Meditate,Cafes,5.0,3.5,5
+152,79.0,137.9,54,24.3,40,Mist/Fog,7.9,Cafes,4.1,18,2,Fresh Air,Lakes,10.0,0.0,36
+166,106.5,222.2,45,24.0,47,Rainy,0.4,Fitness,5.0,9,4,Meditate,Fitness,10.0,4.4,34
+39,22.2,46.3,50,31.5,59,Mist/Fog,3.0,Lakes,3.9,20,7,Meditate,All,8.0,0.0,63
+58,34.9,58.6,29,30.6,59,Thunderstorm,6.9,Libraries,4.9,7,4,Meditate,Fitness,20.0,0.0,99
+116,61.3,111.9,48,30.8,49,Cloudy,2.9,Cafes,3.7,22,2,Fresh Air,Fitness,5.0,3.2,50
+99,54.1,116.1,39,22.9,64,Thunderstorm,4.7,Lakes,4.6,11,5,Quiet Time,Libraries,20.0,0.0,67
+92,37.8,62.3,31,21.0,65,Mist/Fog,3.1,Meditation,3.6,11,2,Study,Cafes,15.0,0.0,70
+37,18.8,33.4,48,26.6,54,Mist/Fog,2.3,Parks,4.6,16,2,Meditate,Fitness,20.0,0.0,70
+42,26.4,49.3,38,25.9,38,Cloudy,5.1,Parks,3.8,13,7,Quiet Time,Parks,15.0,4.3,99
+97,44.7,95.4,45,20.3,75,Mist/Fog,6.7,Cafes,4.5,7,1,Quiet Time,Meditation,15.0,3.4,79
+172,102.2,177.0,38,21.1,52,Partly Cloudy,9.3,Libraries,4.9,6,3,Meditate,All,15.0,0.0,64
+144,63.1,113.9,47,27.4,71,Rainy,4.5,Cafes,5.0,20,4,Relax,Fitness,8.0,0.0,50
+160,66.8,138.5,34,25.2,67,Cloudy,1.2,Libraries,4.8,16,4,Fresh Air,Libraries,15.0,0.0,74
+137,85.5,175.1,49,22.1,44,Mist/Fog,1.0,Cafes,4.9,11,3,Study,Libraries,5.0,0.0,69
+51,31.2,66.6,50,22.7,50,Thunderstorm,6.7,Fitness,4.9,19,3,Exercise,All,10.0,3.8,87
+91,37.7,63.2,61,33.5,47,Partly Cloudy,2.8,Fitness,3.9,22,4,Fresh Air,Libraries,5.0,4.5,44
+131,62.9,134.1,55,18.7,68,Clear,10.6,Cafes,4.7,12,4,Exercise,Libraries,10.0,4.6,57
+52,29.1,54.4,44,19.3,50,Rainy,2.0,Cafes,4.1,17,4,Exercise,Cafes,20.0,0.0,96
+123,68.0,123.9,48,23.8,67,Cloudy,4.4,Cafes,3.7,8,4,Exercise,Lakes,15.0,4.0,60
+79,38.4,65.1,47,33.4,79,Mist/Fog,0.8,Cafes,4.9,22,6,Relax,Libraries,5.0,0.0,66
+62,25.8,51.0,30,33.0,53,Cloudy,1.5,Libraries,4.0,7,7,Quiet Time,Lakes,10.0,4.6,99
+131,77.5,165.0,55,27.2,73,Clear,0.8,Fitness,3.8,17,6,Meditate,Cafes,5.0,0.0,31
+87,50.8,86.5,37,22.2,67,Rainy,5.8,Lakes,4.4,8,2,Quiet Time,Lakes,5.0,0.0,79
+57,25.1,47.4,39,19.1,36,Thunderstorm,9.4,Parks,4.4,14,1,Fresh Air,All,15.0,4.8,84
+61,38.1,62.9,59,21.7,50,Clear,11.9,Cafes,3.9,22,6,Exercise,All,8.0,3.1,61
+39,17.3,32.5,43,21.3,46,Clear,6.3,Lakes,4.7,10,1,Fresh Air,Fitness,5.0,0.0,99
+60,27.4,45.4,58,28.1,43,Cloudy,2.9,Fitness,3.6,22,6,Meditate,Libraries,20.0,3.8,41
+96,42.9,89.9,29,33.6,36,Thunderstorm,0.9,Libraries,3.8,18,5,Study,Fitness,8.0,0.0,83
+58,29.0,47.3,39,33.8,84,Mist/Fog,8.8,Lakes,3.5,12,6,Meditate,Fitness,5.0,0.0,42
+42,24.8,44.0,33,20.0,71,Clear,5.6,Meditation,4.6,13,3,Relax,Libraries,5.0,0.0,85
+43,25.5,46.1,48,26.2,72,Rainy,0.9,Parks,3.7,8,7,Exercise,All,15.0,4.5,92
+136,87.0,165.5,35,35.5,68,Mist/Fog,13.4,Parks,4.0,20,7,Exercise,All,5.0,0.0,53
+76,38.5,81.7,28,28.7,49,Cloudy,8.9,Meditation,4.1,13,7,Fresh Air,Cafes,15.0,0.0,74
+21,9.0,18.1,43,32.1,63,Clear,7.4,Lakes,3.9,7,5,Meditate,Meditation,5.0,0.0,69
+93,49.6,94.0,39,27.8,61,Mist/Fog,1.0,Lakes,3.9,16,5,Relax,Fitness,8.0,0.0,84
+58,27.9,53.7,39,24.7,82,Mist/Fog,5.1,Meditation,4.0,9,2,Exercise,Parks,10.0,0.0,86
+169,89.5,152.1,40,26.9,63,Rainy,1.1,Libraries,3.8,12,2,Relax,Parks,15.0,0.0,50
+30,13.9,25.3,32,34.2,48,Rainy,2.3,Meditation,4.9,14,1,Relax,All,15.0,4.0,97
+60,32.6,61.6,34,24.5,50,Cloudy,2.8,Lakes,4.6,14,3,Relax,Cafes,5.0,0.0,99
+120,69.2,140.3,54,19.3,61,Clear,0.7,Cafes,4.1,6,7,Exercise,Parks,10.0,3.8,63
+52,25.1,45.3,38,35.5,80,Rainy,1.0,Libraries,4.3,13,4,Quiet Time,Meditation,15.0,0.0,95
+108,69.9,145.7,45,22.9,69,Mist/Fog,1.5,Cafes,4.8,17,6,Meditate,Cafes,10.0,0.0,73
+38,24.5,41.4,47,35.4,53,Partly Cloudy,3.4,Parks,4.5,9,6,Relax,All,10.0,0.0,88
+154,76.6,146.9,36,32.1,37,Mist/Fog,3.3,Libraries,3.5,12,3,Quiet Time,Fitness,15.0,4.4,60
+64,28.6,59.5,56,22.3,75,Clear,3.8,Cafes,3.9,21,7,Relax,Libraries,20.0,0.0,58
+41,22.2,45.0,44,20.2,75,Mist/Fog,3.5,Parks,3.9,18,4,Quiet Time,Cafes,10.0,0.0,79
+159,91.4,165.6,55,24.2,60,Rainy,12.3,Fitness,4.1,8,6,Quiet Time,Cafes,5.0,0.0,5
+49,23.1,47.4,44,23.6,40,Partly Cloudy,2.1,Lakes,4.3,11,4,Study,Lakes,8.0,4.5,90
+56,23.7,38.1,57,20.3,70,Clear,1.5,Fitness,4.2,8,6,Quiet Time,Fitness,10.0,0.0,80
+173,93.7,181.4,35,21.1,70,Cloudy,3.8,Parks,4.0,17,7,Study,Fitness,8.0,5.0,49
+71,37.9,71.4,53,29.9,63,Rainy,3.1,Fitness,3.6,10,4,Meditate,Cafes,8.0,0.0,19
+109,63.0,104.4,29,28.1,79,Thunderstorm,4.9,Libraries,4.8,20,1,Study,Meditation,5.0,0.0,84
+45,19.3,35.7,35,22.6,54,Rainy,4.0,Parks,5.0,22,2,Quiet Time,All,5.0,4.2,76
+145,68.9,148.2,45,32.6,68,Mist/Fog,9.0,Cafes,5.0,11,2,Study,Parks,10.0,0.0,59
+159,92.5,173.4,43,28.1,41,Thunderstorm,0.9,Cafes,3.8,9,2,Fresh Air,Meditation,8.0,4.3,50
+148,74.2,144.2,37,25.4,55,Thunderstorm,4.9,Meditation,4.3,17,6,Relax,Libraries,8.0,0.0,54
+38,19.0,39.8,36,31.8,35,Clear,0.3,Meditation,3.5,6,4,Quiet Time,Lakes,15.0,3.5,82
+53,26.7,54.2,40,22.0,36,Thunderstorm,5.9,Meditation,4.4,22,2,Relax,Libraries,5.0,3.5,80
+89,45.4,83.8,38,25.4,37,Thunderstorm,2.6,Libraries,4.5,14,7,Exercise,Meditation,10.0,3.6,89
+50,21.1,41.3,36,26.0,64,Clear,2.7,Lakes,4.0,7,2,Exercise,Cafes,20.0,4.5,99
+129,83.1,135.9,30,25.0,82,Mist/Fog,1.3,Libraries,4.9,17,4,Meditate,Cafes,8.0,3.0,84
+147,88.9,183.6,45,22.1,39,Rainy,2.8,Fitness,4.5,14,4,Relax,Cafes,8.0,4.0,31
+124,80.1,131.1,40,25.2,81,Partly Cloudy,2.1,Meditation,3.8,21,4,Meditate,Cafes,8.0,5.0,78
+140,61.6,133.5,43,20.5,74,Rainy,7.1,Lakes,4.2,11,2,Meditate,Libraries,8.0,4.2,23
+145,83.9,136.9,43,23.6,67,Thunderstorm,1.3,Lakes,3.8,20,1,Quiet Time,Cafes,5.0,3.4,45
+44,26.5,45.7,39,29.4,83,Rainy,0.8,Lakes,4.8,6,3,Quiet Time,All,15.0,0.0,83
+98,62.1,124.6,55,28.3,54,Rainy,0.4,Fitness,3.9,17,3,Quiet Time,Meditation,15.0,4.7,41
+51,30.5,57.3,46,23.2,51,Rainy,4.7,Lakes,3.8,19,5,Relax,Lakes,15.0,0.0,76
+56,22.9,44.9,45,26.4,80,Thunderstorm,4.2,Lakes,4.5,8,6,Fresh Air,Libraries,8.0,3.5,74
+46,26.2,57.1,48,30.3,71,Clear,0.8,Parks,4.1,19,6,Fresh Air,Libraries,5.0,0.0,99
+64,33.5,63.1,49,28.4,61,Thunderstorm,1.3,Parks,4.4,8,6,Exercise,Meditation,20.0,4.1,79
+99,43.4,77.9,44,22.4,68,Rainy,1.5,Lakes,4.5,19,2,Study,Parks,20.0,0.0,45
+45,21.6,44.2,34,32.0,67,Rainy,1.1,Meditation,3.6,21,2,Study,All,15.0,3.3,86
+56,28.9,49.8,46,30.3,83,Partly Cloudy,1.8,Parks,4.5,20,2,Relax,Meditation,15.0,0.0,92
+169,86.7,168.1,58,25.7,54,Clear,5.9,Fitness,3.7,6,3,Meditate,Lakes,20.0,0.0,11
+176,71.4,133.2,43,20.8,50,Mist/Fog,9.3,Libraries,4.7,12,6,Exercise,Meditation,15.0,0.0,48
+178,106.6,220.9,53,28.8,59,Clear,9.1,Cafes,4.9,17,6,Relax,Cafes,10.0,0.0,38
+42,19.4,34.2,41,33.0,47,Thunderstorm,2.7,Parks,4.5,13,5,Relax,Lakes,8.0,0.0,72
+115,62.5,124.7,53,34.5,39,Cloudy,1.0,Fitness,4.7,15,6,Study,Parks,20.0,0.0,41
+120,55.1,102.9,38,24.4,65,Cloudy,2.1,Parks,4.4,22,1,Fresh Air,Libraries,10.0,4.5,91
+50,23.5,48.9,43,22.8,46,Partly Cloudy,5.5,Meditation,4.0,22,4,Fresh Air,Meditation,8.0,0.0,89
+139,69.1,144.7,43,18.1,62,Clear,1.1,Lakes,4.1,15,4,Relax,Parks,10.0,0.0,74
+39,20.1,41.0,44,31.4,39,Mist/Fog,0.6,Parks,3.7,16,1,Meditate,Cafes,8.0,0.0,66
+102,48.8,88.4,48,27.0,81,Mist/Fog,0.6,Lakes,4.9,7,1,Quiet Time,Libraries,20.0,0.0,87
+25,13.4,27.2,38,19.8,46,Clear,1.6,Meditation,4.6,6,2,Meditate,Parks,5.0,0.0,99
+117,49.9,106.1,28,33.4,75,Partly Cloudy,7.1,Libraries,4.9,8,3,Meditate,Fitness,5.0,0.0,65
+54,23.2,49.8,45,24.7,78,Mist/Fog,1.7,Parks,3.6,13,7,Fresh Air,Lakes,20.0,0.0,98
+60,30.5,60.9,29,27.7,67,Clear,3.6,Libraries,4.4,12,6,Fresh Air,Cafes,8.0,4.7,91
+113,71.0,117.9,54,35.3,46,Partly Cloudy,6.2,Fitness,4.6,14,5,Study,All,5.0,4.9,42
+150,69.9,139.8,50,26.6,68,Partly Cloudy,9.9,Parks,4.2,22,5,Fresh Air,Fitness,15.0,3.3,58
+58,36.5,79.1,30,32.2,72,Rainy,4.8,Libraries,4.9,18,5,Exercise,All,8.0,0.0,99
+91,51.7,87.9,44,18.9,67,Rainy,3.0,Cafes,4.5,10,7,Relax,Cafes,5.0,0.0,78
+129,58.7,96.0,52,33.7,60,Thunderstorm,2.7,Fitness,3.6,10,2,Fresh Air,Fitness,8.0,3.6,23
+105,59.3,112.8,58,33.2,79,Clear,4.6,Fitness,4.4,18,7,Study,Libraries,5.0,0.0,31
+58,34.1,71.8,56,27.3,55,Clear,1.4,Cafes,4.9,6,3,Meditate,All,5.0,4.6,68
+141,80.8,153.5,29,32.5,62,Clear,1.2,Libraries,4.3,14,3,Relax,Libraries,15.0,0.0,70
+146,88.6,190.2,34,30.5,57,Partly Cloudy,1.8,Parks,4.4,13,6,Fresh Air,Meditation,15.0,0.0,79
+41,17.9,39.2,29,30.0,67,Partly Cloudy,1.5,Meditation,4.2,20,4,Study,Libraries,10.0,4.7,92
+147,81.0,172.3,56,18.8,54,Partly Cloudy,7.1,Cafes,4.2,22,6,Exercise,Cafes,10.0,0.0,52
+142,88.4,158.4,42,35.4,83,Partly Cloudy,2.0,Libraries,4.7,18,1,Study,Meditation,20.0,3.8,66
+149,71.1,136.0,32,33.8,64,Rainy,3.8,Libraries,4.2,7,1,Exercise,All,15.0,3.8,63
+156,73.9,125.3,42,35.1,45,Rainy,4.7,Libraries,4.0,14,2,Quiet Time,Cafes,8.0,0.0,51
+54,28.6,58.5,57,23.6,54,Thunderstorm,0.5,Fitness,3.7,7,3,Exercise,Fitness,8.0,0.0,85
+166,80.1,165.0,37,27.3,53,Clear,2.2,Parks,4.4,13,3,Quiet Time,Lakes,10.0,0.0,51
+50,21.1,35.6,65,34.5,79,Cloudy,1.2,Fitness,4.7,14,6,Quiet Time,All,5.0,0.0,60
+60,37.9,71.7,38,34.3,77,Mist/Fog,4.3,Parks,4.8,21,5,Study,Fitness,15.0,0.0,71
+105,55.9,97.1,37,34.9,78,Thunderstorm,8.4,Parks,3.6,9,6,Meditate,All,20.0,3.1,27
+69,33.0,72.1,52,27.3,65,Rainy,6.0,Fitness,4.5,17,5,Fresh Air,Cafes,8.0,0.0,44
+77,44.3,84.2,59,21.5,72,Partly Cloudy,2.7,Cafes,4.0,15,6,Meditate,Cafes,8.0,4.3,60
+40,21.3,41.2,37,24.0,84,Clear,1.3,Lakes,3.8,22,2,Study,All,10.0,0.0,93
+111,54.9,100.3,42,27.7,83,Partly Cloudy,1.5,Cafes,4.2,10,1,Exercise,Cafes,20.0,0.0,82
+138,83.5,169.5,49,28.9,40,Cloudy,5.6,Cafes,4.1,9,6,Meditate,All,8.0,0.0,32
+78,43.6,72.9,48,23.0,49,Clear,0.8,Parks,4.1,15,3,Study,Fitness,20.0,0.0,71
+77,42.3,83.2,50,30.3,53,Clear,1.2,Cafes,4.8,20,2,Study,Parks,8.0,0.0,83
+29,16.2,28.1,39,26.9,71,Thunderstorm,3.0,Parks,4.7,19,6,Relax,Fitness,10.0,4.1,87
+116,48.0,97.3,42,20.1,63,Partly Cloudy,0.9,Meditation,3.9,20,4,Relax,Fitness,20.0,0.0,62
+55,34.6,59.8,44,22.1,65,Partly Cloudy,1.4,Cafes,4.9,20,1,Fresh Air,Fitness,5.0,3.4,89
+145,90.7,157.0,41,23.6,58,Rainy,7.1,Parks,3.5,6,2,Study,Meditation,10.0,0.0,13
+50,32.1,58.6,54,33.4,62,Partly Cloudy,0.9,Cafes,4.7,10,1,Exercise,All,8.0,0.0,83
+119,61.9,128.4,47,25.7,70,Partly Cloudy,1.1,Lakes,3.8,6,3,Fresh Air,Cafes,8.0,0.0,76
+136,55.6,102.4,38,18.6,48,Rainy,1.8,Libraries,3.6,12,3,Fresh Air,Parks,8.0,0.0,59
+117,68.1,132.6,59,20.0,61,Clear,1.6,Cafes,4.0,10,3,Meditate,Lakes,15.0,3.1,33
+51,24.3,49.2,43,22.5,82,Rainy,0.6,Meditation,4.6,17,3,Quiet Time,All,15.0,0.0,96
+61,26.9,53.1,35,34.6,45,Partly Cloudy,7.0,Meditation,4.9,18,3,Quiet Time,Meditation,8.0,0.0,86
+111,54.6,94.2,40,19.3,76,Rainy,1.6,Libraries,3.9,8,5,Fresh Air,Cafes,15.0,4.5,74
+55,24.5,50.8,41,21.6,65,Partly Cloudy,4.3,Meditation,4.8,9,3,Relax,Libraries,15.0,0.0,83
+43,17.2,30.4,47,35.5,59,Rainy,0.9,Lakes,3.9,6,1,Fresh Air,All,5.0,4.5,76
+171,101.6,217.9,32,30.7,35,Rainy,6.7,Libraries,4.4,8,3,Relax,Fitness,20.0,0.0,45
+45,23.2,40.3,42,28.5,54,Clear,0.5,Parks,4.6,20,2,Exercise,Cafes,8.0,0.0,99
+42,20.9,40.5,51,34.4,66,Cloudy,2.5,Lakes,4.0,20,5,Quiet Time,Parks,10.0,4.5,83
+47,28.6,53.8,42,32.6,71,Mist/Fog,6.9,Parks,4.7,19,5,Quiet Time,Lakes,5.0,4.0,76
+133,71.5,146.8,45,24.2,65,Thunderstorm,1.1,Fitness,4.3,21,7,Fresh Air,Fitness,10.0,0.0,52
+103,48.2,91.5,37,20.7,54,Partly Cloudy,2.7,Lakes,4.8,17,5,Quiet Time,Parks,15.0,4.7,96
+117,66.0,120.9,53,29.4,83,Thunderstorm,5.1,Cafes,4.0,13,3,Quiet Time,Lakes,10.0,0.0,66
+133,61.6,127.2,50,21.1,67,Rainy,3.2,Fitness,4.5,22,5,Relax,Meditation,10.0,4.8,33
+93,37.8,70.5,63,28.0,82,Cloudy,5.5,Fitness,4.3,17,2,Fresh Air,Lakes,15.0,0.0,46
+74,40.8,71.3,37,35.6,61,Cloudy,4.5,Libraries,4.7,6,4,Fresh Air,Parks,10.0,3.4,70
+50,31.0,53.7,56,22.6,36,Mist/Fog,0.7,Cafes,4.1,22,2,Relax,Lakes,8.0,0.0,65
+110,61.8,108.8,51,33.5,72,Rainy,1.3,Lakes,4.9,12,7,Meditate,Lakes,8.0,0.0,33
+46,27.4,55.5,40,32.7,38,Cloudy,7.6,Meditation,3.8,21,4,Exercise,Lakes,5.0,4.6,81
+88,46.6,91.1,50,29.4,45,Thunderstorm,1.1,Cafes,4.8,6,4,Relax,Cafes,8.0,3.5,84
+135,63.1,136.8,51,33.4,36,Partly Cloudy,6.1,Cafes,4.5,11,4,Exercise,Fitness,10.0,4.5,53
+41,21.3,42.2,42,30.2,40,Thunderstorm,0.9,Meditation,3.9,18,1,Exercise,Lakes,8.0,0.0,91
+40,19.6,38.9,36,35.3,40,Cloudy,5.0,Meditation,4.9,13,4,Relax,Parks,8.0,0.0,77
+177,92.5,151.7,46,33.2,53,Rainy,7.9,Fitness,3.9,21,1,Fresh Air,Fitness,15.0,0.0,13
+49,25.0,51.0,36,32.5,46,Partly Cloudy,2.9,Meditation,4.2,19,7,Meditate,Fitness,10.0,3.6,91
+112,59.2,116.5,45,28.0,75,Rainy,1.3,Cafes,4.7,14,2,Fresh Air,Parks,15.0,0.0,66
+92,51.2,107.4,51,34.0,62,Cloudy,4.1,Parks,5.0,12,1,Exercise,Cafes,10.0,3.4,79
+159,96.4,163.2,53,20.2,53,Clear,1.1,Cafes,4.8,18,4,Exercise,All,5.0,3.0,56
+63,30.8,67.2,43,25.9,67,Clear,0.7,Meditation,3.9,7,7,Meditate,Parks,10.0,3.9,90
+24,15.5,27.8,34,21.6,68,Partly Cloudy,3.0,Lakes,4.6,18,5,Quiet Time,Libraries,5.0,4.8,99
+66,37.8,73.3,58,34.4,52,Clear,2.9,Cafes,3.8,22,3,Fresh Air,Fitness,15.0,0.0,49
+53,24.8,50.3,45,22.3,76,Cloudy,1.9,Lakes,4.3,21,2,Fresh Air,Fitness,5.0,0.0,99
+61,37.4,73.0,49,27.1,44,Clear,1.9,Lakes,4.5,22,7,Fresh Air,Fitness,15.0,0.0,99
+81,51.4,86.1,49,33.3,66,Mist/Fog,6.8,Cafes,4.6,20,4,Fresh Air,All,10.0,4.6,67
+44,24.0,40.1,46,31.3,60,Cloudy,0.8,Parks,3.9,15,1,Quiet Time,Fitness,10.0,3.7,75
+128,76.8,165.9,33,27.1,38,Cloudy,0.5,Meditation,4.5,20,4,Study,Lakes,8.0,0.0,62
+158,88.0,190.1,46,33.7,53,Thunderstorm,7.7,Cafes,3.7,22,4,Exercise,Fitness,5.0,3.6,28
+130,52.6,86.1,32,34.1,64,Cloudy,1.5,Libraries,4.4,19,4,Fresh Air,Cafes,10.0,0.0,56
+105,47.2,91.5,63,33.2,40,Mist/Fog,1.7,Fitness,3.8,6,2,Relax,Cafes,20.0,0.0,30
+89,53.0,113.8,67,20.7,59,Rainy,1.9,Fitness,4.9,17,1,Relax,Cafes,5.0,0.0,31
+61,36.9,60.3,39,24.1,47,Cloudy,1.5,Lakes,4.4,16,7,Study,All,10.0,3.9,88
+55,34.8,65.8,43,25.5,37,Rainy,6.3,Meditation,4.0,6,3,Quiet Time,Parks,20.0,0.0,82
+53,26.7,54.2,51,26.5,53,Clear,1.7,Fitness,4.3,11,1,Fresh Air,All,15.0,0.0,80
+22,14.0,28.1,38,30.0,56,Clear,2.9,Lakes,5.0,17,6,Exercise,Libraries,20.0,0.0,99
+54,24.3,40.0,35,21.1,43,Partly Cloudy,1.5,Parks,4.4,12,6,Relax,Lakes,5.0,0.0,99
+21,13.2,26.4,42,28.1,57,Thunderstorm,1.0,Meditation,4.3,12,5,Exercise,Parks,5.0,4.9,99
+147,73.9,138.3,34,33.9,79,Mist/Fog,6.0,Libraries,4.3,15,5,Fresh Air,All,5.0,0.0,44
+112,49.0,102.4,32,22.6,67,Clear,1.1,Libraries,4.6,19,4,Exercise,Lakes,8.0,4.2,89
+62,35.5,66.9,63,22.9,63,Cloudy,1.6,Fitness,4.2,8,3,Study,Libraries,20.0,0.0,53
+82,49.4,88.8,41,29.8,44,Cloudy,1.4,Lakes,4.4,6,7,Fresh Air,Libraries,8.0,0.0,96
+126,62.7,125.4,40,35.3,41,Clear,15.3,Meditation,4.8,10,2,Exercise,Lakes,8.0,0.0,37
+99,51.7,88.5,46,21.7,59,Rainy,3.2,Fitness,3.6,18,6,Meditate,Lakes,10.0,0.0,23
+33,20.5,39.2,39,22.4,81,Thunderstorm,5.7,Lakes,4.4,16,6,Fresh Air,Cafes,10.0,0.0,83
+154,80.9,156.7,45,24.1,77,Cloudy,0.8,Fitness,4.5,21,6,Study,Fitness,15.0,0.0,57
+84,53.9,115.8,48,24.6,40,Clear,11.8,Fitness,3.8,14,7,Study,Libraries,10.0,3.1,47
+107,55.0,91.3,53,22.5,39,Clear,3.3,Fitness,5.0,17,6,Fresh Air,Cafes,20.0,0.0,64
+24,10.9,23.2,43,27.8,66,Clear,16.0,Parks,4.7,22,7,Study,Cafes,8.0,0.0,68
+46,26.6,55.0,36,27.9,35,Partly Cloudy,0.4,Lakes,4.4,8,6,Meditate,Fitness,20.0,0.0,79
+47,25.0,45.2,50,32.0,80,Mist/Fog,3.3,Parks,4.0,6,3,Relax,Lakes,15.0,0.0,79
+105,67.1,139.6,45,32.8,37,Thunderstorm,10.3,Cafes,4.4,21,6,Fresh Air,Libraries,5.0,0.0,51
+78,39.5,63.5,62,20.0,62,Partly Cloudy,2.4,Fitness,4.7,12,7,Study,All,10.0,0.0,54
+47,24.0,42.0,35,25.6,52,Rainy,7.1,Lakes,3.8,18,1,Relax,Lakes,8.0,0.0,85
+52,30.7,53.7,47,20.7,57,Cloudy,0.8,Cafes,4.5,18,6,Study,Libraries,5.0,0.0,94
+51,31.7,57.5,62,34.6,62,Mist/Fog,0.4,Fitness,3.5,20,1,Study,All,20.0,0.0,43
+58,29.8,60.0,37,35.5,53,Partly Cloudy,5.9,Lakes,4.7,13,1,Relax,Meditation,20.0,0.0,86
+91,38.3,81.3,52,34.1,64,Clear,1.0,Fitness,4.6,13,1,Fresh Air,Meditation,5.0,3.4,59
+147,87.6,173.2,60,20.0,36,Mist/Fog,4.8,Fitness,3.6,8,3,Study,Cafes,10.0,0.0,20
+128,57.3,105.1,48,22.0,55,Partly Cloudy,5.4,Cafes,4.0,17,6,Relax,All,5.0,3.9,51
+166,71.4,147.3,38,34.7,36,Rainy,3.9,Parks,4.7,6,7,Relax,Libraries,5.0,0.0,29
+130,69.9,140.4,48,34.6,66,Partly Cloudy,3.2,Lakes,3.6,17,4,Study,Meditation,15.0,0.0,30
+107,43.8,86.0,35,22.3,69,Mist/Fog,3.2,Libraries,4.6,8,1,Exercise,Libraries,5.0,0.0,89
+54,24.2,49.1,29,21.8,79,Thunderstorm,1.5,Meditation,3.5,14,6,Relax,Fitness,15.0,3.8,86
+131,82.8,175.7,64,24.0,45,Mist/Fog,6.7,Fitness,3.5,21,7,Quiet Time,Fitness,15.0,0.0,41
+20,10.7,21.3,34,35.0,44,Mist/Fog,0.7,Meditation,4.1,10,7,Study,Cafes,8.0,0.0,84
+174,74.9,139.4,41,31.3,36,Clear,3.6,Libraries,4.2,6,5,Quiet Time,Fitness,8.0,0.0,48
+22,13.6,29.9,42,30.0,61,Rainy,1.8,Parks,4.2,21,7,Fresh Air,All,20.0,0.0,88
+40,23.0,43.8,49,19.9,51,Clear,3.9,Parks,4.9,15,4,Relax,Lakes,20.0,4.0,99
+45,19.3,37.7,30,24.4,75,Clear,6.8,Meditation,4.1,13,7,Study,Cafes,8.0,0.0,83

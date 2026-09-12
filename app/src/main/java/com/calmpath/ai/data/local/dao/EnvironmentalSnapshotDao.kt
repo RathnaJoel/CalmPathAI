@@ -39,6 +39,9 @@ interface EnvironmentalSnapshotDao {
     @Query("SELECT * FROM environmental_snapshots ORDER BY recordedAt DESC")
     fun getAllSnapshotsFlow(): Flow<List<EnvironmentalSnapshotEntity>>
 
+    @Query("SELECT * FROM environmental_snapshots ORDER BY recordedAt DESC LIMIT 1")
+    suspend fun getLatestOverallSnapshot(): EnvironmentalSnapshotEntity?
+
     @Query("SELECT COUNT(*) FROM environmental_snapshots")
     suspend fun getSnapshotCount(): Int
 }

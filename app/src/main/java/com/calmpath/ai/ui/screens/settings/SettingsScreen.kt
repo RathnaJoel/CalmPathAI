@@ -127,8 +127,9 @@ fun SettingsScreen(
                     }
                 }
 
-                // Section 2: Notifications
-                SettingsSection(title = "Notifications & AI Alerts", icon = Icons.Rounded.Notifications) {
+                // Section 2: Notifications & Smart Alerts (CO10)
+                SettingsSection(title = "Notifications & Smart Alerts", icon = Icons.Rounded.Notifications) {
+                    // Master Notification Switch
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -136,25 +137,145 @@ fun SettingsScreen(
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "Calmness & AQI Alerts",
+                                text = "Smart Alerts System",
                                 style = MaterialTheme.typography.titleSmall,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                             Text(
-                                text = "Receive gentle alerts when nearby areas reach pristine peace scores.",
+                                text = "AI & ML proactive monitoring of AQI, noise spikes, weather, and tranquility matches.",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                         Switch(
-                            checked = uiState.notificationsEnabled,
-                            onCheckedChange = { viewModel.onNotificationsToggled(it) },
+                            checked = uiState.notificationsEnabled && uiState.smartAlertsEnabled,
+                            onCheckedChange = {
+                                viewModel.onNotificationsToggled(it)
+                                viewModel.onSmartAlertsToggled(it)
+                            },
                             colors = SwitchDefaults.colors(
                                 checkedThumbColor = Color.White,
                                 checkedTrackColor = Sage800
                             )
                         )
+                    }
+
+                    if (uiState.notificationsEnabled && uiState.smartAlertsEnabled) {
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        // Sub-toggle: Environmental Alerts
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("Environmental Alerts", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+                            Switch(
+                                checked = uiState.environmentalAlertsEnabled,
+                                onCheckedChange = { viewModel.onEnvironmentalAlertsToggled(it) },
+                                colors = SwitchDefaults.colors(checkedThumbColor = Color.White, checkedTrackColor = Sage800)
+                            )
+                        }
+
+                        // Sub-toggle: AQI Alerts
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(start = 12.dp, top = 2.dp, bottom = 2.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("AQI Deterioration Alerts", style = MaterialTheme.typography.bodySmall)
+                            Switch(
+                                checked = uiState.aqiAlertsEnabled,
+                                onCheckedChange = { viewModel.onAqiAlertsToggled(it) },
+                                enabled = uiState.environmentalAlertsEnabled,
+                                colors = SwitchDefaults.colors(checkedThumbColor = Color.White, checkedTrackColor = Sage800)
+                            )
+                        }
+
+                        // Sub-toggle: Noise Alerts
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(start = 12.dp, top = 2.dp, bottom = 2.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("High Noise Alerts", style = MaterialTheme.typography.bodySmall)
+                            Switch(
+                                checked = uiState.noiseAlertsEnabled,
+                                onCheckedChange = { viewModel.onNoiseAlertsToggled(it) },
+                                enabled = uiState.environmentalAlertsEnabled,
+                                colors = SwitchDefaults.colors(checkedThumbColor = Color.White, checkedTrackColor = Sage800)
+                            )
+                        }
+
+                        // Sub-toggle: Weather Alerts
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(start = 12.dp, top = 2.dp, bottom = 2.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("Rain & Weather Alerts", style = MaterialTheme.typography.bodySmall)
+                            Switch(
+                                checked = uiState.weatherAlertsEnabled,
+                                onCheckedChange = { viewModel.onWeatherAlertsToggled(it) },
+                                enabled = uiState.environmentalAlertsEnabled,
+                                colors = SwitchDefaults.colors(checkedThumbColor = Color.White, checkedTrackColor = Sage800)
+                            )
+                        }
+
+                        // Sub-toggle: ML Recommendations
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text("ML Recommendations", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+                                Text("Notify when a nearby place matches your personalized preferences.", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                            Switch(
+                                checked = uiState.mlRecommendationsEnabled,
+                                onCheckedChange = { viewModel.onMlRecommendationsToggled(it) },
+                                colors = SwitchDefaults.colors(checkedThumbColor = Color.White, checkedTrackColor = Sage800)
+                            )
+                        }
+
+                        // Min ML Score Slider
+                        if (uiState.mlRecommendationsEnabled) {
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text("Minimum ML Match Score", style = MaterialTheme.typography.bodySmall)
+                                Text("${uiState.minMlScore.toInt()}%", style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold, color = Sage800)
+                            }
+                            Slider(
+                                value = uiState.minMlScore,
+                                onValueChange = { viewModel.onMinMlScoreChanged(it) },
+                                valueRange = 60f..95f,
+                                steps = 6,
+                                colors = SliderDefaults.colors(thumbColor = Sage800, activeTrackColor = Sage800)
+                            )
+                        }
+
+                        // Alert Cooldown / Frequency
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("Alert Cooldown (Anti-Spam)", style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold)
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            listOf(15, 30, 60).forEach { mins ->
+                                FilterChip(
+                                    selected = uiState.alertCooldownMinutes == mins,
+                                    onClick = { viewModel.onAlertCooldownChanged(mins) },
+                                    label = { Text("${mins}m") },
+                                    colors = FilterChipDefaults.filterChipColors(
+                                        selectedContainerColor = Sage800,
+                                        selectedLabelColor = Color.White
+                                    )
+                                )
+                            }
+                        }
                     }
                 }
 

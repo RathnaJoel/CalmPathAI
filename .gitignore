@@ -34,3 +34,10 @@ app/build/
 
 # Log files
 *.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/

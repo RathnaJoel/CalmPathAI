@@ -78,17 +78,19 @@ fun MoodCard(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.weight(1f)
             ) {
-                // Emoji Icon Container
+                // Vector Icon Container (Replaced cheap emoji)
                 Box(
                     modifier = Modifier
                         .size(52.dp)
                         .clip(CircleShape)
-                        .background(accentColor.copy(alpha = 0.20f)),
+                        .background(accentColor.copy(alpha = if (isSelected) 0.22f else 0.12f)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = mood.emoji,
-                        fontSize = 24.sp
+                    Icon(
+                        imageVector = mood.icon,
+                        contentDescription = mood.title,
+                        tint = accentColor,
+                        modifier = Modifier.size(26.dp)
                     )
                 }
 

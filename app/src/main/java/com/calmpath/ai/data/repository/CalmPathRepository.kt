@@ -16,6 +16,7 @@ import com.calmpath.ai.data.local.entities.PlaceHistoryWithPlace
 import com.calmpath.ai.data.local.entities.UserPreferencesEntity
 import com.calmpath.ai.data.local.entities.UserProfileEntity
 import com.calmpath.ai.data.location.LocationHelper
+import com.calmpath.ai.data.location.LocationResult
 import com.calmpath.ai.data.model.AqiCategory
 import com.calmpath.ai.data.model.EnvironmentalSummary
 import com.calmpath.ai.data.model.HeatmapZone
@@ -36,6 +37,11 @@ import com.calmpath.ai.data.remote.api.WeatherApiService
 import com.calmpath.ai.data.remote.model.AirQualityInfo
 import com.calmpath.ai.data.remote.model.WeatherInfo
 import com.calmpath.ai.util.NavigationUtils
+import com.calmpath.ai.alerts.AlertCooldownManager
+import com.calmpath.ai.alerts.AlertDecisionEngine
+import com.calmpath.ai.alerts.NotificationHelper
+import com.calmpath.ai.alerts.ai.AlertMessageGenerator
+import com.calmpath.ai.data.repository.SmartAlertRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -65,9 +71,15 @@ class CalmPathRepository(
     private val directionsApi: DirectionsApiService = RetrofitClient.directionsApi,
     private val osrmApi: OsrmApiService = RetrofitClient.osrmApi,
     val peaceScoreCalculator: PeaceScoreCalculator = PeaceScoreCalculator.default,
+    val recommendationEngine: com.calmpath.ai.ml.RecommendationEngine? = null,
+    val context: android.content.Context? = null,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) {
     private val tag = "CalmPathRepository"
+
+    val activeRecommendationEngine: com.calmpath.ai.ml.RecommendationEngine =
+        recommendationEngine ?: context?.let { com.calmpath.ai.ml.RecommendationEngine.getInstance(it) }
+        ?: com.calmpath.ai.ml.RecommendationEngine(com.calmpath.ai.ml.PeaceRecommendationModel.createBaselineModel())
 
     val placeRepository = PlaceRepository(database.placeDao(), database.environmentalSnapshotDao())
     val favoriteRepository = FavoriteRepository(database.favoritePlaceDao())
@@ -75,6 +87,58 @@ class CalmPathRepository(
     val moodRepository = MoodRepository(database.moodHistoryDao())
     val userRepository = UserRepository(database.userProfileDao(), database.userPreferencesDao())
     val settingsRepository = SettingsRepository(database.appSettingsDao())
+    val environmentalSnapshotDao = database.environmentalSnapshotDao()
+    val recommendationInteractionDao = database.recommendationInteractionDao()
+    val chatRepository = ChatRepository(database.chatDao(), RetrofitClient.chatApi, this, activeRecommendationEngine)
+    val appSettingsDao = database.appSettingsDao()
+    val smartAlertDao = database.smartAlertDao()
+    val alertCooldownManager = AlertCooldownManager(smartAlertDao)
+    val alertMessageGenerator = AlertMessageGenerator(RetrofitClient.chatApi)
+    val alertDecisionEngine = AlertDecisionEngine(
+        alertCooldownManager,
+        activeRecommendationEngine,
+        alertMessageGenerator
+    )
+    val notificationHelper = context?.let { NotificationHelper(it) }
+    val smartAlertRepository: SmartAlertRepository? = notificationHelper?.let {
+        SmartAlertRepository(
+            smartAlertDao = smartAlertDao,
+            decisionEngine = alertDecisionEngine,
+            notificationHelper = it,
+            calmPathRepository = this
+        )
+    }
+
+    suspend fun recordRecommendationInteraction(
+        placeId: String,
+        mood: String,
+        mlScore: Int,
+        action: String,
+        userRating: Int? = null,
+        userId: String = "guest"
+    ) {
+        val entity = com.calmpath.ai.data.local.entities.RecommendationInteractionEntity(
+            userId = userId,
+            placeId = placeId,
+            mood = mood,
+            mlScore = mlScore,
+            action = action,
+            userRating = userRating
+        )
+        recommendationInteractionDao.insertInteraction(entity)
+    }
+
+    // Live or default location state for synchronization across all ViewModels (CO5 & CO8)
+    val currentLocation = MutableStateFlow<LocationResult.Success>(LocationHelper.defaultLocation)
+
+    suspend fun refreshCurrentLocation(): LocationResult.Success {
+        val result = locationHelper?.getCurrentLocation()
+        if (result is LocationResult.Success) {
+            currentLocation.value = result
+            return result
+        }
+        return currentLocation.value
+    }
 
     // CO6: In-App Map Navigation Target Request
     val navigationTargetPlaceId = MutableStateFlow<String?>(null)
@@ -217,6 +281,7 @@ class CalmPathRepository(
 
     init {
         scope.launch {
+            refreshCurrentLocation()
             // Seed 8 Room entities with initial realistic dataset
             DatabaseSeeder.seedDatabase(database)
 
@@ -765,6 +830,36 @@ class CalmPathRepository(
     suspend fun saveUnits(distanceUnit: String, tempUnit: String, userId: String = getCurrentUserId()) {
         ensureUserExists(userId)
         settingsRepository.updateUnits(userId, distanceUnit, tempUnit)
+    }
+
+    suspend fun saveAlertSettings(
+        smartAlertsEnabled: Boolean,
+        environmentalAlertsEnabled: Boolean,
+        aqiAlertsEnabled: Boolean,
+        noiseAlertsEnabled: Boolean,
+        weatherAlertsEnabled: Boolean,
+        mlRecommendationsEnabled: Boolean,
+        maxAqiThreshold: Int,
+        maxNoiseThreshold: Int,
+        minMlScoreThreshold: Int,
+        alertCooldownMinutes: Int,
+        userId: String = getCurrentUserId()
+    ) {
+        ensureUserExists(userId)
+        val current = getAppSettings(userId)
+        val updated = current.copy(
+            smartAlertsEnabled = smartAlertsEnabled,
+            environmentalAlertsEnabled = environmentalAlertsEnabled,
+            aqiAlertsEnabled = aqiAlertsEnabled,
+            noiseAlertsEnabled = noiseAlertsEnabled,
+            weatherAlertsEnabled = weatherAlertsEnabled,
+            mlRecommendationsEnabled = mlRecommendationsEnabled,
+            maxAqiThreshold = maxAqiThreshold,
+            maxNoiseThreshold = maxNoiseThreshold,
+            minMlScoreThreshold = minMlScoreThreshold,
+            alertCooldownMinutes = alertCooldownMinutes
+        )
+        settingsRepository.updateSettings(updated)
     }
 
     // ==========================================

@@ -9,6 +9,7 @@ import com.calmpath.ai.data.repository.CalmPathRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 data class FavoritesUiState(
@@ -30,13 +31,20 @@ class FavoritesViewModel(
 
     private fun observeFavorites() {
         viewModelScope.launch {
-            repository.favoritesWithPlacesFlow.collect { favoritesList ->
-                val places = favoritesList.map { it.place.toDomainModel() }
-                _uiState.value = _uiState.value.copy(
+            combine(
+                repository.favoritesWithPlacesFlow,
+                repository.currentLocation
+            ) { favoritesList, currLoc ->
+                val places = favoritesList.map { 
+                    it.place.toDomainModel(userLat = currLoc.latitude, userLon = currLoc.longitude) 
+                }
+                _uiState.value.copy(
                     favoriteItems = favoritesList,
                     favoritePlaces = places,
                     isLoading = false
                 )
+            }.collect { newState ->
+                _uiState.value = newState
             }
         }
     }

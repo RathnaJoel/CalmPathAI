@@ -3,6 +3,7 @@ package com.calmpath.ai.data.local.entities
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.calmpath.ai.data.location.LocationHelper
 import com.calmpath.ai.data.model.Mood
 import com.calmpath.ai.data.model.Place
 
@@ -31,7 +32,11 @@ data class PlaceEntity(
     val averageNoiseLevel: Int, // dB
     val peaceScore: Int // 0 - 100
 ) {
-    fun toDomainModel(snapshot: EnvironmentalSnapshotEntity? = null): Place {
+    fun toDomainModel(
+        snapshot: EnvironmentalSnapshotEntity? = null,
+        userLat: Double = LocationHelper.DEFAULT_LATITUDE,
+        userLon: Double = LocationHelper.DEFAULT_LONGITUDE
+    ): Place {
         val categoryEmoji = when (category.lowercase()) {
             "parks" -> "🌿"
             "lakes" -> "🌊"
@@ -44,6 +49,7 @@ data class PlaceEntity(
         val currentAqi = snapshot?.aqi ?: averageAQI
         val currentNoise = snapshot?.noiseLevelDb ?: averageNoiseLevel
         val currentPeaceScore = snapshot?.peaceScore ?: peaceScore
+        val calculatedDistance = LocationHelper.calculateDistanceKm(userLat, userLon, latitude, longitude)
 
         return Place(
             id = placeId,
@@ -52,7 +58,7 @@ data class PlaceEntity(
             categoryIcon = categoryEmoji,
             latitude = latitude,
             longitude = longitude,
-            distanceKm = 1.5,
+            distanceKm = calculatedDistance,
             peaceScore = currentPeaceScore,
             aqi = currentAqi,
             noiseDb = currentNoise,

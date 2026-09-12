@@ -1,6 +1,13 @@
 package com.calmpath.ai.data.model
 
-import androidx.compose.ui.graphics.Color
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.DirectionsRun
+import androidx.compose.material.icons.automirrored.rounded.MenuBook
+import androidx.compose.material.icons.rounded.LocalCafe
+import androidx.compose.material.icons.rounded.Park
+import androidx.compose.material.icons.rounded.SelfImprovement
+import androidx.compose.material.icons.rounded.Spa
+import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
  * Represents the user's current mood and intent for finding a peaceful sanctuary.
@@ -67,7 +74,7 @@ enum class Mood(
     ),
     QUIET_TIME(
         id = "quiet_time",
-        title = "Spend Some Quiet Time",
+        title = "Quiet Time",
         emoji = "☕",
         subtitle = "Peaceful cafes and scenic viewpoints",
         idealMaxNoiseDb = 45,
@@ -75,6 +82,16 @@ enum class Mood(
         defaultCategory = "Cafes",
         accentColorHex = 0xFFD8F3DC
     );
+
+    val icon: ImageVector
+        get() = when (this) {
+            RELAX -> Icons.Rounded.Spa
+            MEDITATE -> Icons.Rounded.SelfImprovement
+            STUDY -> Icons.AutoMirrored.Rounded.MenuBook
+            EXERCISE -> Icons.AutoMirrored.Rounded.DirectionsRun
+            FRESH_AIR -> Icons.Rounded.Park
+            QUIET_TIME -> Icons.Rounded.LocalCafe
+        }
 
     companion object {
         fun fromId(id: String?): Mood {

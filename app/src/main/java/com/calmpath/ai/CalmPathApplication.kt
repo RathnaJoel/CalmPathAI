@@ -50,9 +50,13 @@ class CalmPathApplication : Application() {
             authManager = authManager,
             firestoreSync = firestoreSyncManager,
             networkMonitor = networkMonitor,
-            locationHelper = locationHelper
+            locationHelper = locationHelper,
+            context = this
         )
 
         authRepository = AuthRepository(authManager, database)
+
+        // Enqueue background periodic smart alert evaluations (CO10)
+        com.calmpath.ai.alerts.SmartAlertWorker.enqueuePeriodicWork(this)
     }
 }

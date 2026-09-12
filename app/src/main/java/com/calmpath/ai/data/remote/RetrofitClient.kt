@@ -1,5 +1,6 @@
 package com.calmpath.ai.data.remote
 
+import com.calmpath.ai.data.remote.api.AIChatService
 import com.calmpath.ai.data.remote.api.AirQualityApiService
 import com.calmpath.ai.data.remote.api.DirectionsApiService
 import com.calmpath.ai.data.remote.api.OsrmApiService
@@ -12,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
- * Singleton configuring Retrofit REST clients and OkHttp instances for CalmPath AI (CO5 & CO6).
+ * Singleton configuring Retrofit REST clients and OkHttp instances for CalmPath AI (CO5 & CO6 & CO8).
  */
 object RetrofitClient {
 
@@ -21,6 +22,7 @@ object RetrofitClient {
     private const val OVERPASS_BASE_URL = "https://overpass-api.de/"
     private const val GOOGLE_MAPS_BASE_URL = "https://maps.googleapis.com/"
     private const val OSRM_BASE_URL = "https://router.project-osrm.org/"
+    var AI_BACKEND_BASE_URL = "http://10.0.2.2:5000/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BASIC
@@ -83,5 +85,14 @@ object RetrofitClient {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(OsrmApiService::class.java)
+    }
+
+    val chatApi: AIChatService by lazy {
+        Retrofit.Builder()
+            .baseUrl(AI_BACKEND_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(AIChatService::class.java)
     }
 }

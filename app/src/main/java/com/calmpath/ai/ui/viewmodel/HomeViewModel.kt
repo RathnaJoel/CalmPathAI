@@ -45,7 +45,8 @@ data class HomeUiState(
     val isLoading: Boolean = false,
     val isManualLocation: Boolean = false,
     val selectedManualLocation: IndianLocation? = null,
-    val isRealtimeTelemetryActive: Boolean = true
+    val isRealtimeTelemetryActive: Boolean = true,
+    val unreadAlertsCount: Int = 0
 )
 
 class HomeViewModel(
@@ -169,10 +170,14 @@ class HomeViewModel(
             combine(
                 repository.placesFlow,
                 repository.preferencesFlow,
-                repository.favoritesWithPlacesFlow
-            ) { placesEntities, preferences, favorites ->
+                repository.favoritesWithPlacesFlow,
+                repository.currentLocation,
+                repository.smartAlertDao.getUnreadCountFlow("guest")
+            ) { placesEntities, preferences, favorites, currLoc, unreadAlerts ->
                 val currentMood = Mood.fromId(preferences.preferredMood)
-                val placesDomain = placesEntities.map { it.toDomainModel() }
+                val placesDomain = placesEntities.map { 
+                    it.toDomainModel(userLat = currLoc.latitude, userLon = currLoc.longitude) 
+                }
                 val recommended = placesDomain.sortedWith(
                     compareByDescending<Place> { it.suitableMoods.contains(currentMood) }
                         .thenByDescending { it.peaceScore }
@@ -183,6 +188,7 @@ class HomeViewModel(
                     selectedMood = currentMood,
                     recommendedPlaces = recommended,
                     favoritePlaceIds = favIds,
+                    unreadAlertsCount = unreadAlerts,
                     isLoading = false
                 )
             }.collect { newState ->
