@@ -347,4 +347,91 @@ class CalmPathLogicTest {
         val fallback = registry.findById("non_existent_city")
         assertEquals("Mumbai", fallback.cityName)
     }
+
+    // ==========================================
+    // CO6: GOOGLE MAPS NAVIGATION & MARKERS TESTS
+    // ==========================================
+
+    @Test
+    fun testNavigationUriAndWebFallbackUrlGeneration() {
+        val lat = 18.9220
+        val lon = 72.8347
+        val uriString = com.calmpath.ai.util.NavigationUtils.buildNavigationUriString(lat, lon, "w")
+        assertEquals("google.navigation:q=18.922,72.8347&mode=w", uriString)
+
+        val drivingUriString = com.calmpath.ai.util.NavigationUtils.buildNavigationUriString(lat, lon, "d")
+        assertEquals("google.navigation:q=18.922,72.8347&mode=d", drivingUriString)
+
+        val webUrl = com.calmpath.ai.util.NavigationUtils.buildWebDirectionsUrl(lat, lon, "w")
+        assertEquals("https://www.google.com/maps/dir/?api=1&destination=18.922,72.8347&travelmode=walking", webUrl)
+
+        val webDrivingUrl = com.calmpath.ai.util.NavigationUtils.buildWebDirectionsUrl(lat, lon, "d")
+        assertEquals("https://www.google.com/maps/dir/?api=1&destination=18.922,72.8347&travelmode=driving", webDrivingUrl)
+    }
+
+    @Test
+    fun testAllPlaceMarkersHaveValidCoordinatesAndPeaceScores() {
+        val places = DatabaseSeeder.samplePlaces
+        assertTrue("DatabaseSeeder should provide places for map markers", places.isNotEmpty())
+
+        for (place in places) {
+            // Latitude in India range (6.5 to 37.5)
+            assertTrue(
+                "Place ${place.name} latitude ${place.latitude} must be within India bounds",
+                place.latitude in 6.5..37.5
+            )
+            // Longitude in India range (68.0 to 97.5)
+            assertTrue(
+                "Place ${place.name} longitude ${place.longitude} must be within India bounds",
+                place.longitude in 68.0..97.5
+            )
+            // Peace score in valid 0..100 range
+            assertTrue(
+                "Place ${place.name} peace score ${place.peaceScore} must be in 0..100",
+                place.peaceScore in 0..100
+            )
+            // Decibels and AQI valid
+            assertTrue("Place ${place.name} averageAQI must be > 0", place.averageAQI > 0)
+            assertTrue("Place ${place.name} averageNoiseLevel must be > 0", place.averageNoiseLevel > 0)
+            assertTrue("Place ${place.name} must have non-empty address", place.address.isNotBlank())
+        }
+    }
+
+    @Test
+    fun testFilterPlacesBySearchAndCategory() {
+        val places = DatabaseSeeder.samplePlaces.map { it.toDomainModel() }
+
+        // Filter by category "Parks"
+        val parkPlaces = places.filter { it.category.equals("Parks", ignoreCase = true) }
+        assertTrue("Should have multiple Parks in India", parkPlaces.size >= 5)
+        assertTrue(parkPlaces.all { it.category.equals("Parks", ignoreCase = true) })
+
+        // Filter by search query "Garden"
+        val gardenPlaces = places.filter {
+            it.name.contains("Garden", ignoreCase = true) ||
+            it.description.contains("Garden", ignoreCase = true) ||
+            it.address.contains("Garden", ignoreCase = true)
+        }
+        assertTrue("Should find sanctuaries with 'Garden' in name/desc", gardenPlaces.isNotEmpty())
+
+        // Filter by category "Libraries"
+        val libraryPlaces = places.filter { it.category.equals("Libraries", ignoreCase = true) }
+        assertTrue("Should have library sanctuaries", libraryPlaces.isNotEmpty())
+    }
+
+    @Test
+    fun testIndiaBoundaryGeofenceForNavigationCoordinates() {
+        // Valid Indian sanctuary coordinates
+        assertTrue(LocationHelper.isLocationInIndia(19.0760, 72.8777)) // Mumbai
+        assertTrue(LocationHelper.isLocationInIndia(28.6139, 77.2090)) // New Delhi
+        assertTrue(LocationHelper.isLocationInIndia(12.9716, 77.5946)) // Bengaluru
+        assertTrue(LocationHelper.isLocationInIndia(13.0827, 80.2707)) // Chennai
+        assertTrue(LocationHelper.isLocationInIndia(30.0869, 78.2676)) // Rishikesh
+
+        // Outside India coordinates must be rejected
+        assertFalse(LocationHelper.isLocationInIndia(37.7749, -122.4194)) // San Francisco, USA
+        assertFalse(LocationHelper.isLocationInIndia(51.5074, -0.1278))   // London, UK
+        assertFalse(LocationHelper.isLocationInIndia(35.6762, 139.6503))  // Tokyo, Japan
+        assertFalse(LocationHelper.isLocationInIndia(-33.8688, 151.2093)) // Sydney, Australia
+    }
 }

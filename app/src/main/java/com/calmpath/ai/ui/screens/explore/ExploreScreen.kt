@@ -1,5 +1,8 @@
 package com.calmpath.ai.ui.screens.explore
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -38,16 +41,17 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.calmpath.ai.data.remote.NetworkStatus
 import com.calmpath.ai.ui.components.EmptyStateView
-import com.calmpath.ai.ui.components.EnvironmentalHeatmapCanvas
 import com.calmpath.ai.ui.components.FilterChipGroup
 import com.calmpath.ai.ui.components.VerticalPlaceCard
 import com.calmpath.ai.ui.theme.Sage100
@@ -56,8 +60,8 @@ import com.calmpath.ai.ui.theme.Sage800
 import com.calmpath.ai.ui.viewmodel.ExploreViewModel
 
 /**
- * Screen 4: Explore Screen with Search, Filter Chips, Environmental Heatmap,
- * Location Awareness, and Offline Fallback (CO1, CO2, CO5).
+ * Screen 4: Explore Screen with Google Maps, Search, Filter Chips,
+ * Location Awareness, and Offline Fallback (CO1, CO2, CO5, CO6).
  */
 @Composable
 fun ExploreScreen(
@@ -65,6 +69,26 @@ fun ExploreScreen(
     onNavigateToDetails: (String) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    // Location Permission Launcher (CO6)
+    val locationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val fineGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+        val coarseGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+        viewModel.onLocationPermissionResult(fineGranted || coarseGranted)
+    }
+
+    LaunchedEffect(Unit) {
+        if (!uiState.hasLocationPermission) {
+            locationPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -264,19 +288,39 @@ fun ExploreScreen(
                 )
             }
 
-            // Main Content: Map Heatmap vs List View
+            // Main Content: Interactive Google Map vs List View (CO6)
             if (uiState.isMapView) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                        .padding(horizontal = 12.dp, vertical = 4.dp)
+                        .clip(RoundedCornerShape(16.dp))
                 ) {
-                    EnvironmentalHeatmapCanvas(
-                        zones = uiState.heatmapZones,
+                    ExploreMapContent(
                         places = uiState.filteredPlaces,
+                        heatmapZones = uiState.heatmapZones,
                         selectedPlace = uiState.selectedPlaceForPreview,
-                        onSelectPlace = { viewModel.onSelectPlace(it) },
-                        onViewPlaceDetails = onNavigateToDetails,
+                        currentLat = uiState.currentLatitude,
+                        currentLon = uiState.currentLongitude,
+                        cameraTargetLat = uiState.cameraTargetLat,
+                        cameraTargetLon = uiState.cameraTargetLon,
+                        cameraMoveTrigger = uiState.cameraMoveTrigger,
+                        hasLocationPermission = uiState.hasLocationPermission,
+                        onMarkerClick = { viewModel.onMarkerClicked(it) },
+                        onDismissPreview = { viewModel.onDismissPreview() },
+                        onViewDetailsClick = onNavigateToDetails,
+                        onMyLocationClick = {
+                            if (!uiState.hasLocationPermission) {
+                                locationPermissionLauncher.launch(
+                                    arrayOf(
+                                        Manifest.permission.ACCESS_FINE_LOCATION,
+                                        Manifest.permission.ACCESS_COARSE_LOCATION
+                                    )
+                                )
+                            } else {
+                                viewModel.onMyLocationClicked()
+                            }
+                        },
                         modifier = Modifier.fillMaxSize()
                     )
                 }

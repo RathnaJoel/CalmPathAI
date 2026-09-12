@@ -45,6 +45,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -56,6 +57,7 @@ import com.calmpath.ai.ui.theme.QualityPoorRed
 import com.calmpath.ai.ui.theme.Sage100
 import com.calmpath.ai.ui.theme.Sage800
 import com.calmpath.ai.ui.viewmodel.PlaceDetailsViewModel
+import com.calmpath.ai.util.NavigationUtils
 
 /**
  * Screen 5: Place Details Screen (CO1, CO2, CO3, CO4).
@@ -68,6 +70,7 @@ fun PlaceDetailsScreen(
     val uiState by viewModel.uiState.collectAsState()
     val place = uiState.place
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
     if (place == null) {
         Box(
@@ -405,9 +408,18 @@ fun PlaceDetailsScreen(
                     )
                 }
 
-                // Navigate Button
+                // Navigate Button (CO6: Google Maps Turn-by-Turn Navigation)
                 Button(
-                    onClick = { viewModel.startNavigation() },
+                    onClick = {
+                        viewModel.startNavigation()
+                        NavigationUtils.launchGoogleMapsNavigation(
+                            context = context,
+                            destinationLat = place.latitude,
+                            destinationLon = place.longitude,
+                            destinationName = place.name,
+                            mode = "w" // Pedestrian tranquil route
+                        )
+                    },
                     shape = RoundedCornerShape(16.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Sage800),
                     modifier = Modifier.weight(1.4f).height(50.dp)

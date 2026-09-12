@@ -29,6 +29,10 @@ data class ExploreUiState(
     val currentLocality: String = LocationHelper.DEFAULT_LOCALITY,
     val currentLatitude: Double = LocationHelper.DEFAULT_LATITUDE,
     val currentLongitude: Double = LocationHelper.DEFAULT_LONGITUDE,
+    val cameraTargetLat: Double = LocationHelper.DEFAULT_LATITUDE,
+    val cameraTargetLon: Double = LocationHelper.DEFAULT_LONGITUDE,
+    val cameraMoveTrigger: Long = 0L,
+    val hasLocationPermission: Boolean = false,
     val isOutsideIndia: Boolean = false,
     val isLoading: Boolean = false
 )
@@ -38,7 +42,10 @@ class ExploreViewModel(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
-        ExploreUiState(heatmapZones = repository.getHeatmapZones())
+        ExploreUiState(
+            heatmapZones = repository.getHeatmapZones(),
+            hasLocationPermission = repository.locationHelper?.hasLocationPermission() ?: false
+        )
     )
     val uiState: StateFlow<ExploreUiState> = _uiState.asStateFlow()
 
@@ -106,6 +113,7 @@ class ExploreViewModel(
                 is LocationResult.OutsideIndia -> {
                     _uiState.value = _uiState.value.copy(
                         isOutsideIndia = true,
+                        hasLocationPermission = true,
                         currentLocality = locationResult.country,
                         isLoading = false
                     )
@@ -114,9 +122,13 @@ class ExploreViewModel(
                 is LocationResult.Success -> {
                     _uiState.value = _uiState.value.copy(
                         isOutsideIndia = false,
+                        hasLocationPermission = true,
                         currentLocality = locationResult.locality,
                         currentLatitude = locationResult.latitude,
-                        currentLongitude = locationResult.longitude
+                        currentLongitude = locationResult.longitude,
+                        cameraTargetLat = locationResult.latitude,
+                        cameraTargetLon = locationResult.longitude,
+                        cameraMoveTrigger = System.currentTimeMillis()
                     )
                 }
                 is LocationResult.Unavailable -> {
@@ -124,15 +136,20 @@ class ExploreViewModel(
                         isOutsideIndia = false,
                         currentLocality = locationResult.fallbackLocation.locality,
                         currentLatitude = locationResult.fallbackLocation.latitude,
-                        currentLongitude = locationResult.fallbackLocation.longitude
+                        currentLongitude = locationResult.fallbackLocation.longitude,
+                        cameraTargetLat = locationResult.fallbackLocation.latitude,
+                        cameraTargetLon = locationResult.fallbackLocation.longitude
                     )
                 }
                 is LocationResult.PermissionDenied -> {
                     _uiState.value = _uiState.value.copy(
                         isOutsideIndia = false,
+                        hasLocationPermission = false,
                         currentLocality = LocationHelper.DEFAULT_LOCALITY,
                         currentLatitude = LocationHelper.DEFAULT_LATITUDE,
-                        currentLongitude = LocationHelper.DEFAULT_LONGITUDE
+                        currentLongitude = LocationHelper.DEFAULT_LONGITUDE,
+                        cameraTargetLat = LocationHelper.DEFAULT_LATITUDE,
+                        cameraTargetLon = LocationHelper.DEFAULT_LONGITUDE
                     )
                 }
             }
@@ -149,6 +166,35 @@ class ExploreViewModel(
         }
     }
 
+    fun onLocationPermissionResult(granted: Boolean) {
+        _uiState.value = _uiState.value.copy(hasLocationPermission = granted)
+        refreshNearbyPlaces()
+    }
+
+    fun onMyLocationClicked() {
+        val lat = _uiState.value.currentLatitude
+        val lon = _uiState.value.currentLongitude
+        _uiState.value = _uiState.value.copy(
+            cameraTargetLat = lat,
+            cameraTargetLon = lon,
+            cameraMoveTrigger = System.currentTimeMillis()
+        )
+        refreshNearbyPlaces()
+    }
+
+    fun onMarkerClicked(place: Place) {
+        _uiState.value = _uiState.value.copy(
+            selectedPlaceForPreview = place,
+            cameraTargetLat = place.latitude,
+            cameraTargetLon = place.longitude,
+            cameraMoveTrigger = System.currentTimeMillis()
+        )
+    }
+
+    fun onDismissPreview() {
+        _uiState.value = _uiState.value.copy(selectedPlaceForPreview = null)
+    }
+
     fun onSearchQueryChanged(query: String) {
         _uiState.value = _uiState.value.copy(searchQuery = query)
         filterPlaces()
@@ -160,7 +206,12 @@ class ExploreViewModel(
     }
 
     fun onSelectPlace(place: Place) {
-        _uiState.value = _uiState.value.copy(selectedPlaceForPreview = place)
+        _uiState.value = _uiState.value.copy(
+            selectedPlaceForPreview = place,
+            cameraTargetLat = place.latitude,
+            cameraTargetLon = place.longitude,
+            cameraMoveTrigger = System.currentTimeMillis()
+        )
     }
 
     fun toggleViewMode() {

@@ -11,6 +11,19 @@
     <!-- Audio permission for decibel meter -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <!-- Package queries for Google Maps (CO6) -->
+    <queries>
+        <package android:name="com.google.android.apps.maps" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="geo" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="google.navigation" />
+        </intent>
+    </queries>
+
     <application
         android:name=".CalmPathApplication"
         android:allowBackup="true"
@@ -22,6 +35,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CalmPathAI"
         tools:targetApi="31">
+
+        <!-- Google Maps SDK API Key (CO6) -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
 
         <activity
             android:name=".MainActivity"

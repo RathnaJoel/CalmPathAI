@@ -16,6 +16,7 @@ val localProperties = Properties().apply {
 }
 val weatherApiKey: String = localProperties.getProperty("WEATHER_API_KEY", "")
 val aqiApiKey: String = localProperties.getProperty("AQI_API_KEY", "")
+val mapsApiKey: String = localProperties.getProperty("MAPS_API_KEY", "YOUR_API_KEY_HERE").ifBlank { "YOUR_API_KEY_HERE" }
 
 android {
     namespace = "com.calmpath.ai"
@@ -33,8 +34,11 @@ android {
             useSupportLibrary = true
         }
 
+        manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
+
         buildConfigField("String", "WEATHER_API_KEY", "\"$weatherApiKey\"")
         buildConfigField("String", "AQI_API_KEY", "\"$aqiApiKey\"")
+        buildConfigField("String", "MAPS_API_KEY", "\"$mapsApiKey\"")
     }
 
     buildTypes {
@@ -105,6 +109,10 @@ dependencies {
 
     // Location Services (CO5)
     implementation(libs.play.services.location)
+
+    // Google Maps (CO6)
+    implementation(libs.play.services.maps)
+    implementation(libs.maps.compose)
 
     // Testing
     testImplementation(libs.junit)
