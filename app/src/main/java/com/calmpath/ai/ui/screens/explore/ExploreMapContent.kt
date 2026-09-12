@@ -106,6 +106,10 @@ fun ExploreMapContent(
     hasLocationPermission: Boolean,
     activeRouteDestination: Place? = null,
     routeCoordinates: List<Pair<Double, Double>> = emptyList(),
+    routeDistanceText: String? = null,
+    routeDurationText: String? = null,
+    routeStepInstruction: String? = null,
+    isRouteLoading: Boolean = false,
     onMarkerClick: (Place) -> Unit,
     onDismissPreview: () -> Unit,
     onViewDetailsClick: (String) -> Unit,
@@ -385,11 +389,53 @@ fun ExploreMapContent(
                             overflow = TextOverflow.Ellipsis
                         )
 
+                        val distDisplay = routeDistanceText ?: "${dest.distanceKm} km"
+                        val durDisplay = routeDurationText ?: "~${(dest.distanceKm * 12).toInt()} min walk"
                         Text(
-                            text = "${dest.distanceKm} km • ~${(dest.distanceKm * 12).toInt()} min walk • 🌿 Low Noise Corridor",
+                            text = "$distDisplay • $durDisplay • 🌿 Quiet Street Route",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
+
+                        if (!routeStepInstruction.isNullOrBlank()) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = Sage100.copy(alpha = 0.75f)
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Navigation,
+                                        contentDescription = null,
+                                        tint = Sage800,
+                                        modifier = Modifier.size(14.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(
+                                        text = routeStepInstruction,
+                                        style = MaterialTheme.typography.labelSmall,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = Sage800,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            }
+                        }
+
+                        if (isRouteLoading) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            androidx.compose.material3.LinearProgressIndicator(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(2.dp),
+                                color = Sage800,
+                                trackColor = Sage100
+                            )
+                        }
 
                         Spacer(modifier = Modifier.height(8.dp))
 

@@ -22,15 +22,20 @@ import com.calmpath.ai.data.model.HeatmapZone
 import com.calmpath.ai.data.model.Mood
 import com.calmpath.ai.data.model.NoiseCategory
 import com.calmpath.ai.data.model.Place
+import com.calmpath.ai.BuildConfig
+import com.calmpath.ai.data.model.WalkingRouteData
 import com.calmpath.ai.data.remote.FirestoreSyncManager
 import com.calmpath.ai.data.remote.NetworkMonitor
 import com.calmpath.ai.data.remote.RetrofitClient
 import com.calmpath.ai.data.remote.SampleDataSource
 import com.calmpath.ai.data.remote.api.AirQualityApiService
+import com.calmpath.ai.data.remote.api.DirectionsApiService
+import com.calmpath.ai.data.remote.api.OsrmApiService
 import com.calmpath.ai.data.remote.api.PlacesApiService
 import com.calmpath.ai.data.remote.api.WeatherApiService
 import com.calmpath.ai.data.remote.model.AirQualityInfo
 import com.calmpath.ai.data.remote.model.WeatherInfo
+import com.calmpath.ai.util.NavigationUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,6 +62,8 @@ class CalmPathRepository(
     private val weatherApi: WeatherApiService = RetrofitClient.weatherApi,
     private val airQualityApi: AirQualityApiService = RetrofitClient.airQualityApi,
     private val placesApi: PlacesApiService = RetrofitClient.placesApi,
+    private val directionsApi: DirectionsApiService = RetrofitClient.directionsApi,
+    private val osrmApi: OsrmApiService = RetrofitClient.osrmApi,
     val peaceScoreCalculator: PeaceScoreCalculator = PeaceScoreCalculator.default,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) {
@@ -78,6 +85,134 @@ class CalmPathRepository(
 
     fun clearNavigationRequest() {
         navigationTargetPlaceId.value = null
+    }
+
+    /**
+     * Fetches real turn-by-turn walking route coordinates and maneuver instructions (CO6).
+     *
+     * Priority:
+     * 1. Google Directions API (via developer's active MAPS_API_KEY)
+     * 2. OSRM Walking Engine (Free open-source fallback)
+     * 3. Tranquil Corridor Interpolation (Offline fallback)
+     */
+    suspend fun fetchWalkingRoute(
+        startLat: Double,
+        startLon: Double,
+        endLat: Double,
+        endLon: Double
+    ): WalkingRouteData = withContext(Dispatchers.IO) {
+        val defaultFallback = {
+            val coords = NavigationUtils.generateTranquilRouteCoordinates(startLat, startLon, endLat, endLon)
+            val distKm = LocationHelper.calculateDistanceKm(startLat, startLon, endLat, endLon)
+            val estMins = (distKm * 12).toInt().coerceAtLeast(1)
+            WalkingRouteData(
+                coordinates = coords,
+                distanceText = String.format(java.util.Locale.US, "%.1f km", distKm),
+                durationText = "$estMins min walk",
+                distanceMeters = (distKm * 1000).toLong(),
+                durationSeconds = (estMins * 60).toLong(),
+                stepInstructions = listOf("Follow tranquil green corridor toward destination"),
+                summary = "Tranquil Walking Corridor"
+            )
+        }
+
+        // 1. Try Google Directions API
+        val apiKey = BuildConfig.MAPS_API_KEY
+        if (apiKey.isNotBlank() && apiKey != "YOUR_API_KEY_HERE") {
+            try {
+                val origin = "$startLat,$startLon"
+                val dest = "$endLat,$endLon"
+                val response = directionsApi.getWalkingDirections(
+                    origin = origin,
+                    destination = dest,
+                    mode = "walking",
+                    apiKey = apiKey
+                )
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    if (body != null && body.status == "OK" && body.routes.isNotEmpty()) {
+                        val route = body.routes.first()
+                        val polylineStr = route.overviewPolyline?.points.orEmpty()
+                        val decodedPoints = if (polylineStr.isNotEmpty()) {
+                            NavigationUtils.decodePolyline(polylineStr)
+                        } else emptyList()
+
+                        if (decodedPoints.isNotEmpty()) {
+                            val leg = route.legs.firstOrNull()
+                            val distText = leg?.distance?.text ?: ""
+                            val durText = leg?.duration?.text ?: ""
+                            val distVal = leg?.distance?.value ?: 0L
+                            val durVal = leg?.duration?.value ?: 0L
+
+                            val steps = leg?.steps?.mapNotNull { step ->
+                                val clean = NavigationUtils.cleanHtmlInstructions(step.htmlInstructions)
+                                if (clean.isNotBlank()) clean else null
+                            } ?: emptyList()
+
+                            Log.d(tag, "Google Directions route fetched successfully: ${decodedPoints.size} points")
+                            return@withContext WalkingRouteData(
+                                coordinates = decodedPoints,
+                                distanceText = distText,
+                                durationText = durText,
+                                distanceMeters = distVal,
+                                durationSeconds = durVal,
+                                stepInstructions = steps,
+                                summary = route.summary.orEmpty()
+                            )
+                        }
+                    } else {
+                        Log.w(tag, "Google Directions returned status: ${body?.status} (${body?.errorMessage})")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.w(tag, "Google Directions API request failed: ${e.message}, falling back to OSRM")
+            }
+        }
+
+        // 2. Fallback to Open Source Routing Machine (OSRM)
+        try {
+            val coordsParam = "$startLon,$startLat;$endLon,$endLat"
+            val osrmResp = osrmApi.getWalkingRoute(coordinates = coordsParam)
+            if (osrmResp.isSuccessful) {
+                val osrmBody = osrmResp.body()
+                if (osrmBody != null && osrmBody.code == "Ok" && osrmBody.routes.isNotEmpty()) {
+                    val osrmRoute = osrmBody.routes.first()
+                    val rawCoords = osrmRoute.geometry?.coordinates.orEmpty()
+                    val points = rawCoords.mapNotNull { pt ->
+                        if (pt.size >= 2) Pair(pt[1], pt[0]) else null
+                    }
+                    if (points.isNotEmpty()) {
+                        val distKm = osrmRoute.distance / 1000.0
+                        val durMins = (osrmRoute.duration / 60.0).toInt().coerceAtLeast(1)
+                        val leg = osrmRoute.legs.firstOrNull()
+                        val steps = leg?.steps?.mapNotNull { step ->
+                            val maneuver = step.maneuver
+                            val action = "${maneuver?.type.orEmpty()} ${maneuver?.modifier.orEmpty()}".trim()
+                            val street = step.name.trim()
+                            if (street.isNotBlank()) {
+                                if (action.isNotBlank()) "$action onto $street" else "Continue on $street"
+                            } else if (action.isNotBlank()) action else null
+                        } ?: emptyList()
+
+                        Log.d(tag, "OSRM walking route fetched successfully: ${points.size} points")
+                        return@withContext WalkingRouteData(
+                            coordinates = points,
+                            distanceText = String.format(java.util.Locale.US, "%.1f km", distKm),
+                            durationText = "$durMins min walk",
+                            distanceMeters = osrmRoute.distance.toLong(),
+                            durationSeconds = osrmRoute.duration.toLong(),
+                            stepInstructions = steps,
+                            summary = "Pedestrian Corridor"
+                        )
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.w(tag, "OSRM routing request failed: ${e.message}, using offline corridor")
+        }
+
+        // 3. Fallback: Tranquil Corridor Interpolation
+        defaultFallback()
     }
 
     init {

@@ -35,6 +35,10 @@ data class ExploreUiState(
     val cameraMoveTrigger: Long = 0L,
     val activeRouteDestination: Place? = null,
     val routeCoordinates: List<Pair<Double, Double>> = emptyList(),
+    val routeDistanceText: String? = null,
+    val routeDurationText: String? = null,
+    val routeStepInstruction: String? = null,
+    val isRouteLoading: Boolean = false,
     val hasLocationPermission: Boolean = false,
     val isOutsideIndia: Boolean = false,
     val isLoading: Boolean = false
@@ -222,7 +226,8 @@ class ExploreViewModel(
     fun startInAppNavigation(place: Place) {
         val userLat = _uiState.value.currentLatitude
         val userLon = _uiState.value.currentLongitude
-        val route = NavigationUtils.generateTranquilRouteCoordinates(
+        // Fast initial fallback route for immediate visual feedback
+        val initialRoute = NavigationUtils.generateTranquilRouteCoordinates(
             startLat = userLat,
             startLon = userLon,
             endLat = place.latitude,
@@ -235,11 +240,45 @@ class ExploreViewModel(
             isMapView = true,
             activeRouteDestination = place,
             selectedPlaceForPreview = place,
-            routeCoordinates = route,
+            routeCoordinates = initialRoute,
+            routeDistanceText = null,
+            routeDurationText = null,
+            routeStepInstruction = "Calculating street walking route...",
+            isRouteLoading = true,
             cameraTargetLat = midLat,
             cameraTargetLon = midLon,
             cameraMoveTrigger = System.currentTimeMillis()
         )
+
+        // Asynchronously fetch real street-by-street walking turns from Google Directions API (with OSRM fallback)
+        viewModelScope.launch {
+            try {
+                val routeData = repository.fetchWalkingRoute(
+                    startLat = userLat,
+                    startLon = userLon,
+                    endLat = place.latitude,
+                    endLon = place.longitude
+                )
+                if (_uiState.value.activeRouteDestination?.id == place.id) {
+                    val firstStep = routeData.stepInstructions.firstOrNull() ?: "Follow route to destination"
+                    _uiState.value = _uiState.value.copy(
+                        routeCoordinates = routeData.coordinates,
+                        routeDistanceText = routeData.distanceText,
+                        routeDurationText = routeData.durationText,
+                        routeStepInstruction = firstStep,
+                        isRouteLoading = false,
+                        cameraMoveTrigger = System.currentTimeMillis()
+                    )
+                }
+            } catch (e: Exception) {
+                if (_uiState.value.activeRouteDestination?.id == place.id) {
+                    _uiState.value = _uiState.value.copy(
+                        isRouteLoading = false,
+                        routeStepInstruction = "Follow tranquil pedestrian corridor"
+                    )
+                }
+            }
+        }
     }
 
     /**
@@ -248,7 +287,11 @@ class ExploreViewModel(
     fun stopInAppNavigation() {
         _uiState.value = _uiState.value.copy(
             activeRouteDestination = null,
-            routeCoordinates = emptyList()
+            routeCoordinates = emptyList(),
+            routeDistanceText = null,
+            routeDurationText = null,
+            routeStepInstruction = null,
+            isRouteLoading = false
         )
     }
 

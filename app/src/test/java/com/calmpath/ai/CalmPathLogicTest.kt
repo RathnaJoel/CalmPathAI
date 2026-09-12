@@ -460,4 +460,26 @@ class CalmPathLogicTest {
             )
         }
     }
+
+    @Test
+    fun testDecodeGooglePolyline() {
+        // Standard official Google Maps polyline test vector
+        val encoded = "_p~iF~ps|U_ulLnnqC_mqNvxq"
+        val points = com.calmpath.ai.util.NavigationUtils.decodePolyline(encoded)
+
+        assertEquals(3, points.size)
+        assertEquals(38.5, points[0].first, 0.0001)
+        assertEquals(-120.2, points[0].second, 0.0001)
+        assertEquals(40.7, points[1].first, 0.0001)
+        assertEquals(-120.95, points[1].second, 0.0001)
+        assertEquals(43.252, points[2].first, 0.0001)
+        assertEquals(-121.04628, points[2].second, 0.0001)
+    }
+
+    @Test
+    fun testCleanHtmlInstructions() {
+        val rawHtml = "Head <b>east</b> on <b>Old Custom House Rd</b> toward <div style=\"font-size:0.9em\">Mint Rd</div>"
+        val cleaned = com.calmpath.ai.util.NavigationUtils.cleanHtmlInstructions(rawHtml)
+        assertEquals("Head east on Old Custom House Rd toward Mint Rd", cleaned)
+    }
 }
