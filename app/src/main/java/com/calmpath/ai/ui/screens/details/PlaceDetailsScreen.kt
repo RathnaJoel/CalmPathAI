@@ -49,6 +49,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.calmpath.ai.data.model.CalmnessLevel
 import com.calmpath.ai.ui.components.DecibelMeterCard
 import com.calmpath.ai.ui.components.PeaceScoreCard
 import com.calmpath.ai.ui.theme.OceanTeal
@@ -58,14 +59,23 @@ import com.calmpath.ai.ui.theme.Sage100
 import com.calmpath.ai.ui.theme.Sage800
 import com.calmpath.ai.ui.viewmodel.PlaceDetailsViewModel
 import com.calmpath.ai.util.NavigationUtils
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.Circle
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapUiSettings
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 
 /**
- * Screen 5: Place Details Screen (CO1, CO2, CO3, CO4).
+ * Screen 5: Place Details Screen (CO1, CO2, CO3, CO4, CO6).
  */
 @Composable
 fun PlaceDetailsScreen(
     viewModel: PlaceDetailsViewModel,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onNavigateToExplore: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val place = uiState.place
@@ -369,10 +379,113 @@ fun PlaceDetailsScreen(
                         }
                     }
                 }
+                // CO6: Embedded Interactive Google Map for Sanctuary Location
+                Card(
+                    shape = RoundedCornerShape(18.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(modifier = Modifier.padding(14.dp)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    imageVector = Icons.Rounded.LocationOn,
+                                    contentDescription = null,
+                                    tint = Sage800,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = "Sanctuary Map Location",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+
+                            Text(
+                                text = "${place.distanceKm} km away",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = Sage800,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(180.dp)
+                                .clip(RoundedCornerShape(14.dp))
+                        ) {
+                            GoogleMap(
+                                modifier = Modifier.fillMaxSize(),
+                                cameraPositionState = rememberCameraPositionState {
+                                    position = CameraPosition.fromLatLngZoom(
+                                        LatLng(place.latitude, place.longitude),
+                                        14.5f
+                                    )
+                                },
+                                uiSettings = MapUiSettings(
+                                    zoomControlsEnabled = false,
+                                    scrollGesturesEnabled = false,
+                                    zoomGesturesEnabled = false,
+                                    rotationGesturesEnabled = false,
+                                    tiltGesturesEnabled = false
+                                )
+                            ) {
+                                Marker(
+                                    state = MarkerState(position = LatLng(place.latitude, place.longitude)),
+                                    title = "${place.categoryIcon} ${place.name}",
+                                    snippet = "Peace Score: ${place.peaceScore} • ${place.address}"
+                                )
+                                Circle(
+                                    center = LatLng(place.latitude, place.longitude),
+                                    radius = 450.0,
+                                    fillColor = Color(CalmnessLevel.fromScore(place.peaceScore).colorHex).copy(alpha = 0.22f),
+                                    strokeColor = Color(CalmnessLevel.fromScore(place.peaceScore).colorHex).copy(alpha = 0.75f),
+                                    strokeWidth = 3f
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Button(
+                            onClick = {
+                                viewModel.requestInAppNavigation(place.id)
+                                onNavigateToExplore()
+                            },
+                            shape = RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Sage800),
+                            modifier = Modifier.fillMaxWidth().height(42.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Navigation,
+                                contentDescription = null,
+                                tint = Color.White,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "🧭 View Walking Route on Map",
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
+                            )
+                        }
+                    }
+                }
             }
         }
 
-        // Fixed Bottom Action Bar
+        // Fixed Bottom Action Bar (CO6: In-App Route + External Map option)
         Card(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -384,15 +497,15 @@ fun PlaceDetailsScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp, vertical = 14.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Favorite Button
                 OutlinedButton(
                     onClick = { viewModel.toggleFavorite() },
                     shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.weight(1f).height(50.dp)
+                    modifier = Modifier.weight(0.9f).height(50.dp)
                 ) {
                     Icon(
                         imageVector = if (uiState.isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
@@ -400,7 +513,7 @@ fun PlaceDetailsScreen(
                         tint = if (uiState.isFavorite) QualityPoorRed else Sage800,
                         modifier = Modifier.size(18.dp)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = if (uiState.isFavorite) "Saved" else "Favorite",
                         fontWeight = FontWeight.Bold,
@@ -408,8 +521,32 @@ fun PlaceDetailsScreen(
                     )
                 }
 
-                // Navigate Button (CO6: Google Maps Turn-by-Turn Navigation)
+                // Primary Action: [ 🧭 In-App Route ] (Renders route polyline on Google Map inside the app!)
                 Button(
+                    onClick = {
+                        viewModel.requestInAppNavigation(place.id)
+                        onNavigateToExplore()
+                    },
+                    shape = RoundedCornerShape(16.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Sage800),
+                    modifier = Modifier.weight(1.3f).height(50.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Navigation,
+                        contentDescription = "In-App Route",
+                        tint = Color.White,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = "🧭 In-App Route",
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                }
+
+                // Secondary Action: External Google Maps App
+                IconButton(
                     onClick = {
                         viewModel.startNavigation()
                         NavigationUtils.launchGoogleMapsNavigation(
@@ -417,24 +554,19 @@ fun PlaceDetailsScreen(
                             destinationLat = place.latitude,
                             destinationLon = place.longitude,
                             destinationName = place.name,
-                            mode = "w" // Pedestrian tranquil route
+                            mode = "w"
                         )
                     },
-                    shape = RoundedCornerShape(16.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Sage800),
-                    modifier = Modifier.weight(1.4f).height(50.dp)
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Sage100)
                 ) {
                     Icon(
-                        imageVector = Icons.Rounded.Navigation,
-                        contentDescription = "Navigate",
-                        tint = Color.White,
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "🧭 Navigate",
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
+                        imageVector = Icons.Rounded.LocationOn,
+                        contentDescription = "Open Google Maps App",
+                        tint = Sage800,
+                        modifier = Modifier.size(22.dp)
                     )
                 }
             }

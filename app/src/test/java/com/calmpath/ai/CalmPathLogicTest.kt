@@ -434,4 +434,30 @@ class CalmPathLogicTest {
         assertFalse(LocationHelper.isLocationInIndia(35.6762, 139.6503))  // Tokyo, Japan
         assertFalse(LocationHelper.isLocationInIndia(-33.8688, 151.2093)) // Sydney, Australia
     }
+
+    @Test
+    fun testTranquilRouteCoordinateGeneration() {
+        val startLat = 19.0760
+        val startLon = 72.8777
+        val destLat = 18.9554
+        val destLon = 72.8052
+
+        val route = com.calmpath.ai.util.NavigationUtils.generateTranquilRouteCoordinates(
+            startLat, startLon, destLat, destLon
+        )
+
+        assertTrue("Route should contain multiple waypoints", route.size >= 5)
+        assertEquals(startLat, route.first().first, 0.0001)
+        assertEquals(startLon, route.first().second, 0.0001)
+        assertEquals(destLat, route.last().first, 0.0001)
+        assertEquals(destLon, route.last().second, 0.0001)
+
+        // Verify all intermediate route coordinates are within India
+        for (pt in route) {
+            assertTrue(
+                "Route waypoint (${pt.first}, ${pt.second}) must be in India",
+                LocationHelper.isLocationInIndia(pt.first, pt.second)
+            )
+        }
+    }
 }

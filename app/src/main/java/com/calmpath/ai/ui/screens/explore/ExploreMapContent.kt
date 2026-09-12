@@ -68,6 +68,7 @@ import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 
 /**
@@ -92,10 +93,14 @@ fun ExploreMapContent(
     cameraTargetLon: Double,
     cameraMoveTrigger: Long,
     hasLocationPermission: Boolean,
+    activeRouteDestination: Place? = null,
+    routeCoordinates: List<Pair<Double, Double>> = emptyList(),
     onMarkerClick: (Place) -> Unit,
     onDismissPreview: () -> Unit,
     onViewDetailsClick: (String) -> Unit,
     onMyLocationClick: () -> Unit,
+    onStartInAppNavigation: (Place) -> Unit = {},
+    onStopInAppNavigation: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -109,8 +114,9 @@ fun ExploreMapContent(
     LaunchedEffect(cameraMoveTrigger) {
         if (cameraMoveTrigger > 0L) {
             val target = LatLng(cameraTargetLat, cameraTargetLon)
+            val zoom = if (activeRouteDestination != null) 14.5f else 14f
             cameraPositionState.animate(
-                update = CameraUpdateFactory.newLatLngZoom(target, 14f),
+                update = CameraUpdateFactory.newLatLngZoom(target, zoom),
                 durationMs = 900
             )
         }
@@ -159,6 +165,29 @@ fun ExploreMapContent(
                         onMarkerClick(place)
                         false // Allow default info window display while selecting card
                     }
+                )
+            }
+
+            // In-App Navigation Route Polyline (CO6)
+            if (routeCoordinates.isNotEmpty()) {
+                val routeLatLngs = routeCoordinates.map { LatLng(it.first, it.second) }
+                // Outer tranquil glow path
+                Polyline(
+                    points = routeLatLngs,
+                    color = OceanTeal.copy(alpha = 0.85f),
+                    width = 14f
+                )
+                // Inner solid trail line
+                Polyline(
+                    points = routeLatLngs,
+                    color = Sage800,
+                    width = 6f
+                )
+                // Origin location pin
+                Marker(
+                    state = MarkerState(position = LatLng(currentLat, currentLon)),
+                    title = "📍 Your Location",
+                    snippet = "Navigation Starting Point"
                 )
             }
         }
@@ -220,6 +249,130 @@ fun ExploreMapContent(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
+                }
+            }
+        }
+
+        // 3b. Active In-App Navigation HUD Banner (CO6)
+        AnimatedVisibility(
+            visible = activeRouteDestination != null,
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = if (isDemoApiKey) 40.dp else 10.dp),
+            enter = slideInVertically(initialOffsetY = { -it }) + fadeIn(),
+            exit = slideOutVertically(targetOffsetY = { -it }) + fadeOut()
+        ) {
+            activeRouteDestination?.let { dest ->
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    color = MaterialTheme.colorScheme.surface,
+                    shadowElevation = 8.dp,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(modifier = Modifier.padding(12.dp)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(10.dp)
+                                        .clip(CircleShape)
+                                        .background(QualityGoodGreen)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = "🧭 In-App Route Active",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Sage800
+                                )
+                            }
+                            IconButton(
+                                onClick = onStopInAppNavigation,
+                                modifier = Modifier.size(24.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Close,
+                                    contentDescription = "Stop Navigation",
+                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        Text(
+                            text = "${dest.categoryIcon} Walking to ${dest.name}",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+
+                        Text(
+                            text = "${dest.distanceKm} km • ~${(dest.distanceKm * 12).toInt()} min walk • 🌿 Low Noise Corridor",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Button(
+                                onClick = onStopInAppNavigation,
+                                shape = RoundedCornerShape(10.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.errorContainer
+                                ),
+                                modifier = Modifier.weight(1f).height(38.dp)
+                            ) {
+                                Text(
+                                    text = "Stop Route",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onErrorContainer,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+
+                            Button(
+                                onClick = {
+                                    NavigationUtils.launchGoogleMapsNavigation(
+                                        context = context,
+                                        destinationLat = dest.latitude,
+                                        destinationLon = dest.longitude,
+                                        destinationName = dest.name,
+                                        mode = "w"
+                                    )
+                                },
+                                shape = RoundedCornerShape(10.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = Sage800),
+                                modifier = Modifier.weight(1.3f).height(38.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.Navigation,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                    modifier = Modifier.size(14.dp)
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    text = "External App",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -363,10 +516,11 @@ fun ExploreMapContent(
 
                         Spacer(modifier = Modifier.height(12.dp))
 
-                        // Actions Row: [ View Details ] and [ Navigate ]
+                        // Actions Row: [ Details ], [ 🧭 In-App Route ], and [ ↗ External App ]
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             OutlinedButton(
                                 onClick = { onViewDetailsClick(place.id) },
@@ -376,22 +530,15 @@ fun ExploreMapContent(
                                     .height(46.dp)
                             ) {
                                 Text(
-                                    text = "View Details",
+                                    text = "Details",
                                     style = MaterialTheme.typography.labelMedium,
                                     fontWeight = FontWeight.SemiBold
                                 )
                             }
 
+                            // Primary Action: [ 🧭 In-App Route ] (Renders route polyline on the map inside the app!)
                             Button(
-                                onClick = {
-                                    NavigationUtils.launchGoogleMapsNavigation(
-                                        context = context,
-                                        destinationLat = place.latitude,
-                                        destinationLon = place.longitude,
-                                        destinationName = place.name,
-                                        mode = "w" // Pedestrian walking mode for tranquil routes
-                                    )
-                                },
+                                onClick = { onStartInAppNavigation(place) },
                                 shape = RoundedCornerShape(12.dp),
                                 colors = ButtonDefaults.buttonColors(containerColor = Sage800),
                                 modifier = Modifier
@@ -400,16 +547,40 @@ fun ExploreMapContent(
                             ) {
                                 Icon(
                                     imageVector = Icons.Rounded.Navigation,
-                                    contentDescription = "Navigate",
+                                    contentDescription = "In-App Route",
                                     tint = Color.White,
                                     modifier = Modifier.size(16.dp)
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
-                                    text = "🧭 Navigate",
+                                    text = "🧭 In-App Route",
                                     style = MaterialTheme.typography.labelMedium,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White
+                                )
+                            }
+
+                            // Secondary Action: External Google Maps App
+                            IconButton(
+                                onClick = {
+                                    NavigationUtils.launchGoogleMapsNavigation(
+                                        context = context,
+                                        destinationLat = place.latitude,
+                                        destinationLon = place.longitude,
+                                        destinationName = place.name,
+                                        mode = "w"
+                                    )
+                                },
+                                modifier = Modifier
+                                    .size(46.dp)
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(Sage100)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Rounded.LocationOn,
+                                    contentDescription = "Open Google Maps App",
+                                    tint = Sage800,
+                                    modifier = Modifier.size(20.dp)
                                 )
                             }
                         }

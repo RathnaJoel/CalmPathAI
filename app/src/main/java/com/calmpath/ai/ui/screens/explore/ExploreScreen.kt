@@ -306,6 +306,8 @@ fun ExploreScreen(
                         cameraTargetLon = uiState.cameraTargetLon,
                         cameraMoveTrigger = uiState.cameraMoveTrigger,
                         hasLocationPermission = uiState.hasLocationPermission,
+                        activeRouteDestination = uiState.activeRouteDestination,
+                        routeCoordinates = uiState.routeCoordinates,
                         onMarkerClick = { viewModel.onMarkerClicked(it) },
                         onDismissPreview = { viewModel.onDismissPreview() },
                         onViewDetailsClick = onNavigateToDetails,
@@ -321,6 +323,8 @@ fun ExploreScreen(
                                 viewModel.onMyLocationClicked()
                             }
                         },
+                        onStartInAppNavigation = { viewModel.startInAppNavigation(it) },
+                        onStopInAppNavigation = { viewModel.stopInAppNavigation() },
                         modifier = Modifier.fillMaxSize()
                     )
                 }

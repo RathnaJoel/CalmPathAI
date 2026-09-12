@@ -226,7 +226,14 @@ fun CalmPathNavHost(
                     )
                     PlaceDetailsScreen(
                         viewModel = detailsViewModel,
-                        onBackClick = { navController.popBackStack() }
+                        onBackClick = { navController.popBackStack() },
+                        onNavigateToExplore = {
+                            navController.navigate(NavRoutes.Explore.route) {
+                                popUpTo(NavRoutes.Home.route) { saveState = true }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        }
                     )
                 }
 

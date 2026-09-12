@@ -36,6 +36,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -67,6 +68,17 @@ class CalmPathRepository(
     val moodRepository = MoodRepository(database.moodHistoryDao())
     val userRepository = UserRepository(database.userProfileDao(), database.userPreferencesDao())
     val settingsRepository = SettingsRepository(database.appSettingsDao())
+
+    // CO6: In-App Map Navigation Target Request
+    val navigationTargetPlaceId = MutableStateFlow<String?>(null)
+
+    fun requestInAppNavigation(placeId: String) {
+        navigationTargetPlaceId.value = placeId
+    }
+
+    fun clearNavigationRequest() {
+        navigationTargetPlaceId.value = null
+    }
 
     init {
         scope.launch {

@@ -72,6 +72,10 @@ class PlaceDetailsViewModel(
         }
     }
 
+    fun requestInAppNavigation(placeId: String) {
+        repository.requestInAppNavigation(placeId)
+    }
+
     fun startNavigation() {
         val place = _uiState.value.place ?: return
         _uiState.value = _uiState.value.copy(

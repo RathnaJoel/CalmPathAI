@@ -9,6 +9,7 @@ import com.calmpath.ai.data.model.HeatmapZone
 import com.calmpath.ai.data.model.Place
 import com.calmpath.ai.data.remote.NetworkStatus
 import com.calmpath.ai.data.repository.CalmPathRepository
+import com.calmpath.ai.util.NavigationUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,6 +33,8 @@ data class ExploreUiState(
     val cameraTargetLat: Double = LocationHelper.DEFAULT_LATITUDE,
     val cameraTargetLon: Double = LocationHelper.DEFAULT_LONGITUDE,
     val cameraMoveTrigger: Long = 0L,
+    val activeRouteDestination: Place? = null,
+    val routeCoordinates: List<Pair<Double, Double>> = emptyList(),
     val hasLocationPermission: Boolean = false,
     val isOutsideIndia: Boolean = false,
     val isLoading: Boolean = false
@@ -52,7 +55,22 @@ class ExploreViewModel(
     init {
         observeNetwork()
         observeRoomPlaces()
+        observeNavigationRequests()
         refreshNearbyPlaces()
+    }
+
+    private fun observeNavigationRequests() {
+        viewModelScope.launch {
+            repository.navigationTargetPlaceId.collect { targetId ->
+                if (targetId != null) {
+                    val place = _uiState.value.places.find { it.id == targetId }
+                    if (place != null) {
+                        startInAppNavigation(place)
+                        repository.clearNavigationRequest()
+                    }
+                }
+            }
+        }
     }
 
     private fun observeNetwork() {
@@ -193,6 +211,45 @@ class ExploreViewModel(
 
     fun onDismissPreview() {
         _uiState.value = _uiState.value.copy(selectedPlaceForPreview = null)
+    }
+
+    /**
+     * Activates In-App Navigation mode:
+     * 1. Draws a serene walking route polyline from current GPS position to destination.
+     * 2. Centers camera on the midpoint between origin and destination.
+     * 3. Displays the In-App Navigation HUD on the Google Map.
+     */
+    fun startInAppNavigation(place: Place) {
+        val userLat = _uiState.value.currentLatitude
+        val userLon = _uiState.value.currentLongitude
+        val route = NavigationUtils.generateTranquilRouteCoordinates(
+            startLat = userLat,
+            startLon = userLon,
+            endLat = place.latitude,
+            endLon = place.longitude
+        )
+        val midLat = (userLat + place.latitude) / 2.0
+        val midLon = (userLon + place.longitude) / 2.0
+
+        _uiState.value = _uiState.value.copy(
+            isMapView = true,
+            activeRouteDestination = place,
+            selectedPlaceForPreview = place,
+            routeCoordinates = route,
+            cameraTargetLat = midLat,
+            cameraTargetLon = midLon,
+            cameraMoveTrigger = System.currentTimeMillis()
+        )
+    }
+
+    /**
+     * Exits in-app navigation mode and clears the route polyline.
+     */
+    fun stopInAppNavigation() {
+        _uiState.value = _uiState.value.copy(
+            activeRouteDestination = null,
+            routeCoordinates = emptyList()
+        )
     }
 
     fun onSearchQueryChanged(query: String) {
