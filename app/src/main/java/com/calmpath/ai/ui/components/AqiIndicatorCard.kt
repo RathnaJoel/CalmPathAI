@@ -45,6 +45,8 @@ import com.calmpath.ai.ui.theme.QualityUnhealthyOrange
 fun AqiIndicatorCard(
     currentAqi: Int = 36,
     pm25: Double = 14.2,
+    pm10: Double = 28.5,
+    aqiStandard: String = "CPCB NAQI",
     modifier: Modifier = Modifier
 ) {
     val category = AqiCategory.fromAqi(currentAqi)
@@ -174,7 +176,7 @@ fun AqiIndicatorCard(
                     Box(modifier = Modifier.weight(50f).fillMaxWidth().background(QualityPoorRed))
                 }
                 Text(
-                    text = "PM2.5: ${String.format(java.util.Locale.US, "%.1f", pm25)} µg/m³ • EPA Scale",
+                    text = "PM2.5: ${String.format(java.util.Locale.US, "%.1f", pm25)} | PM10: ${String.format(java.util.Locale.US, "%.1f", pm10)} • $aqiStandard",
                     style = MaterialTheme.typography.labelSmall,
                     fontSize = 9.sp,
                     color = MaterialTheme.colorScheme.outline,
@@ -193,6 +195,7 @@ fun AqiIndicatorCard(
 @Composable
 fun WeatherCard(
     temperatureC: Int = 23,
+    feelsLikeC: Int = temperatureC,
     weatherCondition: String = "Pleasant & Breezy",
     humidityPercent: Int = 54,
     weatherIcon: String = "🌤️",
@@ -283,6 +286,14 @@ fun WeatherCard(
                     fontSize = 18.sp,
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
+                if (feelsLikeC != temperatureC) {
+                    Text(
+                        text = "Feels $feelsLikeC°",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                        modifier = Modifier.padding(bottom = 5.dp, start = 2.dp)
+                    )
+                }
             }
 
             // Subtitle Condition (Justified Single Line)

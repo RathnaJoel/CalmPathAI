@@ -45,7 +45,7 @@ import com.calmpath.ai.data.local.entities.UserProfileEntity
         EnvironmentalSnapshotEntity::class,
         AppSettingsEntity::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

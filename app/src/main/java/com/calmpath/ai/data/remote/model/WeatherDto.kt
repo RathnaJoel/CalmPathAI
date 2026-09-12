@@ -1,6 +1,7 @@
 package com.calmpath.ai.data.remote.model
 
 import com.google.gson.annotations.SerializedName
+import kotlin.math.roundToInt
 
 /**
  * Raw Open-Meteo Weather REST API response model (CO5).
@@ -47,9 +48,9 @@ data class WeatherInfo(
             val code = dto.weatherCode?.toInt() ?: 0
             val (condition, icon) = mapWmoWeatherCode(code)
             return WeatherInfo(
-                temperatureC = dto.temperature2m?.toInt() ?: default.temperatureC,
-                feelsLikeC = dto.apparentTemperature?.toInt() ?: default.feelsLikeC,
-                humidityPercent = dto.relativeHumidity2m?.toInt() ?: default.humidityPercent,
+                temperatureC = dto.temperature2m?.roundToInt() ?: default.temperatureC,
+                feelsLikeC = dto.apparentTemperature?.roundToInt() ?: default.feelsLikeC,
+                humidityPercent = dto.relativeHumidity2m?.roundToInt() ?: default.humidityPercent,
                 weatherCondition = condition,
                 weatherIcon = icon,
                 windSpeedKmH = dto.windSpeed10m ?: default.windSpeedKmH

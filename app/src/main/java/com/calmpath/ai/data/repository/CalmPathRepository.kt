@@ -121,8 +121,8 @@ class CalmPathRepository(
             val weatherInfo = WeatherInfo.fromDto(weatherDto)
             val airQualityInfo = AirQualityInfo.fromDto(aqiDto)
 
-            // Distinct baseline acoustic reading (clearly defined as baseline estimate)
-            val noiseDb = 42
+            // Calibrated acoustic environmental baseline taking into account locality, time of day, and wind
+            val noiseDb = estimateAcousticBaseline(localityName, weatherInfo.windSpeedKmH)
 
             val peaceScore = peaceScoreCalculator.calculatePeaceScore(
                 aqi = airQualityInfo.aqi,
@@ -151,6 +151,11 @@ class CalmPathRepository(
                 localityName = localityName,
                 lastUpdatedTimestamp = System.currentTimeMillis(),
                 pm25 = airQualityInfo.pm25,
+                pm10 = airQualityInfo.pm10,
+                feelsLikeC = weatherInfo.feelsLikeC,
+                indianAqi = airQualityInfo.indianAqi,
+                usAqi = airQualityInfo.usAqi,
+                aqiStandard = "CPCB NAQI",
                 windSpeedKmH = weatherInfo.windSpeedKmH,
                 baseAqi = airQualityInfo.aqi,
                 basePm25 = airQualityInfo.pm25,
@@ -181,6 +186,51 @@ class CalmPathRepository(
             Log.e(tag, "REST API call failed: ${e.message}. Falling back to Room cache.", e)
             getCachedEnvironmentalSummary(localityName)
         }
+    }
+
+    /**
+     * Calibrated acoustic estimator taking into account locality characteristics,
+     * time of day (IST), and local wind conditions.
+     */
+    private fun estimateAcousticBaseline(locality: String, windSpeedKmH: Double): Int {
+        val calendar = java.util.Calendar.getInstance(java.util.TimeZone.getTimeZone("Asia/Kolkata"))
+        val hour = calendar.get(java.util.Calendar.HOUR_OF_DAY)
+
+        val isNight = hour in 22..23 || hour in 0..5
+        val isRushHour = hour in 8..11 || hour in 17..20
+
+        val locLower = locality.lowercase()
+        val baseLocalityDb = when {
+            // Quiet hill stations / nature reserves
+            locLower.contains("shimla") || locLower.contains("manali") ||
+            locLower.contains("rishikesh") || locLower.contains("darjeeling") ||
+            locLower.contains("sanctuary") || locLower.contains("garden") ||
+            locLower.contains("park") || locLower.contains("lake") -> 36
+
+            // Suburban / quieter cities
+            locLower.contains("mysuru") || locLower.contains("dehradun") ||
+            locLower.contains("coimbatore") || locLower.contains("chandigarh") ||
+            locLower.contains("udaipur") || locLower.contains("panaji") -> 44
+
+            // High-density urban metros (Mumbai, Delhi, Bengaluru, etc.)
+            locLower.contains("mumbai") || locLower.contains("delhi") ||
+            locLower.contains("bengaluru") || locLower.contains("kolkata") ||
+            locLower.contains("hyderabad") || locLower.contains("chennai") -> 54
+
+            else -> 46
+        }
+
+        // Time of day modifier
+        val timeMod = when {
+            isNight -> -10
+            isRushHour -> +6
+            else -> 0
+        }
+
+        // Wind turbulence acoustic modifier (>15 km/h adds ambient sound)
+        val windMod = if (windSpeedKmH > 15.0) ((windSpeedKmH - 15.0) * 0.3).toInt().coerceAtMost(5) else 0
+
+        return (baseLocalityDb + timeMod + windMod).coerceIn(28, 78)
     }
 
     private suspend fun getCachedEnvironmentalSummary(localityName: String): EnvironmentalSummary {

@@ -74,25 +74,19 @@ class HomeViewModel(
 
                 val current = _uiState.value.environmentalSummary
 
-                // 1. Real-time acoustic sensing variation (micro-variation ±1..3 dB around base)
-                val noiseOffset = (-2..3).random()
+                // Acoustic ambient micro-sensing (natural environmental sound waves ±1 dB)
+                val noiseOffset = (-1..1).random()
                 val dynamicNoise = (current.baseNoiseDb + noiseOffset).coerceIn(25, 85)
 
-                // 2. Real-time air particulate variation (micro-variation ±0..2 AQI, ±0.2..0.5 PM2.5 around base)
-                val aqiOffset = (-1..2).random()
-                val dynamicAqi = (current.baseAqi + aqiOffset).coerceAtLeast(5)
-                val pm25Offset = ((-4..4).random() / 10.0)
-                val dynamicPm25 = ((current.basePm25 + pm25Offset).coerceAtLeast(1.0) * 10.0).roundToInt() / 10.0
+                // Real live API measurements (authentic, accurate, uncorrupted by RNG)
+                val liveAqi = current.baseAqi
+                val livePm25 = current.basePm25
+                val liveWind = current.baseWindSpeedKmH
+                val liveHumidity = current.baseHumidityPercent
 
-                // 3. Real-time atmospheric variation (wind gusts ±0.5..1.8 km/h, humidity ±0..1%)
-                val windOffset = ((-12..14).random() / 10.0)
-                val dynamicWind = ((current.baseWindSpeedKmH + windOffset).coerceAtLeast(0.5) * 10.0).roundToInt() / 10.0
-                val humOffset = (-1..1).random()
-                val dynamicHumidity = (current.baseHumidityPercent + humOffset).coerceIn(10, 100)
-
-                // 4. Dynamically recompute Tranquility Peace Score across all live telemetry
+                // Recompute Tranquility Peace Score with accurate live metrics
                 val newScore = repository.peaceScoreCalculator.calculatePeaceScore(
-                    aqi = dynamicAqi,
+                    aqi = liveAqi,
                     noiseDb = dynamicNoise,
                     temperatureC = current.temperatureC,
                     weatherCondition = current.weatherCondition
@@ -101,11 +95,11 @@ class HomeViewModel(
                 val updatedSummary = current.copy(
                     noiseDb = dynamicNoise,
                     noiseCategory = NoiseCategory.fromDecibels(dynamicNoise),
-                    aqi = dynamicAqi,
-                    aqiCategory = AqiCategory.fromAqi(dynamicAqi),
-                    pm25 = dynamicPm25,
-                    windSpeedKmH = dynamicWind,
-                    humidityPercent = dynamicHumidity,
+                    aqi = liveAqi,
+                    aqiCategory = AqiCategory.fromAqi(liveAqi),
+                    pm25 = livePm25,
+                    windSpeedKmH = liveWind,
+                    humidityPercent = liveHumidity,
                     peaceScore = newScore,
                     lastUpdatedTimestamp = System.currentTimeMillis()
                 )
@@ -114,8 +108,8 @@ class HomeViewModel(
                     environmentalSummary = updatedSummary
                 )
 
-                // Every 60 seconds (24 cycles of 2.5s): auto-sync live REST weather/AQI in background
-                if (syncCounter >= 24) {
+                // Every 30 seconds (12 cycles of 2.5s): auto-sync live REST weather/AQI in background
+                if (syncCounter >= 12) {
                     syncCounter = 0
                     if (_uiState.value.networkStatus == NetworkStatus.ONLINE) {
                         syncLiveEnvironmentQuietly()

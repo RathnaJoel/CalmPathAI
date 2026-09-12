@@ -123,20 +123,33 @@ class CalmPathLogicTest {
     @Test
     fun testDatabaseSeederSampleIntegrity() {
         assertTrue(DatabaseSeeder.samplePlaces.isNotEmpty())
-        assertEquals(8, DatabaseSeeder.samplePlaces.size)
+        assertEquals(22, DatabaseSeeder.samplePlaces.size)
 
         val snapshots = DatabaseSeeder.createSampleSnapshots()
         assertTrue(snapshots.isNotEmpty())
-        assertEquals(16, snapshots.size)
+        assertEquals(44, snapshots.size)
 
         DatabaseSeeder.samplePlaces.forEach { place ->
             assertTrue(place.peaceScore in 0..100)
             assertTrue(place.averageAQI > 0)
             assertTrue(place.averageNoiseLevel > 0)
             assertNotNull(place.imageUrl)
+            // Assert all seeded places are strictly in India
+            assertTrue(
+                "Place ${place.name} (${place.latitude}, ${place.longitude}) must be within India boundaries",
+                LocationHelper.isLocationInIndia(place.latitude, place.longitude)
+            )
             val domain = place.toDomainModel()
             assertEquals(place.placeId, domain.id)
             assertEquals(place.name, domain.name)
+        }
+
+        // Verify SampleDataSource places are also strictly within India
+        com.calmpath.ai.data.remote.SampleDataSource.places.forEach { place ->
+            assertTrue(
+                "Sample place ${place.name} must be within India boundaries",
+                LocationHelper.isLocationInIndia(place.latitude, place.longitude)
+            )
         }
     }
 
@@ -254,7 +267,7 @@ class CalmPathLogicTest {
             windSpeed10m = 8.5
         )
         val weather = WeatherInfo.fromDto(weatherDto)
-        assertEquals(26, weather.temperatureC)
+        assertEquals(27, weather.temperatureC)
         assertEquals(28, weather.feelsLikeC)
         assertEquals(65, weather.humidityPercent)
         assertEquals("Mainly Clear", weather.weatherCondition)
@@ -271,9 +284,30 @@ class CalmPathLogicTest {
             ozone = 30.0
         )
         val aqi = AirQualityInfo.fromDto(aqiDto)
-        assertEquals(42, aqi.aqi)
+        assertEquals(22, aqi.indianAqi)
+        assertEquals(42, aqi.usAqi)
+        assertEquals(22, aqi.aqi)
         assertEquals(AqiCategory.GOOD, aqi.category)
         assertEquals(11.5, aqi.pm25, 0.01)
+        assertEquals(22.0, aqi.pm10, 0.01)
+    }
+
+    @Test
+    fun testIndianNaqiCalculation() {
+        // Good category (0..30 PM2.5 -> 0..50 AQI)
+        assertEquals(25, AirQualityInfo.calculatePm25SubIndex(15.0))
+        // Satisfactory category (31..60 PM2.5 -> 51..100 AQI)
+        assertEquals(76, AirQualityInfo.calculatePm25SubIndex(45.0))
+        // Moderate category (61..90 PM2.5 -> 101..200 AQI)
+        assertEquals(151, AirQualityInfo.calculatePm25SubIndex(75.0))
+        // Poor category (91..120 PM2.5 -> 201..300 AQI)
+        assertEquals(251, AirQualityInfo.calculatePm25SubIndex(105.0))
+        // Very Poor category (121..250 PM2.5 -> 301..400 AQI)
+        assertEquals(351, AirQualityInfo.calculatePm25SubIndex(185.0))
+
+        // Max of PM2.5 and PM10 subindices
+        val naqi = AirQualityInfo.calculateIndianNaqi(pm25 = 45.0, pm10 = 120.0)
+        assertTrue("NAQI should be >= 100, got $naqi", naqi >= 100)
     }
 
     // ==========================================

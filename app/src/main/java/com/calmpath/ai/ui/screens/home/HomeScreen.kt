@@ -461,11 +461,14 @@ fun HomeScreen(
                         AqiIndicatorCard(
                             currentAqi = uiState.environmentalSummary.aqi,
                             pm25 = uiState.environmentalSummary.pm25,
+                            pm10 = uiState.environmentalSummary.pm10,
+                            aqiStandard = uiState.environmentalSummary.aqiStandard,
                             modifier = Modifier.weight(1f)
                         )
 
                         WeatherCard(
                             temperatureC = uiState.environmentalSummary.temperatureC,
+                            feelsLikeC = uiState.environmentalSummary.feelsLikeC,
                             weatherCondition = uiState.environmentalSummary.weatherCondition,
                             humidityPercent = uiState.environmentalSummary.humidityPercent,
                             weatherIcon = uiState.environmentalSummary.weatherIcon,
